@@ -41,12 +41,13 @@
   padding: 0;
 }
 
-body {
+html, body {
+  width: 100%;
+  overflow-x: hidden;
   font-family: var(--font-body);
   background: var(--bg-gradient);
   background-attachment: fixed;
   color: var(--text-main);
-  overflow-x: hidden;
   line-height: 1.6;
 }
 
@@ -97,7 +98,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   2. GRAND WELCOME / GIFT UNBOXING PRE-LOADER OVERLAY (PERFECT FIT)
+   2. GRAND WELCOME / GIFT UNBOXING PRE-LOADER OVERLAY
    -------------------------------------------------------------------------- */
 .welcome-overlay {
   position: fixed;
@@ -134,7 +135,6 @@ body {
   margin: auto;
 }
 
-/* Custom Scrollbar for Welcome Card */
 .welcome-card::-webkit-scrollbar {
   width: 6px;
 }
@@ -181,6 +181,7 @@ body {
   animation: pulseGlow 2s infinite;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 
@@ -382,6 +383,7 @@ body {
   transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
 }
 
@@ -950,13 +952,87 @@ body {
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
 }
 
-@media (max-width: 768px) {
-  .hero-title { font-size: 2.8rem; }
-  .hero-tagline { font-size: 2rem; }
-  .photo-universe-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
-  .polaroid-img-wrapper { height: 260px; }
-  .cute-photo-frame { height: 350px; }
-  .saree-photo-frame { height: 420px; }
-  .welcome-card { padding: 1.8rem 1.2rem; max-height: 92vh; }
-  .welcome-clipart-img { width: 140px; height: 140px; }
+/* --------------------------------------------------------------------------
+   12. STRICT MOBILE & TABLET CENTER ALIGNMENT (NO LEFT/RIGHT SHIFTING)
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+  body, main, section, .container {
+    text-align: center !important;
+  }
+
+  .hero-island {
+    padding: 80px 15px 40px !important;
+  }
+
+  .hero-title {
+    font-size: 2.6rem !important;
+    text-align: center !important;
+  }
+
+  .hero-tagline {
+    font-size: 1.9rem !important;
+    text-align: center !important;
+  }
+
+  .hero-spatial-card {
+    max-width: 310px !important;
+    height: 420px !important;
+    margin: 0 auto 2rem !important;
+  }
+
+  .photo-universe-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+    justify-content: center !important;
+    gap: 20px !important;
+  }
+
+  .polaroid-item {
+    transform: none !important;
+    margin: 0 auto !important;
+  }
+
+  .polaroid-img-wrapper {
+    height: 270px !important;
+  }
+
+  .cute-photo-frame, .saree-photo-frame, .featured-moment-img-wrapper {
+    margin: 0 auto 1.5rem !important;
+  }
+
+  .cute-photo-frame { height: 350px !important; }
+  .saree-photo-frame { height: 400px !important; }
+
+  .welcome-card {
+    padding: 1.6rem 1.2rem !important;
+    max-height: 90vh !important;
+    width: 95% !important;
+    margin: auto !important;
+  }
+
+  .welcome-clipart-img {
+    width: 140px !important;
+    height: 140px !important;
+  }
+
+  .d-flex, .mood-btn-group, .filter-btn-group {
+    justify-content: center !important;
+  }
+
+  .wish-form-wrapper form {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title { font-size: 2.2rem !important; }
+  .hero-tagline { font-size: 1.6rem !important; }
+  .whimsical-btn, .pulse-glow-btn {
+    width: 100% !important;
+    padding: 1rem 1.5rem !important;
+    font-size: 1.15rem !important;
+  }
+  .photo-universe-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
