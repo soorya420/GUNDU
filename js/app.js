@@ -636,7 +636,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     13. Wish Sky Lanterns
+     13. Wish Sky Lanterns (Strict Center & Wrap Alignment)
      ------------------------------------------------------------------------ */
   const wishForm = document.getElementById('wishForm');
   const wishInput = document.getElementById('wishInput');
@@ -657,9 +657,7 @@ document.addEventListener('DOMContentLoaded', () => {
     all.forEach((w, i) => {
       const l = document.createElement('div');
       l.className = 'wish-lantern';
-      l.style.left = `${(i * 28 + 5) % 75}%`;
-      l.style.top = `${(i * 55 + 20) % 220}px`;
-      l.style.animationDelay = `${i * 1.2}s`;
+      l.style.animationDelay = `${(i * 1.1) % 4}s`;
       l.textContent = w;
       lanternsArea.appendChild(l);
     });

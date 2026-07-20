@@ -238,8 +238,8 @@ header {
 }
 
 .sound-toggle-btn {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 2px solid var(--primary-cyan);
   background: rgba(15, 23, 42, 0.95);
@@ -247,7 +247,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(12px);
@@ -839,14 +839,14 @@ header {
 }
 
 /* --------------------------------------------------------------------------
-   11. Wish Sky & Floating Lanterns
+   11. Wish Sky & Floating Lanterns (MOBILE PERFECT FIT)
    -------------------------------------------------------------------------- */
 .wish-sky-container {
   min-height: 480px;
   position: relative;
   border-radius: 30px;
   background: linear-gradient(180deg, #050811 0%, #111827 100%);
-  padding: 2.5rem;
+  padding: 2.2rem 1.5rem;
   color: #fff;
   overflow: hidden;
   box-shadow: 0 20px 50px rgba(0,0,0,0.8);
@@ -858,7 +858,8 @@ header {
 .wish-form-wrapper {
   position: relative;
   z-index: 20;
-  margin-bottom: 2rem;
+  margin-bottom: 1.8rem;
+  width: 100%;
 }
 
 .wish-input-box {
@@ -875,17 +876,26 @@ header {
 .lanterns-sky-area {
   position: relative;
   flex: 1;
-  min-height: 300px;
+  min-height: 280px;
   width: 100%;
   overflow: hidden;
   z-index: 5;
   border-radius: 20px;
   background: rgba(0, 0, 0, 0.3);
   border: 1px dashed rgba(0, 245, 212, 0.2);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
 }
 
 .wish-lantern {
-  position: absolute;
+  position: relative;
+  display: inline-block;
+  max-width: 92%;
+  width: auto;
   padding: 0.8rem 1.4rem;
   background: rgba(0, 245, 212, 0.25);
   backdrop-filter: blur(8px);
@@ -895,15 +905,19 @@ header {
   font-size: 1.4rem;
   color: #ffffff !important;
   font-weight: 700;
-  box-shadow: 0 0 20px rgba(0, 245, 212, 0.5);
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.4);
   animation: floatUp 7s ease-in-out infinite alternate;
-  white-space: nowrap;
-  pointer-events: none;
+  white-space: normal;
+  word-wrap: break-word;
+  word-break: break-word;
+  text-align: center;
+  margin: 4px auto;
+  box-sizing: border-box;
 }
 
 @keyframes floatUp {
-  0% { transform: translateY(20px) scale(0.95); opacity: 0.8; }
-  100% { transform: translateY(-30px) scale(1.05); opacity: 1; }
+  0% { transform: translateY(6px) scale(0.97); opacity: 0.85; }
+  100% { transform: translateY(-8px) scale(1.03); opacity: 1; }
 }
 
 /* Lightbox Modal */
@@ -969,8 +983,20 @@ header {
     text-align: center !important;
   }
 
+  header {
+    top: 8px !important;
+    right: 8px !important;
+    padding: 8px !important;
+  }
+
+  .sound-toggle-btn {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 1rem !important;
+  }
+
   .hero-island {
-    padding: 80px 15px 40px !important;
+    padding: 70px 15px 40px !important;
   }
 
   .hero-title {
@@ -1030,6 +1056,22 @@ header {
   .wish-form-wrapper form {
     flex-direction: column !important;
     align-items: center !important;
+    width: 100% !important;
+  }
+
+  .wish-sky-container {
+    padding: 1.5rem 1rem !important;
+  }
+
+  .lanterns-sky-area {
+    min-height: 260px !important;
+    padding: 10px !important;
+  }
+
+  .wish-lantern {
+    max-width: 98% !important;
+    font-size: 1.25rem !important;
+    padding: 0.6rem 1rem !important;
   }
 }
 
