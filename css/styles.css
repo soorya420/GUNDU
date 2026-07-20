@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600;700&family=Fredoka:wght@400;600;700&display=swap');
 
 /* --------------------------------------------------------------------------
-   1. Midnight Luxury Tokens (High Contrast - Bright Text)
+   1. Midnight Luxury Tokens
    -------------------------------------------------------------------------- */
 :root {
   --bg-primary: #0a0e1a;
@@ -152,7 +152,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   3. Floating Island Hero & Avatar Positioning
+   3. UNCONVENTIONAL SPATIAL MAGAZINE HERO SECTION
    -------------------------------------------------------------------------- */
 .hero-island {
   min-height: 100vh;
@@ -160,17 +160,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 100px 20px 60px;
-  text-align: center;
+  padding: 120px 20px 80px;
 }
 
 .hero-blob-bg {
   position: absolute;
-  width: 600px;
-  height: 600px;
+  width: 650px;
+  height: 650px;
   background: radial-gradient(circle, rgba(0, 245, 212, 0.25) 0%, rgba(157, 78, 221, 0.25) 60%, transparent 100%);
   border-radius: var(--blob-shape-1);
-  filter: blur(40px);
+  filter: blur(50px);
   animation: morphBlob 10s ease-in-out infinite alternate;
   z-index: 0;
 }
@@ -181,41 +180,73 @@ body {
   100% { border-radius: var(--blob-shape-3); transform: scale(0.95) rotate(180deg); }
 }
 
-.hero-content {
+.hero-grid-wrapper {
   position: relative;
   z-index: 2;
-  max-width: 850px;
+  width: 100%;
+  max-width: 1200px;
 }
 
-.hero-avatar-stack {
+/* 3D Spatial Magazine Card Stack */
+.hero-spatial-card {
   position: relative;
-  width: 230px;
-  height: 230px;
-  margin: 0 auto 2.5rem;
+  width: 100%;
+  max-width: 380px;
+  height: 500px;
+  margin: 0 auto;
+  perspective: 1000px;
 }
 
-.hero-avatar-frame {
+.hero-magazine-frame {
   width: 100%;
   height: 100%;
-  border-radius: var(--blob-shape-2);
-  padding: 8px;
-  background: linear-gradient(135deg, var(--primary-cyan), var(--royal-purple));
-  box-shadow: 0 20px 40px rgba(0, 245, 212, 0.4);
-  animation: morphBlob 8s ease-in-out infinite alternate;
-  overflow: hidden;
+  background: rgba(15, 23, 42, 0.95);
+  border: 2px solid var(--primary-cyan);
+  border-radius: 28px;
+  padding: 16px 16px 50px 16px;
+  box-shadow: 0 25px 60px rgba(0, 245, 212, 0.35);
+  position: relative;
+  transition: transform 0.2s ease-out;
+  transform-style: preserve-3d;
 }
 
-.hero-avatar-frame img {
+.hero-magazine-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  background: #090d16;
+}
+
+/* CORRECT PHOTO ORIENTATION & TOP ALIGNMENT */
+.hero-magazine-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  border-radius: inherit;
+  image-orientation: from-image;
+}
+
+.hero-magazine-badge {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 245, 212, 0.95);
+  color: #0a0e1a;
+  padding: 6px 20px;
+  border-radius: 30px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  white-space: nowrap;
 }
 
 .hero-title {
   font-family: var(--font-heading);
-  font-size: 4rem;
+  font-size: 3.8rem;
   font-weight: 700;
   line-height: 1.15;
   margin-bottom: 1.2rem;
@@ -236,7 +267,7 @@ body {
   font-family: var(--font-handwriting);
   font-size: 2.8rem;
   color: var(--primary-cyan);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .whimsical-btn {
@@ -300,7 +331,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center; /* GUARANTEE FACE IS FULLY VISIBLE */
+  object-position: top center;
   transition: transform 0.5s ease;
 }
 
