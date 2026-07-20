@@ -14,18 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const openingAudio = new Audio('./audio/prtiviraj.m4r');
 
   enterSiteBtn?.addEventListener('click', () => {
-    // Play prtiviraj.m4r on website unboxing
     openingAudio.play().then(() => {
       console.log("Playing opening audio prtiviraj.m4r");
     }).catch(e => console.log(e));
 
-    // Full screen confetti celebration
     if (window.confetti) {
       confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 } });
       setTimeout(() => confetti({ particleCount: 80, spread: 100, origin: { y: 0.4 } }), 300);
     }
 
-    // Hide welcome overlay smoothly
     welcomeOverlay?.classList.add('hidden');
     playChimeSound();
   });
@@ -34,6 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
      2. Real Audio Database & Playlist Integration
      ------------------------------------------------------------------------ */
   const playlist = [
+    {
+      title: "Compliment Special Theme (PPPPP.m4r) 💖",
+      artist: "Make Me Smile Anthem",
+      src: "./audio/PPPPP.m4r"
+    },
     {
       title: "Prithviraj Special Theme 🌟",
       artist: "Opening Friendship Anthem",
@@ -48,6 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Theriyamele Tholaigiren 🎶",
       artist: "Special Friendship Track",
       src: "./audio/theriyamaley tholaigran.mp3.mpeg"
+    },
+    {
+      title: "Bestie Special Tone - POD ✨",
+      artist: "Podcast Tone",
+      src: "./audio/POD.m4r"
     },
     {
       title: "Bestie Special Tone - E ✨",
@@ -156,7 +163,39 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     4. Photo Database (Including Saree Balcony Photo)
+     4. Compliment Generator Button with Dedicated PPPPP.m4r Audio
+     ------------------------------------------------------------------------ */
+  const complimentAudio = new Audio('./audio/PPPPP.m4r');
+  const compliments = [
+    "You bring so much sunshine wherever you go!",
+    "The world is brighter and happier because of you.",
+    "You make every day feel like a special celebration.",
+    "Your laugh is genuinely the most contagious thing ever!",
+    "You are one in a million, bestie!"
+  ];
+
+  const complimentText = document.getElementById('complimentText');
+  document.getElementById('newComplimentBtn')?.addEventListener('click', () => {
+    // Play PPPPP.m4r audio on Make Me Smile click
+    complimentAudio.currentTime = 0;
+    complimentAudio.play().then(() => {
+      console.log("Playing PPPPP.m4r compliment song");
+    }).catch(e => console.log(e));
+
+    const comp = compliments[Math.floor(Math.random() * compliments.length)];
+    if (complimentText) {
+      complimentText.style.opacity = '0';
+      setTimeout(() => {
+        complimentText.textContent = `"${comp}"`;
+        complimentText.style.opacity = '1';
+      }, 200);
+    }
+
+    if (window.confetti) confetti({ particleCount: 35, spread: 70 });
+  });
+
+  /* ------------------------------------------------------------------------
+     5. Photo Database
      ------------------------------------------------------------------------ */
   const photoBase = "image'/";
   const photoFiles = [
@@ -229,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     5. Sound Synthesizer (for UI interaction sound effects)
+     6. Sound Synthesizer
      ------------------------------------------------------------------------ */
   let soundEnabled = true;
   const soundToggle = document.getElementById('soundToggle');
@@ -273,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     6. Custom Cursor & 3D Tilt Interaction
+     7. Custom Cursor & 3D Tilt Interaction
      ------------------------------------------------------------------------ */
   const cursorDot = document.getElementById('cursor-dot');
   const cursorFollower = document.getElementById('cursor-follower');
@@ -308,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     7. Cute Corner Mood Translator Logic
+     8. Cute Corner Mood Translator Logic
      ------------------------------------------------------------------------ */
   const funnyQuoteBubble = document.getElementById('funnyQuoteBubble');
   const moodBtns = document.querySelectorAll('.mood-btn');
@@ -334,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     8. Three.js Background Canvas (Cyan Particle Field)
+     9. Three.js Background Canvas
      ------------------------------------------------------------------------ */
   const bgCanvas = document.getElementById('bg-canvas');
   if (bgCanvas && window.THREE) {
@@ -367,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     9. Photo Collage Masonry
+     10. Photo Collage Masonry
      ------------------------------------------------------------------------ */
   const photoUniverseGrid = document.getElementById('photoUniverseGrid');
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -417,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
   lightboxClose?.addEventListener('click', () => lightboxModal?.classList.remove('active'));
 
   /* ------------------------------------------------------------------------
-     10. Scratch-Off Secret Letter Canvas
+     11. Scratch-Off Secret Letter Canvas
      ------------------------------------------------------------------------ */
   const scratchCanvas = document.getElementById('scratch-canvas');
   if (scratchCanvas) {
@@ -458,7 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     11. Speech Bubble Quiz
+     12. Speech Bubble Quiz
      ------------------------------------------------------------------------ */
   const quizQuestions = [
     { question: "Who is the funniest in our duo? 😂", options: ["You!", "Me!", "Equally Hilarious!"], correct: 2 },
@@ -504,7 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderQuiz();
 
   /* ------------------------------------------------------------------------
-     12. Memory Wheel Canvas
+     13. Memory Wheel Canvas
      ------------------------------------------------------------------------ */
   const wheelCanvas = document.getElementById('memory-wheel-canvas');
   const spinWheelBtn = document.getElementById('spinWheelBtn');
@@ -583,7 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     13. Wish Sky Lanterns
+     14. Wish Sky Lanterns
      ------------------------------------------------------------------------ */
   const wishForm = document.getElementById('wishForm');
   const wishInput = document.getElementById('wishInput');
@@ -629,29 +668,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderLanterns();
 
   /* ------------------------------------------------------------------------
-     14. Compliments & Celebration
+     15. Grand Celebration
      ------------------------------------------------------------------------ */
-  const compliments = [
-    "You bring so much sunshine wherever you go!",
-    "The world is brighter and happier because of you.",
-    "You make every day feel like a special celebration.",
-    "Your laugh is genuinely the most contagious thing ever!",
-    "You are one in a million, bestie!"
-  ];
-
-  const complimentText = document.getElementById('complimentText');
-  document.getElementById('newComplimentBtn')?.addEventListener('click', () => {
-    const comp = compliments[Math.floor(Math.random() * compliments.length)];
-    if (complimentText) {
-      complimentText.style.opacity = 0;
-      setTimeout(() => {
-        complimentText.textContent = `"${comp}"`;
-        complimentText.style.opacity = 1;
-      }, 200);
-    }
-    playChimeSound();
-  });
-
   document.getElementById('celebrateBtn')?.addEventListener('click', () => {
     playChimeSound();
     if (window.confetti) {
