@@ -7,9 +7,38 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.AOS) AOS.init({ duration: 800, once: true });
 
   /* ------------------------------------------------------------------------
-     1. Real Audio Database & Playlist Integration
+     1. Pre-Loader Welcome Screen & Opening Audio (prtiviraj.m4r)
+     ------------------------------------------------------------------------ */
+  const welcomeOverlay = document.getElementById('welcomeOverlay');
+  const enterSiteBtn = document.getElementById('enterSiteBtn');
+  const openingAudio = new Audio('./audio/prtiviraj.m4r');
+
+  enterSiteBtn?.addEventListener('click', () => {
+    // Play prtiviraj.m4r on website unboxing
+    openingAudio.play().then(() => {
+      console.log("Playing opening audio prtiviraj.m4r");
+    }).catch(e => console.log(e));
+
+    // Full screen confetti celebration
+    if (window.confetti) {
+      confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 } });
+      setTimeout(() => confetti({ particleCount: 80, spread: 100, origin: { y: 0.4 } }), 300);
+    }
+
+    // Hide welcome overlay smoothly
+    welcomeOverlay?.classList.add('hidden');
+    playChimeSound();
+  });
+
+  /* ------------------------------------------------------------------------
+     2. Real Audio Database & Playlist Integration
      ------------------------------------------------------------------------ */
   const playlist = [
+    {
+      title: "Prithviraj Special Theme 🌟",
+      artist: "Opening Friendship Anthem",
+      src: "./audio/prtiviraj.m4r"
+    },
     {
       title: "Balcony Serenade Special 🎶",
       artist: "Dedicated Song (O.m4r)",
@@ -24,11 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Bestie Special Tone - E ✨",
       artist: "Cute Melodic Tone",
       src: "./audio/E.m4r"
-    },
-    {
-      title: "Prithviraj Special Theme 🌟",
-      artist: "Friendship Anthem",
-      src: "./audio/prtiviraj.m4r"
     },
     {
       title: "Surya Special Theme ⚡",
@@ -101,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     2. Dedicated Saree Balcony Audio Player (O.m4r)
+     3. Dedicated Saree Balcony Audio Player (O.m4r)
      ------------------------------------------------------------------------ */
   const sareeAudio = new Audio('./audio/O.m4r');
   const playSareeAudioBtn = document.getElementById('playSareeAudioBtn');
@@ -110,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   playSareeAudioBtn?.addEventListener('click', () => {
     if (sareeAudio.paused) {
-      // Pause main player if playing
       if (!realAudio.paused) realAudio.pause();
       sareeAudio.play().then(() => {
         if (sareePlayIcon) sareePlayIcon.setAttribute('data-lucide', 'pause');
@@ -133,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     3. Photo Database (Including Saree Balcony Photo)
+     4. Photo Database (Including Saree Balcony Photo)
      ------------------------------------------------------------------------ */
   const photoBase = "image'/";
   const photoFiles = [
@@ -206,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     4. Sound Synthesizer (for UI interaction sound effects)
+     5. Sound Synthesizer (for UI interaction sound effects)
      ------------------------------------------------------------------------ */
   let soundEnabled = true;
   const soundToggle = document.getElementById('soundToggle');
@@ -250,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     5. Custom Cursor & 3D Tilt Interaction
+     6. Custom Cursor & 3D Tilt Interaction
      ------------------------------------------------------------------------ */
   const cursorDot = document.getElementById('cursor-dot');
   const cursorFollower = document.getElementById('cursor-follower');
@@ -285,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     6. Cute Corner Mood Translator Logic
+     7. Cute Corner Mood Translator Logic
      ------------------------------------------------------------------------ */
   const funnyQuoteBubble = document.getElementById('funnyQuoteBubble');
   const moodBtns = document.querySelectorAll('.mood-btn');
@@ -311,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     7. Three.js Background Canvas (Cyan Particle Field)
+     8. Three.js Background Canvas (Cyan Particle Field)
      ------------------------------------------------------------------------ */
   const bgCanvas = document.getElementById('bg-canvas');
   if (bgCanvas && window.THREE) {
@@ -344,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     8. Photo Collage Masonry
+     9. Photo Collage Masonry
      ------------------------------------------------------------------------ */
   const photoUniverseGrid = document.getElementById('photoUniverseGrid');
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -394,7 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
   lightboxClose?.addEventListener('click', () => lightboxModal?.classList.remove('active'));
 
   /* ------------------------------------------------------------------------
-     9. Scratch-Off Secret Letter Canvas
+     10. Scratch-Off Secret Letter Canvas
      ------------------------------------------------------------------------ */
   const scratchCanvas = document.getElementById('scratch-canvas');
   if (scratchCanvas) {
@@ -435,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     10. Speech Bubble Quiz
+     11. Speech Bubble Quiz
      ------------------------------------------------------------------------ */
   const quizQuestions = [
     { question: "Who is the funniest in our duo? 😂", options: ["You!", "Me!", "Equally Hilarious!"], correct: 2 },
@@ -481,7 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderQuiz();
 
   /* ------------------------------------------------------------------------
-     11. Memory Wheel Canvas
+     12. Memory Wheel Canvas
      ------------------------------------------------------------------------ */
   const wheelCanvas = document.getElementById('memory-wheel-canvas');
   const spinWheelBtn = document.getElementById('spinWheelBtn');
@@ -560,7 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     12. Wish Sky Lanterns
+     13. Wish Sky Lanterns
      ------------------------------------------------------------------------ */
   const wishForm = document.getElementById('wishForm');
   const wishInput = document.getElementById('wishInput');
@@ -606,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderLanterns();
 
   /* ------------------------------------------------------------------------
-     13. Compliments & Celebration
+     14. Compliments & Celebration
      ------------------------------------------------------------------------ */
   const compliments = [
     "You bring so much sunshine wherever you go!",

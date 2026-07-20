@@ -97,7 +97,91 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   2. Whimsical Decorative Elements (Washi Tape, Stickers, Doodles)
+   2. GRAND WELCOME / GIFT UNBOXING PRE-LOADER OVERLAY
+   -------------------------------------------------------------------------- */
+.welcome-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #1e1b4b 0%, #0a0e1a 100%);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.welcome-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.welcome-card {
+  max-width: 580px;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(25px);
+  border: 2px solid var(--primary-cyan);
+  border-radius: 35px;
+  padding: 3rem 2rem;
+  box-shadow: 0 30px 80px rgba(0, 245, 212, 0.4);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-clipart-img {
+  width: 220px;
+  height: 220px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  border: 4px solid var(--primary-cyan);
+  box-shadow: 0 0 30px rgba(0, 245, 212, 0.5);
+  overflow: hidden;
+  background: #0d1322;
+  animation: floatClipArt 4s ease-in-out infinite alternate;
+}
+
+@keyframes floatClipArt {
+  0% { transform: translateY(0px) scale(1); }
+  100% { transform: translateY(-10px) scale(1.04); }
+}
+
+.welcome-clipart-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pulse-glow-btn {
+  padding: 1.2rem 3rem;
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0a0e1a;
+  background: linear-gradient(135deg, var(--primary-cyan), var(--violet-soft));
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0 10px 35px rgba(0, 245, 212, 0.6);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.7); }
+  70% { box-shadow: 0 0 0 22px rgba(0, 245, 212, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 245, 212, 0); }
+}
+
+.pulse-glow-btn:hover {
+  transform: scale(1.08);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   3. Whimsical Decorative Elements (Washi Tape, Stickers, Doodles)
    -------------------------------------------------------------------------- */
 .washi-tape {
   position: absolute;
@@ -152,7 +236,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   3. UNCONVENTIONAL SPATIAL MAGAZINE HERO SECTION
+   4. UNCONVENTIONAL SPATIAL MAGAZINE HERO SECTION
    -------------------------------------------------------------------------- */
 .hero-island {
   min-height: 100vh;
@@ -303,7 +387,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   4. NEW SECTION: ETHNIC ELEGANCE & BALCONY SERENADE (saree_balcony.jpg + O.m4r)
+   5. ETHNIC ELEGANCE & BALCONY SERENADE
    -------------------------------------------------------------------------- */
 .ethnic-saree-card {
   background: linear-gradient(135deg, rgba(255, 209, 102, 0.15), rgba(157, 78, 221, 0.25), rgba(0, 245, 212, 0.15));
@@ -329,7 +413,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center; /* GUARANTEE FACE IS FULLY VISIBLE */
+  object-position: top center;
   transition: transform 0.6s ease;
 }
 
@@ -368,7 +452,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   5. Cute & Crazy BFF Dedicated Section
+   6. Cute & Crazy BFF Dedicated Section
    -------------------------------------------------------------------------- */
 .cute-corner-card {
   background: linear-gradient(135deg, rgba(157, 78, 221, 0.2), rgba(0, 245, 212, 0.2));
@@ -445,7 +529,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   6. Floating Photo Universe Masonry (Polaroid Collage & Face Fix)
+   7. Floating Photo Universe Masonry (Polaroid Collage & Face Fix)
    -------------------------------------------------------------------------- */
 .scrapbook-section {
   padding: 90px 0;
@@ -570,7 +654,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   7. Interactive Scratch-Off Card (Secret Letter)
+   8. Interactive Scratch-Off Card (Secret Letter)
    -------------------------------------------------------------------------- */
 .scratch-card-wrapper {
   max-width: 650px;
@@ -622,7 +706,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   8. Vintage Retro Cassette Player
+   9. Vintage Retro Cassette Player
    -------------------------------------------------------------------------- */
 .cassette-player-card {
   max-width: 550px;
@@ -692,7 +776,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   9. Speech Bubble Quiz Cards
+   10. Speech Bubble Quiz Cards
    -------------------------------------------------------------------------- */
 .speech-quiz-card {
   background: var(--glass-bg);
@@ -729,7 +813,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   10. Wish Sky & Floating Lanterns
+   11. Wish Sky & Floating Lanterns
    -------------------------------------------------------------------------- */
 .wish-sky-container {
   min-height: 480px;
@@ -858,4 +942,6 @@ body {
   .polaroid-img-wrapper { height: 260px; }
   .cute-photo-frame { height: 350px; }
   .saree-photo-frame { height: 420px; }
+  .welcome-card { padding: 2rem 1.2rem; }
+  .welcome-clipart-img { width: 170px; height: 170px; }
 }
