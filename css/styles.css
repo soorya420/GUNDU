@@ -97,7 +97,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   2. GRAND WELCOME / GIFT UNBOXING PRE-LOADER OVERLAY
+   2. GRAND WELCOME / GIFT UNBOXING PRE-LOADER OVERLAY (PERFECT FIT)
    -------------------------------------------------------------------------- */
 .welcome-overlay {
   position: fixed;
@@ -107,7 +107,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 15px;
+  overflow: hidden;
   transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 
@@ -118,26 +119,37 @@ body {
 }
 
 .welcome-card {
-  max-width: 580px;
+  max-width: 520px;
   width: 100%;
-  background: rgba(15, 23, 42, 0.95);
+  max-height: 88vh;
+  overflow-y: auto;
+  background: rgba(15, 23, 42, 0.96);
   backdrop-filter: blur(25px);
   border: 2px solid var(--primary-cyan);
-  border-radius: 35px;
-  padding: 3rem 2rem;
-  box-shadow: 0 30px 80px rgba(0, 245, 212, 0.4);
+  border-radius: 28px;
+  padding: 2rem 1.6rem;
+  box-shadow: 0 25px 70px rgba(0, 245, 212, 0.4);
   text-align: center;
   position: relative;
-  overflow: hidden;
+  margin: auto;
+}
+
+/* Custom Scrollbar for Welcome Card */
+.welcome-card::-webkit-scrollbar {
+  width: 6px;
+}
+.welcome-card::-webkit-scrollbar-thumb {
+  background: var(--primary-cyan);
+  border-radius: 10px;
 }
 
 .welcome-clipart-img {
-  width: 220px;
-  height: 220px;
-  margin: 0 auto 1.5rem;
+  width: 170px;
+  height: 170px;
+  margin: 0 auto 1.2rem;
   border-radius: 50%;
   border: 4px solid var(--primary-cyan);
-  box-shadow: 0 0 30px rgba(0, 245, 212, 0.5);
+  box-shadow: 0 0 25px rgba(0, 245, 212, 0.5);
   overflow: hidden;
   background: #0d1322;
   animation: floatClipArt 4s ease-in-out infinite alternate;
@@ -145,7 +157,7 @@ body {
 
 @keyframes floatClipArt {
   0% { transform: translateY(0px) scale(1); }
-  100% { transform: translateY(-10px) scale(1.04); }
+  100% { transform: translateY(-8px) scale(1.03); }
 }
 
 .welcome-clipart-img img {
@@ -155,9 +167,9 @@ body {
 }
 
 .pulse-glow-btn {
-  padding: 1.2rem 3rem;
+  padding: 1.1rem 2.8rem;
   font-family: var(--font-heading);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: #0a0e1a;
   background: linear-gradient(135deg, var(--primary-cyan), var(--violet-soft));
@@ -167,26 +179,29 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   animation: pulseGlow 2s infinite;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }
 
 @keyframes pulseGlow {
   0% { box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.7); }
-  70% { box-shadow: 0 0 0 22px rgba(0, 245, 212, 0); }
+  70% { box-shadow: 0 0 0 20px rgba(0, 245, 212, 0); }
   100% { box-shadow: 0 0 0 0 rgba(0, 245, 212, 0); }
 }
 
 .pulse-glow-btn:hover {
-  transform: scale(1.08);
+  transform: scale(1.06);
   color: #ffffff;
 }
 
 /* --------------------------------------------------------------------------
-   3. Whimsical Decorative Elements (Washi Tape, Stickers, Doodles)
+   3. Whimsical Decorative Elements (Washi Tape Clean Alignment)
    -------------------------------------------------------------------------- */
 .washi-tape {
   position: absolute;
-  width: 110px;
-  height: 28px;
+  width: 95px;
+  height: 24px;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(6px);
   border-left: 2px dashed rgba(255,255,255,0.4);
@@ -244,7 +259,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 120px 20px 80px;
+  padding: 100px 20px 60px;
 }
 
 .hero-blob-bg {
@@ -942,6 +957,6 @@ body {
   .polaroid-img-wrapper { height: 260px; }
   .cute-photo-frame { height: 350px; }
   .saree-photo-frame { height: 420px; }
-  .welcome-card { padding: 2rem 1.2rem; }
-  .welcome-clipart-img { width: 170px; height: 170px; }
+  .welcome-card { padding: 1.8rem 1.2rem; max-height: 92vh; }
+  .welcome-clipart-img { width: 140px; height: 140px; }
 }
