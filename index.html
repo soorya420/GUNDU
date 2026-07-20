@@ -94,7 +94,7 @@
             
             <div class="hero-tagline">"Unplanned friendship, Unexpected bond... Right time, Right person, that's YOUUU ✨"</div>
             <p class="text-light fs-5 mb-4 max-w-600">
-              Welcome to your personalized digital sanctuary! A universe of memories, songs, interactive games, and heartfelt letters.
+              Welcome to your personalized digital sanctuary! A universe of memories, songs, interactive games, and secret scratch letters.
             </p>
 
             <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
@@ -246,30 +246,68 @@
       </div>
     </section>
 
-    <!-- INTERACTIVE SCRATCH-OFF SECRET LETTER -->
+    <!-- INTERACTIVE 3 SCRATCH-OFF SECRET CARDS -->
     <section class="py-5" id="scratch-letter">
       <div class="container">
         <div class="section-head" data-aos="fade-up">
-          <h2>Scratch & Reveal <span class="gradient-title">Secret Letter 💌</span></h2>
-          <p class="text-light fs-5">Use your mouse/finger to scratch off the glitter overlay!</p>
+          <h2>Scratch & Reveal <span class="gradient-title">3 Secret Cards 💌✨</span></h2>
+          <p class="text-light fs-5">Scratch all 3 cards with your mouse/finger to unlock secret messages!</p>
         </div>
 
-        <div class="scratch-card-wrapper" data-aos="zoom-in">
-          <div class="washi-tape washi-tape-purple" style="top:10px; left:30px;"></div>
-          <div class="washi-tape washi-tape-yellow" style="top:10px; right:30px;"></div>
-
-          <h3 class="h4 font-weight-bold text-light">Scratch Here To Unfold My Secret Letter ✨</h3>
-
-          <div class="scratch-canvas-container">
-            <div class="hidden-letter-content">
-              Dearest Gundu Priya,<br><br>
-              I take Friendship very seriously. For me, it has Commitment, Loyalty, Expectations, and genuine Love.<br><br>
-              I don't call someone a friend until I genuinely feel love for that person.<br><br>
-              Unplanned friendship, Unexpected bond... Right time, Right person, that's YOUUU!<br><br>
-              Some bonds aren't chosen, they're gifted by the Universe... ✨<br><br>
-              Forever & Always Your Best Friend ❤️
+        <div class="row g-4 justify-content-center">
+          <!-- Scratch Card 1: Secret Letter -->
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+            <div class="scratch-card-wrapper h-100">
+              <div class="washi-tape washi-tape-purple" style="top:10px; left:20px;"></div>
+              <h3 class="h5 font-weight-bold text-light mb-2">Card 1: Secret Letter 💌</h3>
+              <div class="scratch-canvas-container">
+                <div class="hidden-letter-content">
+                  Dearest Gundu Priya,<br><br>
+                  I take Friendship very seriously. For me, it has Commitment, Loyalty, Expectations, and genuine Love.<br><br>
+                  Unplanned friendship, Unexpected bond... Right time, Right person, that's YOUUU!<br><br>
+                  Some bonds aren't chosen, they're gifted by the Universe... ✨
+                </div>
+                <canvas id="scratch-canvas-1"></canvas>
+              </div>
             </div>
-            <canvas id="scratch-canvas"></canvas>
+          </div>
+
+          <!-- Scratch Card 2: 5 Sacred Friendship Promises -->
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
+            <div class="scratch-card-wrapper h-100">
+              <div class="washi-tape washi-tape-yellow" style="top:10px; right:20px;"></div>
+              <h3 class="h5 font-weight-bold text-light mb-2">Card 2: Top 5 Promises 🌟</h3>
+              <div class="scratch-canvas-container">
+                <div class="hidden-letter-content">
+                  ✨ Our Top 5 BFF Promises ✨<br><br>
+                  1. Always listen to late night tea & drama ☕<br>
+                  2. Share fries & Boba forever 🍟<br>
+                  3. Stand by you through thick & thin 🤝<br>
+                  4. Never stay angry for more than 5 mins 😤<br>
+                  5. Best friends for a lifetime! ❤️
+                </div>
+                <canvas id="scratch-canvas-2"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Scratch Card 3: Bucket List & Secret Wishes -->
+          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+            <div class="scratch-card-wrapper h-100">
+              <div class="washi-tape washi-tape-purple" style="top:10px; left:20px;"></div>
+              <h3 class="h5 font-weight-bold text-light mb-2">Card 3: Bucket List 🔮</h3>
+              <div class="scratch-canvas-container">
+                <div class="hidden-letter-content">
+                  🚀 Our Upcoming Bucket List 🚀<br><br>
+                  • 10 Spontaneous Road Trips 🚗<br>
+                  • Mega Shopping Spree (Unlimited!) 🛍️<br>
+                  • All-night movie & music marathon 🍿<br>
+                  • Beach sunrise coffee & laughs 🌅<br>
+                  • Infinite memories together! ✨
+                </div>
+                <canvas id="scratch-canvas-3"></canvas>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -305,17 +343,17 @@
       </div>
     </section>
 
-    <!-- SPEECH BUBBLE QUIZ CARDS -->
+    <!-- SPEECH BUBBLE QUIZ CARDS (15 QUESTIONS TOTAL!) -->
     <section class="py-5" id="quiz">
       <div class="container">
         <div class="section-head" data-aos="fade-up">
           <h2>Gundu Priya Quiz <span class="gradient-title">Spill The Tea ☕</span></h2>
-          <p class="text-light fs-5">Let's test our bestie secrets!</p>
+          <p class="text-light fs-5">Test your bestie knowledge with 15 questions!</p>
         </div>
 
         <div class="speech-quiz-card" data-aos="zoom-in">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <span class="badge bg-info text-dark px-3 py-2 rounded-pill fs-6" id="quizProgress">Question 1/4</span>
+            <span class="badge bg-info text-dark px-3 py-2 rounded-pill fs-6" id="quizProgress">Question 1/15</span>
             <span class="fw-bold fs-5 text-cyan" id="quizScore">Score: 0</span>
           </div>
 

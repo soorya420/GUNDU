@@ -470,54 +470,74 @@ document.addEventListener('DOMContentLoaded', () => {
   lightboxClose?.addEventListener('click', () => lightboxModal?.classList.remove('active'));
 
   /* ------------------------------------------------------------------------
-     10. Scratch-Off Secret Letter Canvas
+     10. Interactive 3 Scratch-Off Canvas Cards
      ------------------------------------------------------------------------ */
-  const scratchCanvas = document.getElementById('scratch-canvas');
-  if (scratchCanvas) {
-    const ctx = scratchCanvas.getContext('2d');
-    const container = scratchCanvas.parentElement;
-    scratchCanvas.width = container.offsetWidth;
-    scratchCanvas.height = container.offsetHeight;
+  function setupScratchCanvas(canvasId, titleText) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const container = canvas.parentElement;
+    
+    canvas.width = container.offsetWidth || 300;
+    canvas.height = container.offsetHeight || 280;
 
+    // Fill with metallic purple overlay
     ctx.fillStyle = '#9d4edd';
-    ctx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
-    ctx.font = 'bold 22px Fredoka';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.font = 'bold 18px Fredoka';
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
-    ctx.fillText('✨ Scratch Me With Mouse / Finger ✨', scratchCanvas.width / 2, scratchCanvas.height / 2);
+    ctx.fillText('✨ Scratch Me ✨', canvas.width / 2, canvas.height / 2);
 
     let isScratching = false;
 
     function scratch(e) {
       if (!isScratching) return;
-      const rect = scratchCanvas.getBoundingClientRect();
+      const rect = canvas.getBoundingClientRect();
       const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
       const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
 
       ctx.globalCompositeOperation = 'destination-out';
       ctx.beginPath();
-      ctx.arc(x, y, 32, 0, Math.PI * 2);
+      ctx.arc(x, y, 28, 0, Math.PI * 2);
       ctx.fill();
       playPopSound();
     }
 
-    scratchCanvas.addEventListener('mousedown', (e) => { isScratching = true; scratch(e); });
-    scratchCanvas.addEventListener('mousemove', scratch);
+    canvas.addEventListener('mousedown', (e) => { isScratching = true; scratch(e); });
+    canvas.addEventListener('mousemove', scratch);
     window.addEventListener('mouseup', () => { isScratching = false; });
 
-    scratchCanvas.addEventListener('touchstart', (e) => { isScratching = true; scratch(e); });
-    scratchCanvas.addEventListener('touchmove', scratch);
+    canvas.addEventListener('touchstart', (e) => { isScratching = true; scratch(e); });
+    canvas.addEventListener('touchmove', scratch);
     window.addEventListener('touchend', () => { isScratching = false; });
   }
 
+  // Initialize all 3 Scratch Cards
+  setupScratchCanvas('scratch-canvas-1', 'Secret Letter');
+  setupScratchCanvas('scratch-canvas-2', 'Top 5 Promises');
+  setupScratchCanvas('scratch-canvas-3', 'Bucket List');
+
   /* ------------------------------------------------------------------------
-     11. Speech Bubble Quiz
+     11. Speech Bubble Quiz (15 QUESTIONS TOTAL!)
      ------------------------------------------------------------------------ */
   const quizQuestions = [
-    { question: "Who is the funniest in our duo? 😂", options: ["Gundu Priya!", "Me!", "Equally Hilarious!"], correct: 2 },
-    { question: "What is our main hangout routine? 🛍️", options: ["Fries + Shopping + Gossip", "Gym Workouts", "Both!"], correct: 2 },
-    { question: "Who talks more on late night phone calls? 📞", options: ["Gundu Priya!", "Me!", "Both non-stop!"], correct: 2 },
-    { question: "What is our friendship rule #1? ✨", options: ["Always Support Each Other", "Never Judge", "Forever Gundu Priya & Bestie! ✨"], correct: 2 }
+    { question: "1. Who is the funniest in our duo? 😂", options: ["Gundu Priya!", "Me!", "Equally Hilarious!"], correct: 2 },
+    { question: "2. What is our main hangout routine? 🛍️", options: ["Fries + Shopping + Gossip", "Gym Workouts", "Both!"], correct: 2 },
+    { question: "3. Who talks more on late night phone calls? 📞", options: ["Gundu Priya!", "Me!", "Both non-stop!"], correct: 2 },
+    { question: "4. What happens when Gundu Priya gets angry? 😤", options: ["'I'll never talk to you!' (comes back in 5 mins)", "Ignores for 1 sec", "Demands Boba & Fries!"], correct: 0 },
+    { question: "5. Who is the ultimate Shopping Spree Queen? 🛍️", options: ["Gundu Priya!", "Me!", "Both RIP Wallets!"], correct: 2 },
+    { question: "6. What is our #1 Friendship Rule? ✨", options: ["Always Support Each Other", "Never Judge", "Forever Gundu Priya & Bestie!"], correct: 2 },
+    { question: "7. Who takes longer to get ready for an outing? 👗", options: ["Gundu Priya!", "Me!", "Both take 2 hours!"], correct: 0 },
+    { question: "8. What is our official mood when food arrives? 🍟", options: ["Silent eating mode 😋", "Photo shoot first 📸", "Dancing with joy! 💃"], correct: 1 },
+    { question: "9. Who gives the best advice during drama? 💡", options: ["Gundu Priya!", "Me!", "We solve it together!"], correct: 2 },
+    { question: "10. Who is the bigger Drama Queen? 👑", options: ["Gundu Priya (100%)", "Me!", "Both 200% Drama!"], correct: 2 },
+    { question: "11. What is Gundu Priya's secret superpower? 🌟", options: ["Making anyone smile instantly", "Unstoppable laughter", "Being the best friend ever!"], correct: 2 },
+    { question: "12. How did our friendship start? ✨", options: ["Unplanned & Unexpected bond!", "From Day 1 magic", "Gifted by the Universe!"], correct: 0 },
+    { question: "13. Who remembers all inside jokes & dates? 📅", options: ["Gundu Priya!", "Me!", "Both memory champions!"], correct: 2 },
+    { question: "14. What is our dream travel plan? ✈️", options: ["Beach Resort Trip", "Shopping Capital Spree", "Road Trip with Endless Music!"], correct: 2 },
+    { question: "15. How long will this friendship last? ❤️", options: ["Today, Tomorrow & Forever!", "100+ Years minimum!", "Infinite Lifetime! ✨"], correct: 2 }
   ];
 
   let qIdx = 0, score = 0;
@@ -545,7 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
         qIdx++;
         if (qIdx < quizQuestions.length) renderQuiz();
         else {
-          qTitle.textContent = "🎉 Gundu Priya & Bestie Forever! Score: " + score;
+          qTitle.textContent = "🎉 Gundu Priya & Bestie Quiz Passed! Final Score: " + score + "/150 ✨";
           qOpts.innerHTML = `<button class="whimsical-btn mt-3" onclick="location.reload()">Play Again ✨</button>`;
         }
       });
