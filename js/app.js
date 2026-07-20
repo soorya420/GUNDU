@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const category = categories[idx % categories.length];
     const captions = [
       "Ethnic Grace & Balcony Serenade 🌸",
-      "Cute & Funny Bestie Moment 🤪",
+      "Cute & Funny Gundu Priya Moment 🤪",
       "Unforgettable Outdoor Moment ✨",
       "Stunning Style Check 🌿",
       "Gym Workout & Fitness Goals 💪",
@@ -501,10 +501,10 @@ document.addEventListener('DOMContentLoaded', () => {
      11. Speech Bubble Quiz
      ------------------------------------------------------------------------ */
   const quizQuestions = [
-    { question: "Who is the funniest in our duo? 😂", options: ["You!", "Me!", "Equally Hilarious!"], correct: 2 },
+    { question: "Who is the funniest in our duo? 😂", options: ["Gundu Priya!", "Me!", "Equally Hilarious!"], correct: 2 },
     { question: "What is our main hangout routine? 🛍️", options: ["Fries + Shopping + Gossip", "Gym Workouts", "Both!"], correct: 2 },
-    { question: "Who talks more on late night phone calls? 📞", options: ["You!", "Me!", "Both non-stop!"], correct: 2 },
-    { question: "What is our friendship rule #1? ✨", options: ["Always Support Each Other", "Never Judge", "Forever Best Friends!"], correct: 2 }
+    { question: "Who talks more on late night phone calls? 📞", options: ["Gundu Priya!", "Me!", "Both non-stop!"], correct: 2 },
+    { question: "What is our friendship rule #1? ✨", options: ["Always Support Each Other", "Never Judge", "Forever Gundu Priya & Bestie! ✨"], correct: 2 }
   ];
 
   let qIdx = 0, score = 0;
@@ -532,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
         qIdx++;
         if (qIdx < quizQuestions.length) renderQuiz();
         else {
-          qTitle.textContent = "🎉 Best Friends Forever! Score: " + score;
+          qTitle.textContent = "🎉 Gundu Priya & Bestie Forever! Score: " + score;
           qOpts.innerHTML = `<button class="whimsical-btn mt-3" onclick="location.reload()">Play Again ✨</button>`;
         }
       });
@@ -612,7 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalDesc = document.getElementById('memoryModalDesc');
     const randomPhoto = galleryData[Math.floor(Math.random() * galleryData.length)];
 
-    if (modalTitle) modalTitle.textContent = "Throwback Memory Unlocked! 🎉";
+    if (modalTitle) modalTitle.textContent = "Gundu Priya Throwback Memory Unlocked! 🎉";
     if (modalImg) modalImg.src = randomPhoto.src;
     if (modalDesc) modalDesc.textContent = randomPhoto.caption;
 
@@ -630,9 +630,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const lanternsArea = document.getElementById('lanternsArea');
 
   const defaultWishes = [
-    "To 100 more spontaneous shopping sprees! 🛍️",
+    "To 100 more spontaneous shopping sprees with Gundu Priya! 🛍️",
     "May our laugh sessions never end! 😂",
-    "Best friends today, tomorrow, and forever! 🌟"
+    "Gundu Priya & Bestie today, tomorrow, and forever! 🌟"
   ];
 
   function renderLanterns() {
@@ -672,11 +672,11 @@ document.addEventListener('DOMContentLoaded', () => {
      14. User Heartfelt Quotes Compliment Generator
      ------------------------------------------------------------------------ */
   const compliments = [
-    "I take Friendship very seriously. For me, it has Commitment, Loyalty, Expectations and Love.",
+    "I take Friendship with Gundu Priya very seriously. For me, it has Commitment, Loyalty, Expectations and Love.",
     "I don't call someone a friend until I genuinely feel love for that person.",
-    "Some bonds aren't chosen, they're gifted by the Universe...",
-    "Unplanned friendship, Unexpected bond, Right time, Right person, that's YOUUU ✨",
-    "Friendship is cute when someone gets angry with you and says they'll never talk to you, but later comes back just to remind you: 'I'm still angry!' 😤😂"
+    "Some bonds aren't chosen, they're gifted by the Universe... like Gundu Priya ✨",
+    "Unplanned friendship, Unexpected bond, Right time, Right person, that's Gundu Priya! ✨",
+    "Friendship is cute when Gundu Priya gets angry with you and says she'll never talk to you, but later comes back just to remind you: 'I'm still angry!' 😤😂"
   ];
 
   const complimentText = document.getElementById('complimentText');
