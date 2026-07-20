@@ -7,6 +7,23 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.AOS) AOS.init({ duration: 800, once: true });
 
   /* ------------------------------------------------------------------------
+     0. Floating Scroll Back to Top Button Logic
+     ------------------------------------------------------------------------ */
+  const backToTopBtn = document.getElementById('backToTopBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTopBtn?.classList.add('visible');
+    } else {
+      backToTopBtn?.classList.remove('visible');
+    }
+  });
+
+  backToTopBtn?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    playPopSound();
+  });
+
+  /* ------------------------------------------------------------------------
      1. SEQUENTIAL AUDIO FLOW (Zero Overlap Guaranteed)
         Step A: Welcome Screen Click -> Plays Opening Song: prtiviraj.m4r
         Step B: When prtiviraj.m4r COMPLETES -> Plays nanum rowdy than song.m4r
