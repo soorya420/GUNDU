@@ -1,0 +1,766 @@
+/* ==========================================================================
+   Ultimate BFF Luxury Website - Electric Cyan & Royal Violet Dark Edition
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@300;400;500;600;700&family=Fredoka:wght@400;600;700&display=swap');
+
+/* --------------------------------------------------------------------------
+   1. Midnight Luxury Tokens (High Contrast - Bright Text)
+   -------------------------------------------------------------------------- */
+:root {
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #10172a;
+  --bg-gradient: linear-gradient(135deg, #0a0e1a 0%, #10172a 35%, #1e1b4b 70%, #0f172a 100%);
+  --glass-bg: rgba(15, 23, 42, 0.85);
+  --glass-border: rgba(0, 245, 212, 0.3);
+  --glass-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+  
+  --text-main: #ffffff;
+  --text-muted: #e2e8f0;
+  
+  --primary-cyan: #00f5d4;
+  --primary-blue: #00b4d8;
+  --royal-purple: #9d4edd;
+  --violet-soft: #c77dff;
+  --accent-gold: #ffd166;
+  --accent-orange: #f8961e;
+  
+  --font-body: 'Poppins', sans-serif;
+  --font-heading: 'Fredoka', cursive, sans-serif;
+  --font-handwriting: 'Great Vibes', cursive;
+  --font-note: 'Caveat', cursive;
+  
+  --blob-shape-1: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  --blob-shape-2: 40% 60% 70% 30% / 40% 70% 30% 60%;
+  --blob-shape-3: 70% 30% 50% 50% / 30% 60% 40% 70%;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+.text-muted {
+  color: #e2e8f0 !important;
+  font-weight: 500;
+}
+
+/* Custom Cursor */
+.cursor-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--primary-cyan);
+  position: fixed;
+  top: 0; left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 12px var(--primary-cyan);
+}
+
+.cursor-follower {
+  width: 42px;
+  height: 42px;
+  border: 2px dashed var(--royal-purple);
+  position: fixed;
+  top: 0; left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out;
+  animation: spinSlow 12s linear infinite;
+}
+
+@keyframes spinSlow {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Three Canvas */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* --------------------------------------------------------------------------
+   2. Whimsical Decorative Elements (Washi Tape, Stickers, Doodles)
+   -------------------------------------------------------------------------- */
+.washi-tape {
+  position: absolute;
+  width: 110px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  border-left: 2px dashed rgba(255,255,255,0.4);
+  border-right: 2px dashed rgba(255,255,255,0.4);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 10;
+  transform: rotate(-3deg);
+}
+
+.washi-tape-purple { background: rgba(157, 78, 221, 0.45); }
+.washi-tape-yellow { background: rgba(255, 209, 102, 0.45); }
+
+.sticker-badge {
+  position: absolute;
+  font-size: 2.2rem;
+  filter: drop-shadow(0 8px 16px rgba(0, 245, 212, 0.4));
+  animation: floatSticker 3s ease-in-out infinite alternate;
+  z-index: 5;
+  user-select: none;
+}
+
+@keyframes floatSticker {
+  0% { transform: translateY(0px) rotate(-5deg) scale(1); }
+  100% { transform: translateY(-12px) rotate(8deg) scale(1.08); }
+}
+
+.sound-toggle-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(12px);
+}
+
+.sound-toggle-btn:hover {
+  transform: scale(1.1) rotate(12deg);
+  background: var(--primary-cyan);
+  color: #0a0e1a;
+}
+
+/* --------------------------------------------------------------------------
+   3. Floating Island Hero & Avatar Positioning
+   -------------------------------------------------------------------------- */
+.hero-island {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px 60px;
+  text-align: center;
+}
+
+.hero-blob-bg {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 245, 212, 0.25) 0%, rgba(157, 78, 221, 0.25) 60%, transparent 100%);
+  border-radius: var(--blob-shape-1);
+  filter: blur(40px);
+  animation: morphBlob 10s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes morphBlob {
+  0% { border-radius: var(--blob-shape-1); transform: scale(1) rotate(0deg); }
+  50% { border-radius: var(--blob-shape-2); transform: scale(1.1) rotate(90deg); }
+  100% { border-radius: var(--blob-shape-3); transform: scale(0.95) rotate(180deg); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 850px;
+}
+
+.hero-avatar-stack {
+  position: relative;
+  width: 230px;
+  height: 230px;
+  margin: 0 auto 2.5rem;
+}
+
+.hero-avatar-frame {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--blob-shape-2);
+  padding: 8px;
+  background: linear-gradient(135deg, var(--primary-cyan), var(--royal-purple));
+  box-shadow: 0 20px 40px rgba(0, 245, 212, 0.4);
+  animation: morphBlob 8s ease-in-out infinite alternate;
+  overflow: hidden;
+}
+
+.hero-avatar-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: inherit;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1.2rem;
+  text-shadow: 0 4px 25px rgba(0, 245, 212, 0.3);
+}
+
+.gradient-title {
+  background: linear-gradient(135deg, var(--primary-cyan) 0%, var(--violet-soft) 50%, var(--accent-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-cyan {
+  color: var(--primary-cyan) !important;
+}
+
+.hero-tagline {
+  font-family: var(--font-handwriting);
+  font-size: 2.8rem;
+  color: var(--primary-cyan);
+  margin-bottom: 2.5rem;
+}
+
+.whimsical-btn {
+  padding: 1.2rem 3rem;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #0a0e1a;
+  background: linear-gradient(135deg, var(--primary-cyan), var(--royal-purple));
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0 12px 30px rgba(0, 245, 212, 0.4);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.whimsical-btn:hover {
+  transform: translateY(-6px) scale(1.06) rotate(-2deg);
+  box-shadow: 0 20px 45px rgba(0, 245, 212, 0.6);
+  color: #fff;
+}
+
+/* Glass Card */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Cute & Crazy BFF Dedicated Section
+   -------------------------------------------------------------------------- */
+.cute-corner-card {
+  background: linear-gradient(135deg, rgba(157, 78, 221, 0.2), rgba(0, 245, 212, 0.2));
+  border: 2px dashed var(--primary-cyan);
+  border-radius: 35px;
+  padding: 3rem 2rem;
+  box-shadow: 0 20px 50px rgba(157, 78, 221, 0.3);
+  position: relative;
+}
+
+.cute-photo-frame {
+  max-width: 380px;
+  height: 440px;
+  margin: 0 auto 1.8rem;
+  border-radius: 25px;
+  overflow: hidden;
+  border: 4px solid var(--primary-cyan);
+  box-shadow: 0 15px 40px rgba(0, 245, 212, 0.4);
+  position: relative;
+}
+
+.cute-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center; /* GUARANTEE FACE IS FULLY VISIBLE */
+  transition: transform 0.5s ease;
+}
+
+.cute-photo-frame:hover img {
+  transform: scale(1.06);
+}
+
+.funny-quote-bubble {
+  background: rgba(15, 23, 42, 0.9);
+  border: 2px solid var(--violet-soft);
+  border-radius: 25px;
+  padding: 1.5rem 2rem;
+  font-family: var(--font-note);
+  font-size: 1.8rem;
+  color: #ffffff;
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  font-weight: 700;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mood-btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.mood-btn {
+  padding: 10px 24px;
+  border-radius: 30px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mood-btn:hover, .mood-btn.active {
+  background: var(--primary-cyan);
+  color: #0a0e1a;
+  border-color: var(--primary-cyan);
+  transform: scale(1.08) rotate(-2deg);
+  box-shadow: 0 6px 20px rgba(0, 245, 212, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   5. Floating Photo Universe Masonry (Polaroid Collage & Face Fix)
+   -------------------------------------------------------------------------- */
+.scrapbook-section {
+  padding: 90px 0;
+  position: relative;
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.section-head h2 {
+  font-family: var(--font-heading);
+  font-size: 3.2rem;
+  color: var(--text-main);
+}
+
+.filter-btn {
+  padding: 8px 22px;
+  border-radius: 30px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-main);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn.active, .filter-btn:hover {
+  background: var(--primary-cyan);
+  color: #0a0e1a;
+  border-color: var(--primary-cyan);
+  box-shadow: 0 4px 20px rgba(0, 245, 212, 0.5);
+}
+
+.photo-universe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 30px;
+  padding: 20px;
+}
+
+.polaroid-item {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--glass-border);
+  padding: 14px 14px 28px 14px;
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+
+.polaroid-item:nth-child(odd) { transform: rotate(-3deg); }
+.polaroid-item:nth-child(even) { transform: rotate(4deg); }
+.polaroid-item:nth-child(3n) { transform: rotate(-5deg); }
+
+.polaroid-item:hover {
+  transform: scale(1.08) rotate(0deg) !important;
+  z-index: 50 !important;
+  box-shadow: 0 25px 50px rgba(0, 245, 212, 0.4);
+  border-color: var(--primary-cyan);
+}
+
+.polaroid-img-wrapper {
+  width: 100%;
+  height: 320px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  background: #090d16;
+}
+
+.polaroid-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.6s ease;
+}
+
+.polaroid-item:hover .polaroid-img-wrapper img {
+  transform: scale(1.08);
+}
+
+.polaroid-note {
+  font-family: var(--font-note);
+  font-size: 1.6rem;
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+  text-align: center;
+  margin-top: 12px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* FEATURED MOMENT SPECIAL CARD */
+.featured-moment-card {
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.18), rgba(157, 78, 221, 0.18));
+  border: 2px solid var(--primary-cyan);
+  border-radius: 30px;
+  padding: 2.5rem;
+  margin-bottom: 4rem;
+  box-shadow: 0 20px 50px rgba(0, 245, 212, 0.3);
+  position: relative;
+}
+
+.featured-moment-img-wrapper {
+  max-width: 380px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+  border: 3px solid var(--glass-border);
+}
+
+.featured-moment-img-wrapper img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* --------------------------------------------------------------------------
+   6. Interactive Scratch-Off Card (Secret Letter)
+   -------------------------------------------------------------------------- */
+.scratch-card-wrapper {
+  max-width: 650px;
+  margin: 0 auto;
+  position: relative;
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+  border: 2px dashed var(--primary-cyan);
+  text-align: center;
+}
+
+.scratch-canvas-container {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+
+#scratch-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.hidden-letter-content {
+  position: absolute;
+  inset: 0;
+  padding: 2rem;
+  font-family: var(--font-note);
+  font-size: 1.7rem;
+  line-height: 1.7;
+  color: #ffffff !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #0f172a;
+  border-radius: 16px;
+  z-index: 1;
+  overflow-y: auto;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   7. Vintage Retro Cassette Player
+   -------------------------------------------------------------------------- */
+.cassette-player-card {
+  max-width: 550px;
+  margin: 0 auto;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border-radius: 30px;
+  padding: 2.5rem;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  position: relative;
+}
+
+.cassette-deck {
+  width: 100%;
+  height: 180px;
+  background: #090d16;
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px;
+  margin-bottom: 2rem;
+  box-shadow: inset 0 0 25px rgba(0,0,0,0.9);
+  border: 4px solid var(--primary-cyan);
+}
+
+.cassette-wheel {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 25%, #00f5d4 26%, #00f5d4 50%, #000 51%);
+  border: 6px solid #fff;
+  animation: spinWheel 4s linear infinite;
+  animation-play-state: paused;
+}
+
+.playing .cassette-wheel {
+  animation-play-state: running;
+}
+
+@keyframes spinWheel {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.player-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-main);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.player-btn:hover {
+  transform: scale(1.1);
+  background: var(--primary-cyan);
+  color: #0a0e1a;
+}
+
+/* --------------------------------------------------------------------------
+   8. Speech Bubble Quiz Cards
+   -------------------------------------------------------------------------- */
+.speech-quiz-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border-radius: 30px;
+  padding: 2.5rem;
+  max-width: 680px;
+  margin: 0 auto;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  position: relative;
+}
+
+.speech-bubble-option {
+  padding: 1.2rem 1.8rem;
+  margin-bottom: 1.2rem;
+  border-radius: 25px;
+  background: rgba(30, 41, 59, 0.95);
+  border: 1px solid var(--glass-border);
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  color: #ffffff !important;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.speech-bubble-option:hover {
+  background: var(--primary-cyan);
+  color: #0a0e1a !important;
+  transform: translateX(10px) scale(1.02);
+}
+
+/* --------------------------------------------------------------------------
+   9. Wish Sky & Floating Lanterns
+   -------------------------------------------------------------------------- */
+.wish-sky-container {
+  min-height: 480px;
+  position: relative;
+  border-radius: 30px;
+  background: linear-gradient(180deg, #050811 0%, #111827 100%);
+  padding: 2.5rem;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.wish-form-wrapper {
+  position: relative;
+  z-index: 20;
+  margin-bottom: 2rem;
+}
+
+.wish-input-box {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border: 1px solid rgba(0, 245, 212, 0.4) !important;
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+.wish-input-box::placeholder {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.lanterns-sky-area {
+  position: relative;
+  flex: 1;
+  min-height: 300px;
+  width: 100%;
+  overflow: hidden;
+  z-index: 5;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px dashed rgba(0, 245, 212, 0.2);
+}
+
+.wish-lantern {
+  position: absolute;
+  padding: 0.8rem 1.4rem;
+  background: rgba(0, 245, 212, 0.25);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 245, 212, 0.6);
+  border-radius: 25px;
+  font-family: var(--font-note);
+  font-size: 1.4rem;
+  color: #ffffff !important;
+  font-weight: 700;
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.5);
+  animation: floatUp 7s ease-in-out infinite alternate;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(20px) scale(0.95); opacity: 0.8; }
+  100% { transform: translateY(-30px) scale(1.05); opacity: 1; }
+}
+
+/* Lightbox Modal */
+.lightbox-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.94);
+  backdrop-filter: blur(15px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.lightbox-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+}
+
+.wheel-wrapper {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  margin: 0 auto 2rem;
+}
+
+#memory-wheel-canvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+}
+
+.wheel-pointer {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 25px solid var(--primary-cyan);
+  z-index: 10;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5));
+}
+
+@media (max-width: 768px) {
+  .hero-title { font-size: 2.8rem; }
+  .hero-tagline { font-size: 2rem; }
+  .photo-universe-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+  .polaroid-img-wrapper { height: 260px; }
+  .cute-photo-frame { height: 350px; }
+}

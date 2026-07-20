@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To My Amazing Best Friend ✨ | Spatial Story Experience</title>
+  <meta name="description" content="A unique spatial interactive experience dedicated to my Best Friend Forever filled with memory collages, games, music, and secret scratch letters.">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-follower" id="cursor-follower"></div>
+
+  <!-- Three.js Background Particles Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Top Floating Controls Header -->
+  <header class="position-fixed top-0 end-0 p-4 z-3">
+    <button class="sound-toggle-btn shadow" id="soundToggle" title="Toggle Sound FX">
+      <i data-lucide="volume-2" id="soundIcon"></i>
+    </button>
+  </header>
+
+  <main>
+    <!-- FLOATING 3D HOLOGRAPHIC HERO PORTAL -->
+    <section class="hero-island">
+      <div class="hero-blob-bg"></div>
+
+      <!-- Floating Stickers -->
+      <div class="sticker-badge" style="top:15%; left:10%;">✨</div>
+      <div class="sticker-badge" style="top:20%; right:12%; animation-delay:1s;">🌟</div>
+      <div class="sticker-badge" style="bottom:18%; left:15%; animation-delay:2s;">💎</div>
+      <div class="sticker-badge" style="bottom:22%; right:15%; animation-delay:1.5s;">👑</div>
+
+      <div class="hero-content" data-aos="zoom-in" data-aos-duration="1000">
+        <!-- Main Featured Avatar -->
+        <div class="hero-avatar-stack" id="heroAvatarCard">
+          <div class="hero-avatar-frame">
+            <img src="./image'/WhatsApp Image 2026-07-20 at 1.07.56 PM.jpeg" alt="Best Friend Main Avatar">
+          </div>
+        </div>
+
+        <h1 class="hero-title">
+          To My Amazing <span class="gradient-title">Best Friend ✨</span>
+        </h1>
+        <div class="hero-tagline">"Every memory with you is my favorite story."</div>
+
+        <button class="whimsical-btn" id="startBtn">
+          <span>Explore Our Universe</span>
+          <i data-lucide="sparkles"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- FRIENDSHIP COUNTER BADGES -->
+    <section class="container py-4">
+      <div class="row g-4 justify-content-center">
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="glass-card p-4 text-center" style="border-radius:var(--blob-shape-1);">
+            <div class="display-4 font-weight-bold text-cyan" style="font-family:var(--font-heading);" data-target="5">5+</div>
+            <div class="text-light fw-bold fs-6">Years of Friendship 🌟</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+          <div class="glass-card p-4 text-center" style="border-radius:var(--blob-shape-2);">
+            <div class="display-4 font-weight-bold text-cyan" style="font-family:var(--font-heading);" data-target="1825">1825+</div>
+            <div class="text-light fw-bold fs-6">Days Together ✨</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+          <div class="glass-card p-4 text-center" style="border-radius:var(--blob-shape-3);">
+            <div class="display-4 font-weight-bold text-cyan" style="font-family:var(--font-heading);" data-target="9999">9999+</div>
+            <div class="text-light fw-bold fs-6">Memories Made 📸</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+          <div class="glass-card p-4 text-center" style="border-radius:var(--blob-shape-1);">
+            <div class="display-4 font-weight-bold text-cyan" style="font-family:var(--font-heading);" data-target="100000">100k+</div>
+            <div class="text-light fw-bold fs-6">Countless Smiles 😊</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEDICATED CUTE & CRAZY BFF CORNER SECTION (WhatsApp Image 2026-07-20 at 12.48.26 PM (1).jpeg) -->
+    <section class="container py-5" id="cute-corner">
+      <div class="cute-corner-card text-center" data-aos="zoom-in">
+        <div class="washi-tape washi-tape-purple" style="top:-14px; left:40px;"></div>
+        <div class="washi-tape washi-tape-yellow" style="top:-14px; right:40px;"></div>
+
+        <div class="sticker-badge" style="top:10%; right:8%;">🤪</div>
+        <div class="sticker-badge" style="bottom:15%; left:8%;">🍟</div>
+
+        <h2 class="display-5 font-weight-bold mb-2 gradient-title">The Cute & Crazy BFF Corner 🤪✨</h2>
+        <p class="text-light fs-5 mb-4">"1% Normal • 99% Pure Cute Drama Queen!"</p>
+
+        <!-- Cute Photo Frame (100% Face Visible) -->
+        <div class="cute-photo-frame">
+          <img src="./image'/WhatsApp Image 2026-07-20 at 12.48.26 PM (1).jpeg" alt="Cute & Funny Bestie Expression">
+        </div>
+
+        <!-- Dynamic Funny Quote Bubble -->
+        <div class="funny-quote-bubble" id="funnyQuoteBubble">
+          "Mid-gossip face when I hear the craziest plot twist! 😲💬"
+        </div>
+
+        <!-- Mood Translator Buttons -->
+        <div class="mood-btn-group">
+          <button class="mood-btn active" data-quote="Mid-gossip face when I hear the craziest plot twist! 😲💬" data-sound="gossip">Gossip Mode 🗣️</button>
+          <button class="mood-btn" data-quote="Me when someone says 'Let's order FREE FRIES & Boba!' 🍟🥤" data-sound="food">Food Alert 🍟</button>
+          <button class="mood-btn" data-quote="100% Drama Queen ready to steal the show! 👑💖" data-sound="drama">Drama Queen 👑</button>
+          <button class="mood-btn" data-quote="Shopping Spree unlocked! RIP My Wallet! 🛍️💸" data-sound="shop">Shopping Spree 🛍️</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED SPECIAL MOMENT CARD -->
+    <section class="container py-4">
+      <div class="featured-moment-card text-center" data-aos="zoom-in">
+        <div class="washi-tape washi-tape-purple" style="top:-14px; left:40px;"></div>
+        <div class="washi-tape washi-tape-yellow" style="top:-14px; right:40px;"></div>
+
+        <h2 class="h1 font-weight-bold mb-3 gradient-title">Featured Memory ✨</h2>
+        <p class="text-light fs-5 mb-4">"Serene moments & timeless friendship elegance."</p>
+
+        <div class="featured-moment-img-wrapper mb-3">
+          <img src="./image'/WhatsApp Image 2026-07-20 at 1.07.57 PM.jpeg" alt="Featured Outdoor Sitting Moment">
+        </div>
+        <div class="font-note fs-3 text-cyan" style="font-family: var(--font-note);">
+          "Unforgettable Outdoor Moments & Grace 🌿"
+        </div>
+      </div>
+    </section>
+
+    <!-- FLOATING PHOTO UNIVERSE (MASONRY POLAROID COLLAGE) -->
+    <section class="scrapbook-section" id="photos">
+      <div class="container">
+        <div class="section-head" data-aos="fade-up">
+          <h2>Our Memory <span class="gradient-title">Collage 📸</span></h2>
+          <p class="text-light fs-5">All photos pinned organically with 100% full face visibility!</p>
+
+          <div class="d-flex justify-content-center gap-2 mt-4 flex-wrap">
+            <button class="filter-btn active" data-filter="all">All Photos</button>
+            <button class="filter-btn" data-filter="fitness">Gym & Fitness 💪</button>
+            <button class="filter-btn" data-filter="style">Shopping & Style 🛍️</button>
+            <button class="filter-btn" data-filter="outings">Outings & Smiles ✨</button>
+          </div>
+        </div>
+
+        <div class="photo-universe-grid" id="photoUniverseGrid" data-aos="fade-up"></div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE SCRATCH-OFF SECRET LETTER -->
+    <section class="py-5" id="scratch-letter">
+      <div class="container">
+        <div class="section-head" data-aos="fade-up">
+          <h2>Scratch & Reveal <span class="gradient-title">Secret Letter 💌</span></h2>
+          <p class="text-light fs-5">Use your mouse/finger to scratch off the glitter overlay!</p>
+        </div>
+
+        <div class="scratch-card-wrapper" data-aos="zoom-in">
+          <div class="washi-tape washi-tape-purple" style="top:-14px; left:30px;"></div>
+          <div class="washi-tape washi-tape-yellow" style="top:-14px; right:30px;"></div>
+
+          <h3 class="h4 font-weight-bold text-light">Scratch Here To Unfold My Secret Letter ✨</h3>
+
+          <div class="scratch-canvas-container">
+            <div class="hidden-letter-content">
+              Dearest Bestie,<br><br>
+              Words cannot describe how immensely grateful I am to have you in my life. Through all the smiles, long phone calls, workout sessions, spontaneous trips, and inside jokes, you have been my constant rock.<br><br>
+              Thank you for accepting me as I am, for celebrating my wins, and for always being a light in the dark.<br><br>
+              Here is to a lifetime more of laughter, trips, and unforgettable adventures together!<br><br>
+              Forever & Always Your Best Friend ✨
+            </div>
+            <canvas id="scratch-canvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VINTAGE RETRO CASSETTE MUSIC PLAYER -->
+    <section class="py-5" id="music">
+      <div class="container">
+        <div class="section-head" data-aos="fade-up">
+          <h2>Retro Friendship <span class="gradient-title">Player 🎵</span></h2>
+          <p class="text-light fs-5">Spin lo-fi melodies made for our journey!</p>
+        </div>
+
+        <div class="cassette-player-card text-center" data-aos="flip-down" id="cassetteCard">
+          <div class="cassette-deck" id="cassetteDeck">
+            <div class="cassette-wheel"></div>
+            <div class="text-white font-weight-bold small">LO-FI BFF TAPES</div>
+            <div class="cassette-wheel"></div>
+          </div>
+
+          <h3 class="h4 font-weight-bold mb-1 text-light" id="trackTitle">Bestie Anthem - Gentle Harmony</h3>
+          <p class="text-cyan small mb-4 font-weight-bold">Synthesized Friendship Beats</p>
+
+          <div class="d-flex justify-content-center align-items-center gap-3">
+            <button class="player-btn" id="prevTrackBtn"><i data-lucide="skip-back"></i></button>
+            <button class="whimsical-btn py-3 px-4" id="playTrackBtn">
+              <i data-lucide="play" id="playIcon"></i>
+              <span>Play Tape</span>
+            </button>
+            <button class="player-btn" id="nextTrackBtn"><i data-lucide="skip-forward"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPEECH BUBBLE QUIZ CARDS -->
+    <section class="py-5" id="quiz">
+      <div class="container">
+        <div class="section-head" data-aos="fade-up">
+          <h2>BFF Quiz <span class="gradient-title">Spill The Tea ☕</span></h2>
+          <p class="text-light fs-5">Let's test our bestie secrets!</p>
+        </div>
+
+        <div class="speech-quiz-card" data-aos="zoom-in">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <span class="badge bg-info text-dark px-3 py-2 rounded-pill fs-6" id="quizProgress">Question 1/4</span>
+            <span class="fw-bold fs-5 text-cyan" id="quizScore">Score: 0</span>
+          </div>
+
+          <h3 class="h4 mb-4 font-weight-bold text-light" id="quizQuestion">Loading question...</h3>
+          <div id="quizOptions"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEMORY WHEEL OF FORTUNE -->
+    <section class="py-5" id="wheel">
+      <div class="container text-center">
+        <div class="section-head" data-aos="fade-up">
+          <h2>Spin the <span class="gradient-title">Fortune Memory Wheel 🎡</span></h2>
+          <p class="text-light fs-5">Spin to unlock a throwback memory!</p>
+        </div>
+
+        <div class="wheel-wrapper" data-aos="zoom-in">
+          <div class="wheel-pointer"></div>
+          <canvas id="memory-wheel-canvas" width="320" height="320"></canvas>
+        </div>
+
+        <button class="whimsical-btn mt-3" id="spinWheelBtn">
+          <i data-lucide="rotate-cw"></i>
+          <span>Spin Fortune Wheel!</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- WISH SKY & FLOATING LANTERNS -->
+    <section class="py-5" id="wishsky">
+      <div class="container">
+        <div class="section-head" data-aos="fade-up">
+          <h2>Starry Wish <span class="gradient-title">Sky 🌌</span></h2>
+          <p class="text-light fs-5">Post a wish into the glowing night sky!</p>
+        </div>
+
+        <div class="wish-sky-container" data-aos="fade-up">
+          <!-- Top Input Form -->
+          <div class="wish-form-wrapper">
+            <form id="wishForm" class="d-flex gap-2 max-w-600 mx-auto" style="max-width:550px;">
+              <input type="text" class="form-control rounded-pill py-3 px-4 wish-input-box shadow" id="wishInput" placeholder="Type a sweet wish..." required>
+              <button type="submit" class="whimsical-btn py-2 px-4 fs-6">
+                <span>Send</span>
+                <i data-lucide="send"></i>
+              </button>
+            </form>
+          </div>
+
+          <!-- Bottom Lanterns Floating Sky Box -->
+          <div class="lanterns-sky-area" id="lanternsArea">
+            <!-- Floating lanterns render here cleanly -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPLIMENT GENERATOR -->
+    <section class="py-5" id="compliments">
+      <div class="container text-center">
+        <div class="glass-card p-5 max-w-600 mx-auto" data-aos="zoom-in" style="max-width:650px; margin:0 auto; border-radius:var(--blob-shape-1);">
+          <span class="display-3">🌟</span>
+          <div class="display-6 font-weight-bold my-4 gradient-title" id="complimentText">
+            "You are one in a million, bestie!"
+          </div>
+          <button class="whimsical-btn" id="newComplimentBtn">
+            <i data-lucide="sparkles"></i>
+            <span>Make Me Smile</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRAND CELEBRATION -->
+    <section class="container text-center my-5" id="celebrate">
+      <div class="glass-card p-5" data-aos="flip-up" style="border-radius:35px; background:linear-gradient(135deg, rgba(0,245,212,0.2), rgba(157,78,221,0.2));">
+        <h2 class="display-5 font-weight-bold mb-3 text-light">Ready for Fireworks & Confetti? 🎉</h2>
+        <p class="fs-5 text-cyan mb-4 fw-bold">Click below to launch full-screen magic!</p>
+        <button class="whimsical-btn" id="celebrateBtn">
+          <i data-lucide="sparkles"></i>
+          <span>Celebrate Friendship 🎉</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="text-center py-4 text-light">
+    <div class="container">
+      <p class="mb-1 fs-5">Made with ✨ for My Forever Best Friend</p>
+      <p class="small text-cyan fw-bold">Forever Friends • See You Soon ✨</p>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox-modal" id="lightboxModal">
+    <div class="position-relative text-center">
+      <button class="lightbox-close text-white border-0 bg-transparent display-4 position-absolute" style="top:-60px; right:0;" id="lightboxClose">&times;</button>
+      <img src="" alt="Memory Image" class="lightbox-img" id="lightboxImg">
+      <div class="text-white mt-3 fs-4 font-weight-bold" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <!-- MEMORY WHEEL PRIZE MODAL -->
+  <div class="modal fade" id="memoryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass-card border-0 text-center p-4">
+        <div class="modal-body">
+          <div class="display-1 mb-2">🎉</div>
+          <h3 class="h4 font-weight-bold mb-3 text-light" id="memoryModalTitle">Memory Unlocked!</h3>
+          <img src="" alt="Memory Photo" id="memoryModalImg" class="img-fluid rounded mb-3 shadow" style="max-height: 250px; object-fit: cover;">
+          <p class="text-cyan fs-5 fw-bold" id="memoryModalDesc"></p>
+          <button type="button" class="whimsical-btn mt-2 py-2 px-4 fs-6" data-bs-dismiss="modal">Awesome! ✨</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.29/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
