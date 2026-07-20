@@ -14,11 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const welcomeOverlay = document.getElementById('welcomeOverlay');
   const enterSiteBtn = document.getElementById('enterSiteBtn');
 
-  // Audio Objects
+  // Master Audio Objects
   const openingAudio = new Audio('./audio/prtiviraj.m4r');
   const mainBffAudio = new Audio('./audio/nanum rowdy than song.m4r');
   const sareeAudio = new Audio('./audio/O.m4r');
   const playerAudio = new Audio();
+
+  let isMuted = false;
 
   // Helper to stop all currently playing audio before starting a new track
   function stopAllAudioExcept(targetAudio) {
@@ -26,6 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (audio && audio !== targetAudio && !audio.paused) {
         audio.pause();
       }
+    });
+  }
+
+  function setMasterMute(muted) {
+    isMuted = muted;
+    [openingAudio, mainBffAudio, sareeAudio, playerAudio].forEach(audio => {
+      if (audio) audio.muted = muted;
     });
   }
 
@@ -43,9 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Step A: Play opening song prtiviraj.m4r cleanly
     stopAllAudioExcept(openingAudio);
     openingAudio.currentTime = 0;
+    openingAudio.muted = isMuted;
     openingAudio.play().then(() => {
       console.log("Playing Opening Song: prtiviraj.m4r");
-    }).catch(e => console.log(e));
+    }).catch(e => console.log("Audio play blocked by browser:", e));
   });
 
   // Step B: When prtiviraj.m4r COMPLETES -> Start nanum rowdy than song.m4r
@@ -53,13 +63,57 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("Opening Song completed! Now starting nanum rowdy than song.m4r");
     stopAllAudioExcept(mainBffAudio);
     mainBffAudio.currentTime = 0;
+    mainBffAudio.muted = isMuted;
     mainBffAudio.play().then(() => {
       console.log("Playing Main Background Song: nanum rowdy than song.m4r");
     }).catch(e => console.log(e));
   });
 
   /* ------------------------------------------------------------------------
-     2. Real Audio Database & Retro Player Playlist
+     2. Master Sound & Audio Toggle Button
+     ------------------------------------------------------------------------ */
+  const soundToggle = document.getElementById('soundToggle');
+  const soundIcon = document.getElementById('soundIcon');
+  let audioCtx = null;
+
+  function initAudio() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  function playTone(freq = 440, type = 'sine', duration = 0.15, gainVal = 0.1) {
+    if (isMuted) return;
+    initAudio();
+    try {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    } catch (e) {}
+  }
+
+  function playPopSound() { playTone(587.33, 'sine', 0.12, 0.15); }
+  function playChimeSound() {
+    if (isMuted) return;
+    [523.25, 659.25, 783.99, 1046.50].forEach((n, i) => {
+      setTimeout(() => playTone(n, 'sine', 0.2, 0.12), i * 80);
+    });
+  }
+
+  soundToggle?.addEventListener('click', () => {
+    setMasterMute(!isMuted);
+    if (soundIcon) soundIcon.setAttribute('data-lucide', isMuted ? 'volume-x' : 'volume-2');
+    if (window.lucide) lucide.createIcons();
+    if (!isMuted) playPopSound();
+  });
+
+  /* ------------------------------------------------------------------------
+     3. Real Audio Database & Retro Player Playlist
      ------------------------------------------------------------------------ */
   const playlist = [
     {
@@ -117,6 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateTrackUI() {
     if (trackTitle) trackTitle.textContent = playlist[currentTrackIdx].title;
     playerAudio.src = playlist[currentTrackIdx].src;
+    playerAudio.muted = isMuted;
   }
 
   updateTrackUI();
@@ -124,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
   playTrackBtn?.addEventListener('click', () => {
     if (playerAudio.paused) {
       stopAllAudioExcept(playerAudio);
+      playerAudio.muted = isMuted;
       playerAudio.play().then(() => {
         if (playIcon) playIcon.setAttribute('data-lucide', 'pause');
         if (window.lucide) lucide.createIcons();
@@ -166,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     3. Dedicated Saree Balcony Audio Player (O.m4r)
+     4. Dedicated Saree Balcony Audio Player (O.m4r)
      ------------------------------------------------------------------------ */
   const playSareeAudioBtn = document.getElementById('playSareeAudioBtn');
   const sareePlayIcon = document.getElementById('sareePlayIcon');
@@ -175,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
   playSareeAudioBtn?.addEventListener('click', () => {
     if (sareeAudio.paused) {
       stopAllAudioExcept(sareeAudio);
+      sareeAudio.muted = isMuted;
       sareeAudio.play().then(() => {
         if (sareePlayIcon) sareePlayIcon.setAttribute('data-lucide', 'pause');
         if (window.lucide) lucide.createIcons();
@@ -196,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     4. Photo Database (Including Saree Balcony Photo)
+     5. Photo Database (Including Saree Balcony Photo)
      ------------------------------------------------------------------------ */
   const photoBase = "image'/";
   const photoFiles = [
@@ -266,50 +323,6 @@ document.addEventListener('DOMContentLoaded', () => {
       category: category,
       caption: captions[idx % captions.length]
     };
-  });
-
-  /* ------------------------------------------------------------------------
-     5. Sound Synthesizer (for UI interaction sound effects)
-     ------------------------------------------------------------------------ */
-  let soundEnabled = true;
-  const soundToggle = document.getElementById('soundToggle');
-  const soundIcon = document.getElementById('soundIcon');
-  let audioCtx = null;
-
-  function initAudio() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-
-  function playTone(freq = 440, type = 'sine', duration = 0.15, gainVal = 0.1) {
-    if (!soundEnabled) return;
-    initAudio();
-    try {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + duration);
-    } catch (e) {}
-  }
-
-  function playPopSound() { playTone(587.33, 'sine', 0.12, 0.15); }
-  function playChimeSound() {
-    if (!soundEnabled) return;
-    [523.25, 659.25, 783.99, 1046.50].forEach((n, i) => {
-      setTimeout(() => playTone(n, 'sine', 0.2, 0.12), i * 80);
-    });
-  }
-
-  soundToggle?.addEventListener('click', () => {
-    soundEnabled = !soundEnabled;
-    if (soundIcon) soundIcon.setAttribute('data-lucide', soundEnabled ? 'volume-2' : 'volume-x');
-    if (window.lucide) lucide.createIcons();
-    if (soundEnabled) playPopSound();
   });
 
   /* ------------------------------------------------------------------------
