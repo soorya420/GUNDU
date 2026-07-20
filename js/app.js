@@ -669,14 +669,14 @@ document.addEventListener('DOMContentLoaded', () => {
   renderLanterns();
 
   /* ------------------------------------------------------------------------
-     14. Compliments & Celebration
+     14. User Heartfelt Quotes Compliment Generator
      ------------------------------------------------------------------------ */
   const compliments = [
-    "You bring so much sunshine wherever you go!",
-    "The world is brighter and happier because of you.",
-    "You make every day feel like a special celebration.",
-    "Your laugh is genuinely the most contagious thing ever!",
-    "You are one in a million, bestie!"
+    "I take Friendship very seriously. For me, it has Commitment, Loyalty, Expectations and Love.",
+    "I don't call someone a friend until I genuinely feel love for that person.",
+    "Some bonds aren't chosen, they're gifted by the Universe...",
+    "Unplanned friendship, Unexpected bond, Right time, Right person, that's YOUUU ✨",
+    "Friendship is cute when someone gets angry with you and says they'll never talk to you, but later comes back just to remind you: 'I'm still angry!' 😤😂"
   ];
 
   const complimentText = document.getElementById('complimentText');
