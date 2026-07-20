@@ -49,7 +49,11 @@
   <canvas id="bg-canvas"></canvas>
 
   <!-- Top Floating Controls Header -->
-  <header class="position-fixed top-0 end-0 p-4 z-3">
+  <header class="position-fixed top-0 end-0 p-4 z-3 d-flex align-items-center gap-2">
+    <a href="notes.html" class="sound-toggle-btn shadow text-decoration-none d-inline-flex align-items-center justify-content-center" id="navPrivateBtn" title="Something I Want to Say to You 🔒" style="width: auto; padding: 0 16px; border-radius: 50px; font-weight: 600; font-size: 0.88rem; gap: 6px; color: var(--primary-cyan);">
+      <i data-lucide="lock"></i>
+      <span>Say to You 🔒</span>
+    </a>
     <button class="sound-toggle-btn shadow" id="soundToggle" title="Toggle Sound FX">
       <i data-lucide="volume-2" id="soundIcon"></i>
     </button>
@@ -211,6 +215,315 @@
           <button class="mood-btn" data-quote="I take Friendship very seriously. For me, it has Commitment, Loyalty & Love! 💖">Serious Loyalty 🤝</button>
           <button class="mood-btn" data-quote="Shopping Spree unlocked! RIP My Wallet! 🛍️💸">Shopping Spree 🛍️</button>
         </div>
+    <!-- 9 MOODS & KOVAM SERENADE SECTION (audio/kov.m4r + image'/kov_mood_expressions.jpg) -->
+    <section class="container py-5" id="kovam-moods">
+      <div class="kovam-moods-card text-center" data-aos="zoom-in" id="kovamMoodsCard">
+        <div class="washi-tape washi-tape-purple" style="top:10px; left:40px;"></div>
+        <div class="washi-tape washi-tape-yellow" style="top:10px; right:40px;"></div>
+
+        <div class="sticker-badge" style="top:4%; left:3%;">🎭</div>
+        <div class="sticker-badge" style="top:6%; right:4%;">🔥</div>
+        <div class="sticker-badge" style="bottom:5%; left:4%;">😡</div>
+        <div class="sticker-badge" style="bottom:6%; right:4%;">💖</div>
+
+        <span class="badge bg-dark border border-cyan text-cyan px-3 py-2 rounded-pill fs-6 mb-3 shadow">
+          🎭 9 EXPRESSIONS OF GUNDU PRIYA • KOVAM SPECIAL
+        </span>
+
+        <h2 class="display-5 font-weight-bold mb-2 gradient-title">The 9 Moods & Kovam Serenade 🎭✨</h2>
+        <p class="text-light fs-5 mb-4">"From 😡 Kovam to 😊 Pure Cuteness — 9 Expressions, 1 Unbeatable Bestie!"</p>
+
+        <div class="row align-items-center justify-content-center g-4 mb-5">
+          <!-- 3D Spatial Master Image Frame Column -->
+          <div class="col-lg-6">
+            <div class="mood-master-frame" id="moodSpatialCard">
+              <div class="washi-tape washi-tape-purple" style="top:-12px; left:30px;"></div>
+              <div class="washi-tape washi-tape-yellow" style="top:-12px; right:30px;"></div>
+              <div class="mood-img-wrapper">
+                <img src="./image'/kov_mood_expressions.jpg" alt="9 Mood Expressions Grid" id="moodMasterImg">
+                <div class="mood-scanner-overlay" id="moodScanner"></div>
+              </div>
+              <div class="mood-master-badge">
+                <span class="pulse-dot"></span>
+                <span id="currentMoodName">Tap Any Mood Tile Below! 🎭</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kovam Audio & Mood Control Box Column -->
+          <div class="col-lg-6 text-center text-lg-start">
+            <div class="kovam-music-box p-4 shadow-lg">
+              <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="equalizer-bar-container" id="kovamEqualizer">
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                  </div>
+                  <div>
+                    <h3 class="h4 font-weight-bold text-light mb-1">Kovam & Moods Serenade 🎵</h3>
+                    <p class="text-cyan fw-bold fs-6 mb-0">Track: Kovam Special (kov.m4r)</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Audio Play Control Button -->
+              <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+                <button class="whimsical-btn py-3 px-4 flex-grow-1 justify-content-center" id="playKovamAudioBtn">
+                  <i data-lucide="play" id="kovamPlayIcon"></i>
+                  <span id="kovamPlayText">Play Kovam Track 🎵</span>
+                </button>
+              </div>
+
+              <!-- Dynamic Interactive Quote Display Box -->
+              <div class="mood-quote-box p-3 rounded-4 shadow-sm" id="moodQuoteBox">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                  <span class="display-6" id="moodQuoteEmoji">😡</span>
+                  <h4 class="h5 font-weight-bold mb-0 text-cyan" id="moodQuoteTitle">Kovam Mode (Cute Angry)</h4>
+                </div>
+                <p class="text-light fs-6 mb-0 fst-italic" id="moodQuoteText">
+                  "Friendship is cute when someone gets angry with you and says 'I will never talk to you', but comes back 5 minutes later to say: 'I'm still angry!' 😤😂"
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9 MOOD INTERACTIVE GRID TILES -->
+        <div class="section-head mb-4" data-aos="fade-up">
+          <h3 class="h3 font-weight-bold text-light mb-1 gradient-title">Explore The 9 Expressions ⚡</h3>
+          <p class="text-light fs-6">Click any mood tile for emoji explosions, sound FX & live quotes!</p>
+        </div>
+
+        <div class="row g-3 justify-content-center" id="moodGridInteractive">
+          <!-- Tile 1 -->
+          <div class="col-6 col-md-4 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="mood-tile-card active" data-mood="1" data-emoji="😊" data-title="Radiant Sweet Smile" data-quote="When she's in a super happy mood and everything is bright & peaceful! ✨" data-color="#ffd166">
+              <div class="mood-tile-emoji">😊</div>
+              <div class="mood-tile-info">
+                <div class="mood-tile-name">Sweet Smile</div>
+                <div class="mood-tile-tag">Radiant Happy Vibe</div>
+              </div>
+            </div>
+          </div>
+          <!-- Tile 2 -->
+          <div class="col-6 col-md-4 col-lg-4" data-aos="fade-up" data-aos-delay="150">
+            <div class="mood-tile-card" data-mood="2" data-emoji="😁" data-title="Unstoppable Laughs" data-quote="Laughing out loud at silly inside jokes until tummy hurts! 😂" data-color="#00f5d4">
+              <div class="mood-tile-emoji">😁</div>
+              <div class="mood-tile-info">
+                <div class="mood-tile-name">Joyful Laugh</div>
+                <div class="mood-tile-tag">100% Happiness</div>
+              </div>
+            </div>
+          </div>
+          <!-- Tile 3 -->
+          <div class="col-6 col-md-4 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="mood-tile-card" data-mood="3" data-emoji="🤪" data-title="Crazy Goofball" data-quote="100% unfiltered goofy drama queen energy! Life is never boring with you! 🤪" data-color="#c77dff">
+              <div class="mood-tile-emoji">🤪</div>
+              <div class="mood-tile-info">
+                <div class="mood-tile-name">Crazy Drama</div>
+                <div class="mood-tile-tag">Pure Silly Energy</div>
+              </div>
+            </div>
+          </div>
+          <!-- Tile 4 -->
+          <div class="col-6 col-md-4 col-lg-4" data-aos="fade-up" data-aos-delay="250">
+            <div class="mood-tile-card" data-mood="4" data-emoji="😘" data-title="Sweet Pout & Hugs" data-quote="Blowing virtual hugs, sweetness, and bestie love all day! 💖" data-color="#ff70a6">
+              <div class="mood-tile-emoji">😘</div>
+              <div class="mood-tile-info">
+                <div class="mood-tile-name">Cute Pout</div>
+                <div class="mood-tile-tag">Virtual Hugs & Kisses</div>
+              </div>
+            </div>
+          </div>
+          <!-- Tile 5 -->
+          <div class="col-6 col-md-4 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="mood-tile-card" data-mood="5" data-emoji="🥺" data-title="Pleading Puppy Eyes" data-quote="When she wants Boba tea, extra fries, and shopping trip sponsor! 🍟" data-color="#48cae4">
+              <div class="mood-tile-emoji">🥺</div>
+              <div class="mood-tile-info">
+                <div class="mood-tile-name">Puppy Eyes</div>
+                <div class="mood-tile-tag">Gimme Fries & Boba!</div>
+              </div>
+            </div>
+          </div>
+          <!-- Tile 6 -->
+          <div class="col-6 col-md-4 col-lg-4" data-aos="fade-up" data-aos-delay="350">
+            <div class="mood-tile-card" data-mood="6" data-emoji="😡" data-title="Cute Angry Kovam" data-quote="DANGER ⚠️! 1% Normal, 99% Angry Kovam! 'Don't talk to me... okay now talk to me!' 😤🔥" data-color="#ff477e">
+              <div class="mood-tile-emoji">😡</div>
+              <div class="mood-tile-info">
+                <div class="mood-tile-name">Kovam Mode</div>
+                <div class="mood-tile-tag">Cute Danger ⚠️</div>
+              </div>
+            </div>
+          </div>
+          <!-- Tile 7 -->
+          <div class="col-6 col-md-4 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="mood-tile-card" data-mood="7" data-emoji="😝" data-title="Cheeky Teasing" data-quote="Making funny faces just to tease & annoy her favorite bestie! 😝" data-color="#70e444">
+              <div class="mood-tile-emoji">😝</div>
+              <div class="mood-tile-info">
+                <div class="mood-tile-name">Cheeky Tease</div>
+                <div class="mood-tile-tag">Playful Wink & Tongue</div>
+              </div>
+            </div>
+          </div>
+          <!-- Tile 8 -->
+          <div class="col-6 col-md-4 col-lg-4" data-aos="fade-up" data-aos-delay="450">
+            <div class="mood-tile-card" data-mood="8" data-emoji="😲" data-title="Tea Shock Spilled" data-quote="Spilling the latest juicy tea! 'WHAAAAT?! You won't believe what happened!' ☕😲" data-color="#ff9e00">
+              <div class="mood-tile-emoji">😲</div>
+              <div class="mood-tile-info">
+                <div class="mood-tile-name">Gossip Shock</div>
+                <div class="mood-tile-tag">Tea Spilled ☕</div>
+              </div>
+            </div>
+          </div>
+          <!-- Tile 9 -->
+          <div class="col-6 col-md-4 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+            <div class="mood-tile-card" data-mood="9" data-emoji="😌" data-title="Calm & Serene" data-quote="Peaceful zen mode. Simply content, relaxed, and happy! 🌸" data-color="#9d4edd">
+              <div class="mood-tile-emoji">😌</div>
+              <div class="mood-tile-info">
+                <div class="mood-tile-name">Peaceful Zen</div>
+                <div class="mood-tile-tag">Serene Bestie Vibe</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <!-- 3D SPATIAL PRISM & CHIC LOUNGE GALLERY SECTION (3 NEW ATTACHED IMAGES) -->
+    <section class="container py-5" id="spatial-prism">
+      <div class="prism-section-card text-center" data-aos="zoom-in" id="prismSectionCard">
+        <div class="washi-tape washi-tape-purple" style="top:12px; left:40px;"></div>
+        <div class="washi-tape washi-tape-yellow" style="top:12px; right:40px;"></div>
+
+        <div class="sticker-badge" style="top:5%; left:3%;">💎</div>
+        <div class="sticker-badge" style="top:7%; right:4%;">🌸</div>
+        <div class="sticker-badge" style="bottom:6%; left:4%;">🍹</div>
+        <div class="sticker-badge" style="bottom:8%; right:4%;">👑</div>
+
+        <span class="badge bg-dark border border-cyan text-cyan px-3 py-2 rounded-pill fs-6 mb-3 shadow">
+          💎 3D SPATIAL GALLERY • CHIC LOUNGE & CAFE MOMENTS
+        </span>
+
+        <h2 class="display-5 font-weight-bold mb-2 gradient-title">3D Spatial Prism Experience 💎✨</h2>
+        <p class="text-light fs-5 mb-4">"Interactive 3D Prism • Spin, Flip & Explore Gundu Priya's Chic Lounge Moments!"</p>
+
+        <!-- Interactive Controls Bar -->
+        <div class="d-flex justify-content-center align-items-center gap-3 mb-4 flex-wrap">
+          <button class="whimsical-btn py-2 px-4 fs-6" id="prismPrevBtn">
+            <i data-lucide="chevron-left"></i>
+            <span>Rotate Left</span>
+          </button>
+          <button class="whimsical-btn py-2 px-4 fs-6 active-prism-btn" id="prismAutoBtn">
+            <i data-lucide="rotate-cw" id="prismAutoIcon"></i>
+            <span id="prismAutoLabel">Pause 3D Spin</span>
+          </button>
+          <button class="whimsical-btn py-2 px-4 fs-6" id="prismNextBtn">
+            <span>Rotate Right</span>
+            <i data-lucide="chevron-right"></i>
+          </button>
+        </div>
+
+        <!-- 3D PRISM STAGE CONTAINER -->
+        <div class="prism-stage-container mb-5" id="prismStageContainer">
+          <div class="prism-ring-glow"></div>
+          <div class="prism-3d-stage" id="prism3dStage">
+            
+            <!-- Prism Card 1: Cafe Sip & Chill -->
+            <div class="prism-card prism-card-1" data-card="1">
+              <div class="prism-card-inner">
+                <!-- Card Front -->
+                <div class="prism-card-front">
+                  <div class="prism-card-img">
+                    <img src="./image'/priya_cafe_sip.jpg" alt="Café Sip Vibe">
+                    <div class="prism-card-badge">🍹 CAFÉ SIP & CHILL</div>
+                  </div>
+                  <div class="prism-card-caption p-3">
+                    <h3 class="h5 font-weight-bold text-light mb-1">Café Sip & Refreshment 🍹✨</h3>
+                    <p class="text-cyan small mb-0 fw-bold">Cooling off with drinks & sweet laughter</p>
+                    <span class="flip-hint-tag">Tap Card to Flip 🔄</span>
+                  </div>
+                </div>
+                <!-- Card Back -->
+                <div class="prism-card-back p-4 text-center">
+                  <div class="display-4 mb-2">🍹</div>
+                  <h3 class="h4 font-weight-bold text-cyan mb-2">Café Stories & Tea ☕</h3>
+                  <p class="text-light fs-6 mb-3">
+                    "The best conversations happen over cold drinks, sweet cafe vibes, and endless inside jokes that last forever! ✨"
+                  </p>
+                  <span class="badge bg-cyan text-dark fw-bold px-3 py-2 rounded-pill">100% Refreshing Vibe 🍋</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Prism Card 2: Pergola Serenade & Grace -->
+            <div class="prism-card prism-card-2" data-card="2">
+              <div class="prism-card-inner">
+                <!-- Card Front -->
+                <div class="prism-card-front">
+                  <div class="prism-card-img">
+                    <img src="./image'/priya_pergola_grace.jpg" alt="Pergola Grace Vibe">
+                    <div class="prism-card-badge">🌿 NATURE'S ELEGANCE</div>
+                  </div>
+                  <div class="prism-card-caption p-3">
+                    <h3 class="h5 font-weight-bold text-light mb-1">Pergola Grace & Vines 🌿🌸</h3>
+                    <p class="text-cyan small mb-0 fw-bold">Standing tall amidst green leaves & wooden pergolas</p>
+                    <span class="flip-hint-tag">Tap Card to Flip 🔄</span>
+                  </div>
+                </div>
+                <!-- Card Back -->
+                <div class="prism-card-back p-4 text-center">
+                  <div class="display-4 mb-2">🌸</div>
+                  <h3 class="h4 font-weight-bold text-cyan mb-2">Nature's Serenade 🍃</h3>
+                  <p class="text-light fs-6 mb-3">
+                    "Effortless elegance, natural charm, and that timeless grace that lights up every single frame! 💖"
+                  </p>
+                  <span class="badge text-light fw-bold px-3 py-2 rounded-pill" style="background:var(--royal-purple);">Pure Grace & Style ✨</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Prism Card 3: Wicker Lounge Queen -->
+            <div class="prism-card prism-card-3" data-card="3">
+              <div class="prism-card-inner">
+                <!-- Card Front -->
+                <div class="prism-card-front">
+                  <div class="prism-card-img">
+                    <img src="./image'/priya_wicker_throne.jpg" alt="Wicker Lounge Throne">
+                    <div class="prism-card-badge">👑 WICKER LOUNGE QUEEN</div>
+                  </div>
+                  <div class="prism-card-caption p-3">
+                    <h3 class="h5 font-weight-bold text-light mb-1">Outdoor Lounge Queen 👑</h3>
+                    <p class="text-cyan small mb-0 fw-bold">Relaxing like royalty on a sunlit wicker armchair</p>
+                    <span class="flip-hint-tag">Tap Card to Flip 🔄</span>
+                  </div>
+                </div>
+                <!-- Card Back -->
+                <div class="prism-card-back p-4 text-center">
+                  <div class="display-4 mb-2">👑</div>
+                  <h3 class="h4 font-weight-bold text-cyan mb-2">Queen of Good Vibes 🛋️</h3>
+                  <p class="text-light fs-6 mb-3">
+                    "Queen energy unlocked! Relaxed posture, confident smile, and unbothered royal peacefulness! ✨"
+                  </p>
+                  <span class="badge bg-warning text-dark fw-bold px-3 py-2 rounded-pill">Royalty & Peace 👑</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Dynamic Hologram Active Info Box -->
+        <div class="hologram-info-box max-w-600 mx-auto p-3 rounded-4 shadow-lg" id="prismHologramBox">
+          <div class="d-flex align-items-center justify-content-center gap-3">
+            <span class="display-6" id="holoEmoji">🍹</span>
+            <div class="text-start">
+              <h4 class="h5 font-weight-bold mb-1 text-cyan" id="holoTitle">Café Sip & Refreshment 🍹✨</h4>
+              <p class="text-light small mb-0" id="holoDesc">Click any 3D card to rotate stage, inspect in 3D & flip to reveal memory notes!</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -432,6 +745,83 @@
       </div>
     </section>
 
+    <!-- PRIVATE SECTION: SOMETHING I WANT TO SAY TO YOU (PASSWORD: sp2003) -->
+    <section class="container py-5" id="private-notes-section">
+      <div class="private-section-card text-center" data-aos="zoom-in" id="privateSectionCard">
+        <div class="washi-tape washi-tape-purple" style="top:12px; left:40px;"></div>
+        <div class="washi-tape washi-tape-yellow" style="top:12px; right:40px;"></div>
+
+        <div class="sticker-badge" style="top:5%; left:3%;">🔒</div>
+        <div class="sticker-badge" style="top:7%; right:4%;">💌</div>
+        <div class="sticker-badge" style="bottom:6%; left:4%;">✨</div>
+
+        <span class="badge bg-dark border border-purple px-3 py-2 rounded-pill fs-6 mb-3 shadow" style="border-color: var(--royal-purple) !important; color: var(--violet-soft) !important;">
+          🔒 PRIVATE & CONFIDENTIAL
+        </span>
+
+        <h2 class="display-5 font-weight-bold mb-2 gradient-title">Something I Want to Say to You 💌✨</h2>
+        <p class="text-light fs-5 mb-4">"A secret space created only for you. Enter password to read my special notes..."</p>
+
+        <!-- PASSWORD GATE CONTAINER (Shown when Locked) -->
+        <div class="password-gate-card max-w-500 mx-auto p-4 p-md-5 rounded-4 shadow-lg" id="passwordGateCard" style="max-width:520px;">
+          <div class="lock-icon-circle mb-3 mx-auto" id="lockIconCircle">
+            <i data-lucide="lock" class="lock-icon-svg"></i>
+          </div>
+
+          <h3 class="h4 font-weight-bold text-light mb-2">Protected Secret Vault 🔐</h3>
+          <p class="text-cyan small mb-4">Please enter the secret password to unlock this page</p>
+
+          <form id="privateGateForm">
+            <div class="position-relative mb-3">
+              <input type="password" class="form-control rounded-pill py-3 px-4 password-input-box shadow-sm" id="privatePasswordInput" placeholder="Enter password..." autocomplete="current-password" required>
+              <button type="button" class="btn-toggle-eye" id="togglePasswordBtn" title="Show/Hide Password">
+                <i data-lucide="eye" id="eyeIcon"></i>
+              </button>
+            </div>
+
+            <!-- Incorrect Password Error Alert -->
+            <div class="alert alert-danger d-none rounded-pill py-2 px-3 mb-3 small fw-bold" id="passwordErrorAlert" role="alert">
+              <i data-lucide="alert-circle" class="me-1"></i> Incorrect password. Please try again.
+            </div>
+
+            <button type="submit" class="whimsical-btn w-100 py-3 justify-content-center fs-6" id="unlockVaultBtn">
+              <i data-lucide="key" id="unlockBtnIcon"></i>
+              <span>Unlock Secret Notes 🔑</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- UNLOCKED NOTES CONTAINER (Hidden until Correct Password sp2003) -->
+        <div class="unlocked-notes-container d-none text-start" id="unlockedNotesContainer">
+          <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3 p-3 rounded-4" style="background: rgba(10, 14, 26, 0.7); border: 1px dashed var(--primary-cyan);">
+            <div class="d-flex align-items-center gap-2">
+              <span class="fs-3">🔓</span>
+              <div>
+                <h3 class="h5 font-weight-bold text-cyan mb-0">Secret Notes Vault Unlocked</h3>
+                <p class="small text-light mb-0">Personal notes & heartfelt messages for Gundu Priya</p>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+              <button class="whimsical-btn py-2 px-3 fs-6" id="addNewNoteBtn">
+                <i data-lucide="plus"></i>
+                <span>Add Note 📝</span>
+              </button>
+              <button class="btn btn-outline-danger rounded-pill py-2 px-3 fs-6 fw-bold shadow-sm" id="lockVaultBtn">
+                <i data-lucide="lock" class="me-1"></i> Lock Section 🔒
+              </button>
+            </div>
+          </div>
+
+          <!-- Notes Cards Grid Container -->
+          <div class="row g-4 justify-content-center" id="privateNotesGrid">
+            <!-- Dynamic notes render here via JS -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- GRAND CELEBRATION -->
     <section class="container text-center my-5" id="celebrate">
       <div class="glass-card p-5" data-aos="flip-up" style="border-radius:35px; background:linear-gradient(135deg, rgba(0,245,212,0.2), rgba(157,78,221,0.2));">
@@ -471,6 +861,41 @@
           <img src="" alt="Memory Photo" id="memoryModalImg" class="img-fluid rounded mb-3 shadow" style="max-height: 250px; object-fit: cover;">
           <p class="text-cyan fs-5 fw-bold" id="memoryModalDesc"></p>
           <button type="button" class="whimsical-btn mt-2 py-2 px-4 fs-6" data-bs-dismiss="modal">Awesome! ✨</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT NOTE MODAL -->
+  <div class="modal fade" id="noteEditorModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass-card border-0 p-4">
+        <div class="modal-header border-0 pb-0">
+          <h3 class="modal-title h4 font-weight-bold text-light" id="noteModalTitle">Add New Note 📝</h3>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="noteEditorForm">
+            <input type="hidden" id="editNoteId">
+            <div class="mb-3">
+              <label class="form-label text-cyan fw-bold">Note Title</label>
+              <input type="text" class="form-control rounded-pill py-2 px-3 bg-dark text-white border-secondary" id="noteTitleInput" placeholder="e.g. A Special Memory ✨" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label text-cyan fw-bold">Date (Optional)</label>
+              <input type="text" class="form-control rounded-pill py-2 px-3 bg-dark text-white border-secondary" id="noteDateInput" placeholder="e.g. July 20, 2026">
+            </div>
+            <div class="mb-3">
+              <label class="form-label text-cyan fw-bold">Heartfelt Content</label>
+              <textarea class="form-control rounded-4 py-2 px-3 bg-dark text-white border-secondary" id="noteContentInput" rows="5" placeholder="Write your sweet message here..." required></textarea>
+            </div>
+            <div class="d-flex justify-content-end gap-2 mt-4">
+              <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="whimsical-btn py-2 px-4 fs-6">
+                <span>Save Note ✨</span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

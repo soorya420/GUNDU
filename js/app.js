@@ -4,7 +4,11 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) lucide.createIcons();
-  if (window.AOS) AOS.init({ duration: 800, once: true });
+  if (window.AOS) {
+    AOS.init({ duration: 800, once: true });
+    window.addEventListener('load', () => AOS.refresh());
+    window.addEventListener('resize', () => AOS.refresh());
+  }
 
   /* ------------------------------------------------------------------------
      0. Floating Scroll Back to Top Button Logic
@@ -35,13 +39,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const openingAudio = new Audio('./audio/prtiviraj.m4r');
   const mainBffAudio = new Audio('./audio/nanum rowdy than song.m4r');
   const sareeAudio = new Audio('./audio/O.m4r');
+  const kovAudio = new Audio('./audio/kov.m4r');
+  const dhanushAudio = new Audio('./audio/dhanush.m4r');
   const playerAudio = new Audio();
 
   let isMuted = false;
 
   // Helper to stop all currently playing audio before starting a new track
   function stopAllAudioExcept(targetAudio) {
-    [openingAudio, mainBffAudio, sareeAudio, playerAudio].forEach(audio => {
+    [openingAudio, mainBffAudio, sareeAudio, kovAudio, dhanushAudio, playerAudio].forEach(audio => {
       if (audio && audio !== targetAudio && !audio.paused) {
         audio.pause();
       }
@@ -50,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function setMasterMute(muted) {
     isMuted = muted;
-    [openingAudio, mainBffAudio, sareeAudio, playerAudio].forEach(audio => {
+    [openingAudio, mainBffAudio, sareeAudio, kovAudio, dhanushAudio, playerAudio].forEach(audio => {
       if (audio) audio.muted = muted;
     });
   }
@@ -147,6 +153,16 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Balcony Serenade Special 🎶",
       artist: "Dedicated Song (O.m4r)",
       src: "./audio/O.m4r"
+    },
+    {
+      title: "Kovam & Moods Serenade 🎭",
+      artist: "9 Expressions Special (kov.m4r)",
+      src: "./audio/kov.m4r"
+    },
+    {
+      title: "Dhanush Special Theme 🎶",
+      artist: "Secret Letter Song (dhanush.m4r)",
+      src: "./audio/dhanush.m4r"
     },
     {
       title: "Theriyamele Tholaigiren 🎶",
@@ -270,10 +286,227 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     5. Photo Database (Including Saree Balcony Photo)
+     4B. Dedicated 9 Moods & Kovam Serenade Section (kov.m4r + 9 Grid)
+     ------------------------------------------------------------------------ */
+  const playKovamAudioBtn = document.getElementById('playKovamAudioBtn');
+  const kovamPlayIcon = document.getElementById('kovamPlayIcon');
+  const kovamPlayText = document.getElementById('kovamPlayText');
+  const kovamMoodsCard = document.getElementById('kovamMoodsCard');
+  const moodSpatialCard = document.getElementById('moodSpatialCard');
+  const moodQuoteEmoji = document.getElementById('moodQuoteEmoji');
+  const moodQuoteTitle = document.getElementById('moodQuoteTitle');
+  const moodQuoteText = document.getElementById('moodQuoteText');
+  const currentMoodName = document.getElementById('currentMoodName');
+  const moodTileCards = document.querySelectorAll('.mood-tile-card');
+
+  // Play/Pause Kovam Track
+  playKovamAudioBtn?.addEventListener('click', () => {
+    if (kovAudio.paused) {
+      stopAllAudioExcept(kovAudio);
+      kovAudio.muted = isMuted;
+      kovAudio.play().then(() => {
+        if (kovamPlayIcon) kovamPlayIcon.setAttribute('data-lucide', 'pause');
+        if (kovamPlayText) kovamPlayText.textContent = "Pause Kovam Track 🎵";
+        if (window.lucide) lucide.createIcons();
+        kovamMoodsCard?.classList.add('playing-kovam');
+        if (window.confetti) confetti({ particleCount: 60, spread: 80, origin: { y: 0.6 } });
+      }).catch(e => console.log(e));
+    } else {
+      kovAudio.pause();
+      if (kovamPlayIcon) kovamPlayIcon.setAttribute('data-lucide', 'play');
+      if (kovamPlayText) kovamPlayText.textContent = "Play Kovam Track 🎵";
+      if (window.lucide) lucide.createIcons();
+      kovamMoodsCard?.classList.remove('playing-kovam');
+    }
+  });
+
+  kovAudio.addEventListener('ended', () => {
+    if (kovamPlayIcon) kovamPlayIcon.setAttribute('data-lucide', 'play');
+    if (kovamPlayText) kovamPlayText.textContent = "Play Kovam Track 🎵";
+    if (window.lucide) lucide.createIcons();
+    kovamMoodsCard?.classList.remove('playing-kovam');
+  });
+
+  // 3D Tilt Effect on Master Photo Frame
+  moodSpatialCard?.addEventListener('mousemove', (e) => {
+    const rect = moodSpatialCard.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotX = (-y / rect.height) * 18;
+    const rotY = (x / rect.width) * 18;
+    moodSpatialCard.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+  });
+
+  moodSpatialCard?.addEventListener('mouseleave', () => {
+    moodSpatialCard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  });
+
+  // Emoji Particles Generator
+  function spawnEmojiBurst(x, y, emojiStr) {
+    const particleCount = 10;
+    for (let i = 0; i < particleCount; i++) {
+      const p = document.createElement('div');
+      p.className = 'emoji-particle';
+      p.textContent = emojiStr;
+      p.style.left = `${x}px`;
+      p.style.top = `${y}px`;
+      
+      const dx = (Math.random() - 0.5) * 180;
+      const rot = (Math.random() - 0.5) * 90;
+      p.style.setProperty('--dx', `${dx}px`);
+      p.style.setProperty('--rot', `${rot}deg`);
+      
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 1400);
+    }
+  }
+
+  // Interactive Click Handlers for 9 Mood Cards
+  moodTileCards.forEach(card => {
+    // Set custom color CSS var
+    const color = card.getAttribute('data-color') || '#00f5d4';
+    card.style.setProperty('--tile-color', color);
+
+    card.addEventListener('click', (e) => {
+      moodTileCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+
+      const emoji = card.getAttribute('data-emoji') || '😊';
+      const title = card.getAttribute('data-title') || 'Mood';
+      const quote = card.getAttribute('data-quote') || '';
+
+      if (moodQuoteEmoji) moodQuoteEmoji.textContent = emoji;
+      if (moodQuoteTitle) moodQuoteTitle.textContent = title;
+      if (moodQuoteText) moodQuoteText.textContent = `"${quote}"`;
+      if (currentMoodName) currentMoodName.textContent = `${emoji} ${title}`;
+
+      playPopSound();
+      spawnEmojiBurst(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2, emoji);
+    });
+  });
+
+  /* ------------------------------------------------------------------------
+     4C. Dedicated 3D Spatial Prism Stage (3 New Attached Images)
+     ------------------------------------------------------------------------ */
+  const prism3dStage = document.getElementById('prism3dStage');
+  const prismPrevBtn = document.getElementById('prismPrevBtn');
+  const prismNextBtn = document.getElementById('prismNextBtn');
+  const prismAutoBtn = document.getElementById('prismAutoBtn');
+  const prismAutoLabel = document.getElementById('prismAutoLabel');
+  const prismStageContainer = document.getElementById('prismStageContainer');
+  const holoEmoji = document.getElementById('holoEmoji');
+  const holoTitle = document.getElementById('holoTitle');
+  const holoDesc = document.getElementById('holoDesc');
+  const prismCards = document.querySelectorAll('.prism-card');
+
+  let currentRotationY = 0;
+  let isAutoSpinning = true;
+  let autoSpinInterval = null;
+
+  const prismData = {
+    0: { emoji: '🍹', title: 'Café Sip & Refreshment 🍹✨', desc: 'Cooling off with ice-cold beverages & sweet laughter over endless stories!' },
+    120: { emoji: '👑', title: 'Outdoor Lounge Queen 👑', desc: 'Queen energy unlocked! Relaxed posture & unbothered royal peacefulness!' },
+    240: { emoji: '🌸', title: 'Pergola Grace & Vines 🌿🌸', desc: 'Effortless elegance & natural grace amidst wooden pergolas and green vines!' }
+  };
+
+  function updatePrismStage() {
+    if (prism3dStage) {
+      prism3dStage.style.transform = `rotateY(${currentRotationY}deg)`;
+    }
+    
+    // Normalize angle (0, 120, 240)
+    let normalized = ((-currentRotationY % 360) + 360) % 360;
+    let closestKey = 0;
+    let minDiff = 360;
+    [0, 120, 240].forEach(angle => {
+      let diff = Math.abs(normalized - angle);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestKey = angle;
+      }
+    });
+
+    const info = prismData[closestKey];
+    if (info) {
+      if (holoEmoji) holoEmoji.textContent = info.emoji;
+      if (holoTitle) holoTitle.textContent = info.title;
+      if (holoDesc) holoDesc.textContent = info.desc;
+    }
+  }
+
+  function startAutoSpin() {
+    stopAutoSpin();
+    isAutoSpinning = true;
+    if (prismAutoLabel) prismAutoLabel.textContent = "Pause 3D Spin";
+    prismAutoBtn?.classList.add('active-prism-btn');
+    autoSpinInterval = setInterval(() => {
+      currentRotationY -= 120;
+      updatePrismStage();
+    }, 3800);
+  }
+
+  function stopAutoSpin() {
+    isAutoSpinning = false;
+    if (prismAutoLabel) prismAutoLabel.textContent = "Resume 3D Spin";
+    prismAutoBtn?.classList.remove('active-prism-btn');
+    if (autoSpinInterval) clearInterval(autoSpinInterval);
+  }
+
+  startAutoSpin();
+
+  prismAutoBtn?.addEventListener('click', () => {
+    if (isAutoSpinning) {
+      stopAutoSpin();
+    } else {
+      startAutoSpin();
+    }
+    playPopSound();
+  });
+
+  prismPrevBtn?.addEventListener('click', () => {
+    currentRotationY += 120;
+    updatePrismStage();
+    playPopSound();
+  });
+
+  prismNextBtn?.addEventListener('click', () => {
+    currentRotationY -= 120;
+    updatePrismStage();
+    playPopSound();
+  });
+
+  // Mouse Parallax for Prism Stage
+  prismStageContainer?.addEventListener('mousemove', (e) => {
+    const rect = prismStageContainer.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotX = (-y / rect.height) * 15;
+    const rotY_offset = (x / rect.width) * 15;
+    if (prism3dStage) {
+      prism3dStage.style.transform = `rotateX(${rotX}deg) rotateY(${currentRotationY + rotY_offset}deg)`;
+    }
+  });
+
+  prismStageContainer?.addEventListener('mouseleave', () => {
+    updatePrismStage();
+  });
+
+  // Click card to center or flip
+  prismCards.forEach((card) => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('flipped');
+      playChimeSound();
+    });
+  });
+
+  /* ------------------------------------------------------------------------
+     5. Photo Database (Including Saree Balcony & 3D Prism Photos)
      ------------------------------------------------------------------------ */
   const photoBase = "image'/";
   const photoFiles = [
+    "priya_cafe_sip.jpg",
+    "priya_pergola_grace.jpg",
+    "priya_wicker_throne.jpg",
     "saree_balcony.jpg",
     "WhatsApp Image 2026-07-20 at 12.48.26 PM (1).jpeg",
     "WhatsApp Image 2026-07-20 at 1.07.57 PM.jpeg",
@@ -752,4 +985,256 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('saree-serenade')?.scrollIntoView({ behavior: 'smooth' });
     playPopSound();
   });
+
+  /* ------------------------------------------------------------------------
+     15. PRIVATE SECTION: "Something I Want to Say to You" (Password: sp2003)
+     ------------------------------------------------------------------------ */
+  const CORRECT_PASS = 'sp2003';
+  let isUnlocked = sessionStorage.getItem('priya_notes_unlocked') === 'true';
+
+  const navPrivateBtn = document.getElementById('navPrivateBtn');
+  const privateGateForm = document.getElementById('privateGateForm');
+  const privatePasswordInput = document.getElementById('privatePasswordInput');
+  const passwordErrorAlert = document.getElementById('passwordErrorAlert');
+  const passwordGateCard = document.getElementById('passwordGateCard');
+  const unlockedNotesContainer = document.getElementById('unlockedNotesContainer');
+  const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+  const eyeIcon = document.getElementById('eyeIcon');
+  const lockVaultBtn = document.getElementById('lockVaultBtn');
+  const lockIconCircle = document.getElementById('lockIconCircle');
+  const addNewNoteBtn = document.getElementById('addNewNoteBtn');
+  const noteEditorForm = document.getElementById('noteEditorForm');
+  const noteEditorModal = document.getElementById('noteEditorModal');
+  const editNoteId = document.getElementById('editNoteId');
+  const noteTitleInput = document.getElementById('noteTitleInput');
+  const noteDateInput = document.getElementById('noteDateInput');
+  const noteContentInput = document.getElementById('noteContentInput');
+
+  let bootstrapModalInstance = null;
+  if (noteEditorModal && window.bootstrap) {
+    bootstrapModalInstance = new bootstrap.Modal(noteEditorModal);
+  }
+
+  // Header Nav Button Click
+  navPrivateBtn?.addEventListener('click', () => {
+    const section = document.getElementById('private-notes-section');
+    section?.scrollIntoView({ behavior: 'smooth' });
+    if (!isUnlocked && privatePasswordInput) {
+      setTimeout(() => privatePasswordInput.focus(), 600);
+    }
+    playPopSound();
+  });
+
+  // Show/Hide Password Toggle
+  togglePasswordBtn?.addEventListener('click', () => {
+    if (privatePasswordInput) {
+      if (privatePasswordInput.type === 'password') {
+        privatePasswordInput.type = 'text';
+        if (eyeIcon) eyeIcon.setAttribute('data-lucide', 'eye-off');
+      } else {
+        privatePasswordInput.type = 'password';
+        if (eyeIcon) eyeIcon.setAttribute('data-lucide', 'eye');
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+  });
+
+  function unlockVault() {
+    isUnlocked = true;
+    sessionStorage.setItem('priya_notes_unlocked', 'true');
+    
+    if (lockIconCircle) {
+      lockIconCircle.style.transform = 'rotate(360deg) scale(1.2)';
+    }
+
+    if (window.confetti) confetti({ particleCount: 80, spread: 90, origin: { y: 0.5 } });
+    playChimeSound();
+
+    setTimeout(() => {
+      window.location.href = 'notes.html';
+    }, 500);
+  }
+
+  function lockVault() {
+    isUnlocked = false;
+    sessionStorage.removeItem('priya_notes_unlocked');
+    unlockedNotesContainer?.classList.add('d-none');
+    passwordGateCard?.classList.remove('d-none');
+    if (privatePasswordInput) privatePasswordInput.value = '';
+    passwordErrorAlert?.classList.add('d-none');
+    if (lockIconCircle) lockIconCircle.style.transform = 'none';
+    playPopSound();
+  }
+
+  lockVaultBtn?.addEventListener('click', lockVault);
+
+  function verifyAndUnlock() {
+    const entered = privatePasswordInput?.value ? privatePasswordInput.value.trim() : '';
+    if (entered.toLowerCase() === CORRECT_PASS.toLowerCase()) {
+      passwordErrorAlert?.classList.add('d-none');
+      unlockVault();
+    } else {
+      passwordErrorAlert?.classList.remove('d-none');
+      passwordGateCard?.classList.remove('shake-anim');
+      void passwordGateCard?.offsetWidth; // force reflow
+      passwordGateCard?.classList.add('shake-anim');
+      playTone(200, 'sawtooth', 0.2, 0.2);
+    }
+  }
+
+  passwordGateForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    verifyAndUnlock();
+  });
+
+  document.getElementById('unlockVaultBtn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    verifyAndUnlock();
+  });
+
+  if (isUnlocked) {
+    passwordGateCard?.classList.add('d-none');
+    unlockedNotesContainer?.classList.remove('d-none');
+    renderNotes();
+  }
+
+  /* --- NOTES CRUD LOGIC --- */
+  const DEFAULT_NOTES = [
+    {
+      id: 'note-1',
+      title: 'Something I Want to Say to You ✨',
+      date: 'Heartfelt Letter • Part 1',
+      content: 'Priya,\n\nYou already know how much I like you.\n\nI don’t feel lust towards you. And I can’t even say I’m “in love” with you, because the truth is… I don’t even know what love really is right now.\n\nAll I know is that I don’t lust after you, and I don’t know if this is love either. I won’t say “I’m in love with you” because I feel like those words have limits. What I feel for you goes beyond what I can describe.\n\nI’ve met and dated people before, but I’ve never felt this way about anyone. It’s not because I can’t be with someone else—it’s because, for me, you’re enough. I don’t feel like giving my time, effort, or even my money to anyone else. If I want to do something for someone, it’s you.\n\nPeople say that in a man’s life, there will be one woman who becomes different from everyone else. After her, everyone else is just another person he meets. That’s exactly who you are to me.\n\nYour happiness means more to me than my own.\n\nYou’re like my childhood friend, my best friend, my safe place, my family—everything to me. Please don’t become a stranger as life moves forward.\n\nPeople might think it’s just attraction or that I’m saying all this because of my age. But it isn’t. Even I don’t know why I feel this way. I still haven’t figured it out. I just know that you mean so much to me.\n\nI can’t stay distant from you. I can’t go long without getting scolded by you either.\n\nYou’re the one person whose mood decides how my entire day goes. I don’t even know if you realize that, but it’s true.\n\nDo you know how much I respect you? I’ll give you one example. I can kneel before you anywhere, anytime—not because I’m forced to, not because I’m scared of you, but out of pure respect, admiration, and affection.\n\nIf you tell me something, I’ll listen. If you ask me to leave, I’ll leave.\n\nSo… I’ll stop.\n\nI really miss you sometimes. I wish I could spend more time with you, but I don’t even know if that’ll ever happen.\n\nI just wanted you to know how I truly feel. Nothing more, nothing less.'
+    },
+    {
+      id: 'note-2',
+      title: 'There’s Something I’ve Never Told You… 🤍',
+      date: 'Heartfelt Letter • Part 2',
+      content: 'There’s something I’ve never told you…\n\nI really want to hug you. I want it so badly.\n\nBut I know that if I ever hug you, I’ll probably break down and cry. Not because I’m weak, but because I’ve been holding in so many feelings for so long.\n\nJust being close to you would be enough to make all those emotions come out.\n\n\nYou asked me once, “Surya, are you possessive about me?”\n\nYes, I am.\n\nBut I always remind myself that my possessiveness should never hurt you or take away your freedom. I never want my feelings to become a burden for you.\n\nI just want you to always be the one girl who has a special place in my life. That’s all.\n\nEven when I’m possessive, it’s because I care about you deeply—not because I want to control you.'
+    },
+    {
+      id: 'note-3',
+      title: 'You Used to Ask Me, “Why?”… 🌟',
+      date: 'Heartfelt Letter • Part 3',
+      content: 'You used to ask me, “Why?” Right?\n\nBecause you’re the only person who has truly stood by me. No matter how angry you get with me, you still check on me and look out for me in your own way.\n\nYou’ve done so much for me. You may not always say it out loud, but you’ve done things that many people wouldn’t have done.\n\nYou’ll always be the last girl I’ll truly trust. I don’t know what the future holds, but if there’s one person I’ll always choose, it’s you.\n\nI know many people may come into my life, but I don’t want anyone else. That’s my choice. No matter where life takes us, I’ll always choose you.\n\nAnd yes… if you don’t talk to me, it’ll hurt me more than I can explain. I’ll probably be angry, disappointed, and broken for a while. But even then, I won’t hate you, and I won’t stop caring about you.\n\nSome people become a part of your life for a while. You became a part of who I am. But you’re always on my mind. No matter what I’m doing, you somehow cross my mind every single day.\n\nThe reason I always talk to you is because I never want you to feel alone or hurt. I always want to see you happy, confident, and carrying yourself with the same attitude, strength, and smile that make you who you are. I want my Priya to always have high standards!'
+    }
+  ];
+
+  function getSavedNotes() {
+    const saved = localStorage.getItem('priya_secret_notes');
+    if (!saved) return DEFAULT_NOTES;
+    try {
+      return JSON.parse(saved);
+    } catch (e) {
+      return DEFAULT_NOTES;
+    }
+  }
+
+  function saveNotes(notes) {
+    localStorage.setItem('priya_secret_notes', JSON.stringify(notes));
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;")
+              .replace(/'/g, "&#039;");
+  }
+
+  function renderNotes() {
+    const grid = document.getElementById('privateNotesGrid');
+    if (!grid) return;
+    const notes = getSavedNotes();
+
+    if (notes.length === 0) {
+      grid.innerHTML = `
+        <div class="col-12 text-center py-4">
+          <p class="text-cyan fs-5">No notes found. Click "Add Note 📝" to write a new note!</p>
+        </div>
+      `;
+      return;
+    }
+
+    grid.innerHTML = notes.map(n => `
+      <div class="col-lg-4 col-md-6" data-aos="fade-up">
+        <div class="note-card shadow-lg">
+          <div class="note-card-title">${escapeHtml(n.title)}</div>
+          ${n.date ? `<div class="note-card-date">📅 ${escapeHtml(n.date)}</div>` : ''}
+          <div class="note-card-content">${escapeHtml(n.content)}</div>
+          <div class="note-card-actions">
+            <button class="btn-note-action btn-edit" onclick="window.openEditNoteModal('${n.id}')">Edit ✏️</button>
+            <button class="btn-note-action btn-delete" onclick="window.deleteNote('${n.id}')">Delete 🗑️</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    if (window.lucide) lucide.createIcons();
+  }
+
+  addNewNoteBtn?.addEventListener('click', () => {
+    if (editNoteId) editNoteId.value = '';
+    if (noteTitleInput) noteTitleInput.value = '';
+    if (noteDateInput) noteDateInput.value = '';
+    if (noteContentInput) noteContentInput.value = '';
+    document.getElementById('noteModalTitle').textContent = 'Add New Note 📝';
+    if (bootstrapModalInstance) bootstrapModalInstance.show();
+    playPopSound();
+  });
+
+  window.openEditNoteModal = function(id) {
+    const notes = getSavedNotes();
+    const note = notes.find(n => n.id === id);
+    if (!note) return;
+
+    if (editNoteId) editNoteId.value = note.id;
+    if (noteTitleInput) noteTitleInput.value = note.title;
+    if (noteDateInput) noteDateInput.value = note.date || '';
+    if (noteContentInput) noteContentInput.value = note.content;
+    document.getElementById('noteModalTitle').textContent = 'Edit Note ✏️';
+    if (bootstrapModalInstance) bootstrapModalInstance.show();
+    playPopSound();
+  };
+
+  window.deleteNote = function(id) {
+    if (confirm('Are you sure you want to delete this note?')) {
+      let notes = getSavedNotes();
+      notes = notes.filter(n => n.id !== id);
+      saveNotes(notes);
+      renderNotes();
+      playPopSound();
+    }
+  };
+
+  noteEditorForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const id = editNoteId?.value;
+    const title = noteTitleInput?.value.trim();
+    const date = noteDateInput?.value.trim();
+    const content = noteContentInput?.value.trim();
+
+    if (!title || !content) return;
+
+    let notes = getSavedNotes();
+
+    if (id) {
+      // Edit existing note
+      const idx = notes.findIndex(n => n.id === id);
+      if (idx !== -1) {
+        notes[idx] = { id, title, date, content };
+      }
+    } else {
+      // Add new note
+      const newId = 'note-' + Date.now();
+      notes.unshift({ id: newId, title, date, content });
+    }
+
+    saveNotes(notes);
+    renderNotes();
+    if (bootstrapModalInstance) bootstrapModalInstance.hide();
+    playChimeSound();
+  });
 });
+

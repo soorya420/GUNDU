@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Something I Want to Say to You 💌 | Private Notes</title>
+  <meta name="description" content="A special private letter and notes space for Gundu Priya.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./image'/bff_clipart.png">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Dedicated Standalone Notes Page Custom Styles */
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: radial-gradient(circle at top, #1e1b4b 0%, #0a0e1a 100%);
+    }
+
+    .notes-header {
+      padding: 1.5rem 2rem;
+      background: rgba(10, 14, 26, 0.85);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(0, 245, 212, 0.2);
+    }
+
+    .master-letter-card {
+      position: relative;
+      background: rgba(15, 23, 42, 0.92);
+      border: 2px solid var(--primary-cyan);
+      backdrop-filter: blur(20px);
+      border-radius: 32px;
+      padding: 3.5rem 2.5rem;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7), 0 0 35px rgba(0, 245, 212, 0.35);
+      max-width: 820px;
+      margin: 0 auto 3rem;
+    }
+
+    @media (max-width: 576px) {
+      .master-letter-card {
+        padding: 2rem 1.25rem;
+        border-radius: 24px;
+      }
+    }
+
+    .wax-seal-badge {
+      width: 65px;
+      height: 65px;
+      background: linear-gradient(135deg, #ff477e, #9d4edd);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 0 20px rgba(255, 71, 126, 0.6);
+      margin: 0 auto 1.5rem;
+    }
+
+    .letter-title {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary-cyan);
+      margin-bottom: 1.5rem;
+    }
+
+    .letter-body {
+      font-size: 1.15rem;
+      line-height: 1.95;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      text-align: left;
+      font-weight: 400;
+    }
+
+    .letter-salutation {
+      font-family: var(--font-note);
+      font-size: 2.2rem;
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+    }
+
+    .dhanush-vinyl-disk {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #0a0e1a 30%, #9d4edd 31%, #1e1b4b 60%, #00f5d4 100%);
+      border: 2px solid var(--primary-cyan);
+      box-shadow: 0 0 15px rgba(0, 245, 212, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .dhanush-music-box.playing-dhanush .dhanush-vinyl-disk {
+      animation: spinSlow 4s linear infinite;
+      box-shadow: 0 0 25px rgba(0, 245, 212, 0.8);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="notes-header d-flex align-items-center justify-content-between">
+    <a href="index.html" class="whimsical-btn py-2 px-3 fs-6 text-decoration-none" id="backHomeBtn">
+      <i data-lucide="arrow-left"></i>
+      <span>Back to Main Site 🏠</span>
+    </a>
+
+    <div class="d-flex align-items-center gap-2">
+      <button class="sound-toggle-btn shadow" id="soundToggle" title="Toggle Sound FX">
+        <i data-lucide="volume-2" id="soundIcon"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-grow-1 container py-5">
+    
+    <!-- PASSWORD GATE VIEW (Shown when Locked) -->
+    <div class="password-gate-card max-w-500 mx-auto p-4 p-md-5 rounded-4 shadow-lg text-center my-5" id="pagePasswordGate" style="max-width:520px;">
+      <div class="lock-icon-circle mb-3 mx-auto">
+        <i data-lucide="lock" class="lock-icon-svg"></i>
+      </div>
+
+      <h1 class="h3 font-weight-bold text-light mb-2">Something I Want to Say to You 💌</h1>
+      <p class="text-cyan small mb-4">Please enter the secret password to unlock this letter</p>
+
+      <form id="standaloneGateForm">
+        <div class="position-relative mb-3">
+          <input type="password" class="form-control rounded-pill py-3 px-4 password-input-box shadow-sm" id="standalonePasswordInput" placeholder="Enter password..." autocomplete="current-password" required>
+          <button type="button" class="btn-toggle-eye" id="standaloneToggleEye" title="Show/Hide Password">
+            <i data-lucide="eye" id="standaloneEyeIcon"></i>
+          </button>
+        </div>
+
+        <!-- Incorrect Password Error Alert -->
+        <div class="alert alert-danger d-none rounded-pill py-2 px-3 mb-3 small fw-bold" id="standaloneErrorAlert" role="alert">
+          <i data-lucide="alert-circle" class="me-1"></i> Incorrect password. Please try again.
+        </div>
+
+        <button type="submit" class="whimsical-btn w-100 py-3 justify-content-center fs-6" id="standaloneUnlockBtn">
+          <i data-lucide="key"></i>
+          <span>Unlock Letter & Notes 🔑</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- UNLOCKED LETTER VIEW (Shown after correct password sp2003) -->
+    <div class="d-none" id="pageUnlockedContent">
+      
+      <!-- Top Action Bar -->
+      <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3 p-3 rounded-4" style="background: rgba(10, 14, 26, 0.7); border: 1px dashed var(--primary-cyan); max-width: 820px; margin: 0 auto 2rem;">
+        <div class="d-flex align-items-center gap-2">
+          <span class="fs-3">🔓</span>
+          <div>
+            <h2 class="h5 font-weight-bold text-cyan mb-0">Secret Letter Unlocked</h2>
+            <p class="small text-light mb-0">Something I Want to Say to You • Gundu Priya</p>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <button class="whimsical-btn py-2 px-3 fs-6" id="addExtraNoteBtn">
+            <i data-lucide="plus"></i>
+            <span>Add Extra Note 📝</span>
+          </button>
+          <button class="btn btn-outline-danger rounded-pill py-2 px-3 fs-6 fw-bold shadow-sm" id="lockPageBtn">
+            <i data-lucide="lock" class="me-1"></i> Lock Letter 🔒
+          </button>
+        </div>
+      </div>
+
+      <!-- DEDICATED DHANUSH AUDIO PLAYER FOR SECRET LETTER (audio/dhanush.m4r) -->
+      <div class="dhanush-music-box p-3 p-md-4 rounded-4 shadow-lg mb-4 text-center max-w-820 mx-auto" style="max-width: 820px; background: rgba(16, 23, 42, 0.9); border: 2px solid var(--royal-purple);" id="dhanushPlayerBox">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+          <div class="d-flex align-items-center gap-3">
+            <div class="dhanush-vinyl-disk" id="dhanushVinyl"></div>
+            <div class="text-start">
+              <h3 class="h5 font-weight-bold text-light mb-0">Dhanush Special Theme 🎶</h3>
+              <p class="text-cyan small fw-bold mb-0">Secret Letter Background Track (dhanush.m4r)</p>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center gap-2">
+            <button class="whimsical-btn py-2 px-4 fs-6" id="playDhanushBtn">
+              <i data-lucide="play" id="dhanushPlayIcon"></i>
+              <span id="dhanushPlayLabel">Play Music 🎵</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- THE MASTER HEARTFELT LETTER CARD -->
+      <article class="master-letter-card text-center" data-aos="zoom-in">
+        <div class="washi-tape washi-tape-purple" style="top:12px; left:30px;"></div>
+        <div class="washi-tape washi-tape-yellow" style="top:12px; right:30px;"></div>
+
+        <div class="wax-seal-badge">💌</div>
+
+        <div class="letter-salutation">Dearest Priya,</div>
+        <h1 class="letter-title gradient-title">Something I Want to Say to You ✨</h1>
+
+        <div class="letter-body" id="masterLetterBody">Priya,
+
+You already know how much I like you.
+
+I don’t feel lust towards you. And I can’t even say I’m “in love” with you, because the truth is… I don’t even know what love really is right now.
+
+All I know is that I don’t lust after you, and I don’t know if this is love either. I won’t say “I’m in love with you” because I feel like those words have limits. What I feel for you goes beyond what I can describe.
+
+I’ve met and dated people before, but I’ve never felt this way about anyone. It’s not because I can’t be with someone else—it’s because, for me, you’re enough. I don’t feel like giving my time, effort, or even my money to anyone else. If I want to do something for someone, it’s you.
+
+People say that in a man’s life, there will be one woman who becomes different from everyone else. After her, everyone else is just another person he meets. That’s exactly who you are to me.
+
+Your happiness means more to me than my own.
+
+You’re like my childhood friend, my best friend, my safe place, my family—everything to me. Please don’t become a stranger as life moves forward.
+
+People might think it’s just attraction or that I’m saying all this because of my age. But it isn’t. Even I don’t know why I feel this way. I still haven’t figured it out. I just know that you mean so much to me.
+
+I can’t stay distant from you. I can’t go long without getting scolded by you either.
+
+You’re the one person whose mood decides how my entire day goes. I don’t even know if you realize that, but it’s true.
+
+Do you know how much I respect you? I’ll give you one example. I can kneel before you anywhere, anytime—not because I’m forced to, not because I’m scared of you, but out of pure respect, admiration, and affection.
+
+If you tell me something, I’ll listen. If you ask me to leave, I’ll leave.
+
+So… I’ll stop.
+
+I really miss you sometimes. I wish I could spend more time with you, but I don’t even know if that’ll ever happen.
+
+I just wanted you to know how I truly feel. Nothing more, nothing less.</div>
+
+        <div class="mt-4 pt-3 border-top border-secondary text-cyan fw-bold fst-italic fs-5">
+          "Unplanned friendship, Unexpected bond... Right time, Right person, that's YOUUU ✨"
+        </div>
+      </article>
+
+      <!-- MASTER LETTER CARD PART 2: THERE'S SOMETHING I'VE NEVER TOLD YOU -->
+      <article class="master-letter-card text-center" data-aos="zoom-in" data-aos-delay="150">
+        <div class="washi-tape washi-tape-purple" style="top:12px; left:30px;"></div>
+        <div class="washi-tape washi-tape-yellow" style="top:12px; right:30px;"></div>
+
+        <div class="wax-seal-badge" style="background: linear-gradient(135deg, #00f5d4, #9d4edd);">🫂</div>
+
+        <h2 class="letter-title gradient-title">There’s Something I’ve Never Told You… 🤍</h2>
+
+        <div class="letter-body" id="masterLetterBody2">There’s something I’ve never told you…
+
+I really want to hug you. I want it so badly.
+
+But I know that if I ever hug you, I’ll probably break down and cry. Not because I’m weak, but because I’ve been holding in so many feelings for so long.
+
+Just being close to you would be enough to make all those emotions come out.
+
+
+You asked me once, “Surya, are you possessive about me?”
+
+Yes, I am.
+
+But I always remind myself that my possessiveness should never hurt you or take away your freedom. I never want my feelings to become a burden for you.
+
+I just want you to always be the one girl who has a special place in my life. That’s all.
+
+Even when I’m possessive, it’s because I care about you deeply—not because I want to control you.</div>
+
+        <div class="mt-4 pt-3 border-top border-secondary text-cyan fw-bold fst-italic fs-5">
+          "Always the one girl with a special place in my life... ❤️ — Surya"
+        </div>
+      </article>
+
+      <!-- MASTER LETTER CARD PART 3: YOU USED TO ASK ME WHY -->
+      <article class="master-letter-card text-center" data-aos="zoom-in" data-aos-delay="200">
+        <div class="washi-tape washi-tape-purple" style="top:12px; left:30px;"></div>
+        <div class="washi-tape washi-tape-yellow" style="top:12px; right:30px;"></div>
+
+        <div class="wax-seal-badge" style="background: linear-gradient(135deg, #ffd166, #ff70a6);">🌟</div>
+
+        <h2 class="letter-title gradient-title">You Used to Ask Me, “Why?”… 🌟</h2>
+
+        <div class="letter-body" id="masterLetterBody3">You used to ask me, “Why?” Right?
+
+Because you’re the only person who has truly stood by me. No matter how angry you get with me, you still check on me and look out for me in your own way.
+
+You’ve done so much for me. You may not always say it out loud, but you’ve done things that many people wouldn’t have done.
+
+You’ll always be the last girl I’ll truly trust. I don’t know what the future holds, but if there’s one person I’ll always choose, it’s you.
+
+I know many people may come into my life, but I don’t want anyone else. That’s my choice. No matter where life takes us, I’ll always choose you.
+
+And yes… if you don’t talk to me, it’ll hurt me more than I can explain. I’ll probably be angry, disappointed, and broken for a while. But even then, I won’t hate you, and I won’t stop caring about you.
+
+Some people become a part of your life for a while. You became a part of who I am. But you’re always on my mind. No matter what I’m doing, you somehow cross my mind every single day.
+
+The reason I always talk to you is because I never want you to feel alone or hurt. I always want to see you happy, confident, and carrying yourself with the same attitude, strength, and smile that make you who you are. I want my Priya to always have high standards!</div>
+
+        <div class="mt-4 pt-3 border-top border-secondary text-cyan fw-bold fst-italic fs-5">
+          "No matter where life takes us, I’ll always choose YOU ✨ — Surya"
+        </div>
+      </article>
+
+      <!-- ADDITIONAL SAVED NOTES GRID -->
+      <section class="max-w-820 mx-auto" style="max-width: 820px;">
+        <h3 class="h4 font-weight-bold text-light mb-3 text-center gradient-title">Additional Notes & Memory Cards 📝</h3>
+        <div class="row g-4 justify-content-center" id="extraNotesGrid"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="text-center py-4 text-light">
+    <div class="container">
+      <p class="mb-1 fs-5">Made with ✨ for Gundu Priya</p>
+      <p class="small text-cyan fw-bold">podi gundu ✨</p>
+    </div>
+  </footer>
+
+  <!-- ADD / EDIT EXTRA NOTE MODAL -->
+  <div class="modal fade" id="extraNoteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content glass-card border-0 p-4">
+        <div class="modal-header border-0 pb-0">
+          <h3 class="modal-title h4 font-weight-bold text-light" id="extraModalTitle">Add Extra Note 📝</h3>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="extraNoteForm">
+            <input type="hidden" id="extraEditNoteId">
+            <div class="mb-3">
+              <label class="form-label text-cyan fw-bold">Note Title</label>
+              <input type="text" class="form-control rounded-pill py-2 px-3 bg-dark text-white border-secondary" id="extraNoteTitleInput" placeholder="e.g. A Special Memory ✨" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label text-cyan fw-bold">Date (Optional)</label>
+              <input type="text" class="form-control rounded-pill py-2 px-3 bg-dark text-white border-secondary" id="extraNoteDateInput" placeholder="e.g. July 20, 2026">
+            </div>
+            <div class="mb-3">
+              <label class="form-label text-cyan fw-bold">Note Content</label>
+              <textarea class="form-control rounded-4 py-2 px-3 bg-dark text-white border-secondary" id="extraNoteContentInput" rows="5" placeholder="Write your sweet note here..." required></textarea>
+            </div>
+            <div class="d-flex justify-content-end gap-2 mt-4">
+              <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="whimsical-btn py-2 px-4 fs-6">
+                <span>Save Note ✨</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) lucide.createIcons();
+      if (window.AOS) AOS.init({ duration: 800, once: true });
+
+      const CORRECT_PASS = 'sp2003';
+      let isUnlocked = sessionStorage.getItem('priya_notes_unlocked') === 'true';
+
+      const pagePasswordGate = document.getElementById('pagePasswordGate');
+      const pageUnlockedContent = document.getElementById('pageUnlockedContent');
+      const standaloneGateForm = document.getElementById('standaloneGateForm');
+      const standalonePasswordInput = document.getElementById('standalonePasswordInput');
+      const standaloneErrorAlert = document.getElementById('standaloneErrorAlert');
+      const standaloneToggleEye = document.getElementById('standaloneToggleEye');
+      const standaloneEyeIcon = document.getElementById('standaloneEyeIcon');
+      const lockPageBtn = document.getElementById('lockPageBtn');
+      const addExtraNoteBtn = document.getElementById('addExtraNoteBtn');
+      const extraNoteModal = document.getElementById('extraNoteModal');
+      const extraNoteForm = document.getElementById('extraNoteForm');
+
+      let modalInstance = null;
+      if (extraNoteModal && window.bootstrap) {
+        modalInstance = new bootstrap.Modal(extraNoteModal);
+      }
+
+      // Show / Hide Password Toggle
+      standaloneToggleEye?.addEventListener('click', () => {
+        if (standalonePasswordInput.type === 'password') {
+          standalonePasswordInput.type = 'text';
+          standaloneEyeIcon?.setAttribute('data-lucide', 'eye-off');
+        } else {
+          standalonePasswordInput.type = 'password';
+          standaloneEyeIcon?.setAttribute('data-lucide', 'eye');
+        }
+        if (window.lucide) lucide.createIcons();
+      });
+
+      const dhanushAudio = new Audio('./audio/dhanush.m4r');
+      const playDhanushBtn = document.getElementById('playDhanushBtn');
+      const dhanushPlayIcon = document.getElementById('dhanushPlayIcon');
+      const dhanushPlayLabel = document.getElementById('dhanushPlayLabel');
+      const dhanushPlayerBox = document.getElementById('dhanushPlayerBox');
+
+      function playDhanushTrack() {
+        dhanushAudio.play().then(() => {
+          if (dhanushPlayIcon) dhanushPlayIcon.setAttribute('data-lucide', 'pause');
+          if (dhanushPlayLabel) dhanushPlayLabel.textContent = 'Pause Music 🎵';
+          if (window.lucide) lucide.createIcons();
+          dhanushPlayerBox?.classList.add('playing-dhanush');
+        }).catch(e => console.log('Playback:', e));
+      }
+
+      function pauseDhanushTrack() {
+        dhanushAudio.pause();
+        if (dhanushPlayIcon) dhanushPlayIcon.setAttribute('data-lucide', 'play');
+        if (dhanushPlayLabel) dhanushPlayLabel.textContent = 'Play Music 🎵';
+        if (window.lucide) lucide.createIcons();
+        dhanushPlayerBox?.classList.remove('playing-dhanush');
+      }
+
+      playDhanushBtn?.addEventListener('click', () => {
+        if (dhanushAudio.paused) {
+          playDhanushTrack();
+        } else {
+          pauseDhanushTrack();
+        }
+      });
+
+      dhanushAudio.addEventListener('ended', pauseDhanushTrack);
+
+      function unlockPage() {
+        isUnlocked = true;
+        sessionStorage.setItem('priya_notes_unlocked', 'true');
+        if (window.confetti) confetti({ particleCount: 100, spread: 100, origin: { y: 0.5 } });
+        
+        pagePasswordGate?.classList.add('d-none');
+        pageUnlockedContent?.classList.remove('d-none');
+        renderExtraNotes();
+        if (window.AOS) AOS.refresh();
+        playDhanushTrack();
+      }
+
+      function lockPage() {
+        isUnlocked = false;
+        sessionStorage.removeItem('priya_notes_unlocked');
+        pageUnlockedContent?.classList.add('d-none');
+        pagePasswordGate?.classList.remove('d-none');
+        if (standalonePasswordInput) standalonePasswordInput.value = '';
+        standaloneErrorAlert?.classList.add('d-none');
+        pauseDhanushTrack();
+      }
+
+      function verifyAndUnlock(e) {
+        if (e) e.preventDefault();
+        const entered = standalonePasswordInput?.value ? standalonePasswordInput.value.trim() : '';
+        if (entered.toLowerCase() === CORRECT_PASS.toLowerCase()) {
+          standaloneErrorAlert?.classList.add('d-none');
+          unlockPage();
+        } else {
+          standaloneErrorAlert?.classList.remove('d-none');
+          pagePasswordGate?.classList.remove('shake-anim');
+          void pagePasswordGate?.offsetWidth;
+          pagePasswordGate?.classList.add('shake-anim');
+        }
+      }
+
+      standaloneGateForm?.addEventListener('submit', verifyAndUnlock);
+      lockPageBtn?.addEventListener('click', lockPage);
+
+      if (isUnlocked) {
+        unlockPage();
+      }
+
+      // Additional Notes Storage
+      function getNotes() {
+        const s = localStorage.getItem('priya_extra_notes');
+        return s ? JSON.parse(s) : [];
+      }
+
+      function saveNotes(notes) {
+        localStorage.setItem('priya_extra_notes', JSON.stringify(notes));
+      }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+      }
+
+      function renderExtraNotes() {
+        const grid = document.getElementById('extraNotesGrid');
+        if (!grid) return;
+        const notes = getNotes();
+
+        grid.innerHTML = notes.map(n => `
+          <div class="col-md-6" data-aos="fade-up">
+            <div class="note-card shadow-lg">
+              <div class="note-card-title">${escapeHtml(n.title)}</div>
+              ${n.date ? `<div class="note-card-date">📅 ${escapeHtml(n.date)}</div>` : ''}
+              <div class="note-card-content">${escapeHtml(n.content)}</div>
+              <div class="note-card-actions">
+                <button class="btn-note-action btn-edit" onclick="window.editExtraNote('${n.id}')">Edit ✏️</button>
+                <button class="btn-note-action btn-delete" onclick="window.deleteExtraNote('${n.id}')">Delete 🗑️</button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      addExtraNoteBtn?.addEventListener('click', () => {
+        document.getElementById('extraEditNoteId').value = '';
+        document.getElementById('extraNoteTitleInput').value = '';
+        document.getElementById('extraNoteDateInput').value = '';
+        document.getElementById('extraNoteContentInput').value = '';
+        document.getElementById('extraModalTitle').textContent = 'Add Extra Note 📝';
+        if (modalInstance) modalInstance.show();
+      });
+
+      window.editExtraNote = function(id) {
+        const notes = getNotes();
+        const note = notes.find(n => n.id === id);
+        if (!note) return;
+
+        document.getElementById('extraEditNoteId').value = note.id;
+        document.getElementById('extraNoteTitleInput').value = note.title;
+        document.getElementById('extraNoteDateInput').value = note.date || '';
+        document.getElementById('extraNoteContentInput').value = note.content;
+        document.getElementById('extraModalTitle').textContent = 'Edit Note ✏️';
+        if (modalInstance) modalInstance.show();
+      };
+
+      window.deleteExtraNote = function(id) {
+        if (confirm('Delete this note?')) {
+          let notes = getNotes();
+          notes = notes.filter(n => n.id !== id);
+          saveNotes(notes);
+          renderExtraNotes();
+        }
+      };
+
+      extraNoteForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = document.getElementById('extraEditNoteId').value;
+        const title = document.getElementById('extraNoteTitleInput').value.trim();
+        const date = document.getElementById('extraNoteDateInput').value.trim();
+        const content = document.getElementById('extraNoteContentInput').value.trim();
+
+        if (!title || !content) return;
+
+        let notes = getNotes();
+        if (id) {
+          const idx = notes.findIndex(n => n.id === id);
+          if (idx !== -1) notes[idx] = { id, title, date, content };
+        } else {
+          notes.unshift({ id: 'extra-' + Date.now(), title, date, content });
+        }
+
+        saveNotes(notes);
+        renderExtraNotes();
+        if (modalInstance) modalInstance.hide();
+      });
+    });
+  </script>
+</body>
+</html>
