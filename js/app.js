@@ -7,68 +7,65 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.AOS) AOS.init({ duration: 800, once: true });
 
   /* ------------------------------------------------------------------------
-     1. Global Background Music (nanum rowdy than song.m4r) & Control Toggle
-     ------------------------------------------------------------------------ */
-  const bgAudio = new Audio('./audio/nanum rowdy than song.m4r');
-  bgAudio.loop = true;
-  bgAudio.volume = 0.25; // Gentle, light background volume
-
-  let bgMusicPlaying = false;
-  const soundToggle = document.getElementById('soundToggle');
-  const soundIcon = document.getElementById('soundIcon');
-
-  function toggleBgMusic(enable) {
-    bgMusicPlaying = (enable !== undefined) ? enable : !bgMusicPlaying;
-    if (bgMusicPlaying) {
-      bgAudio.play().then(() => {
-        if (soundIcon) soundIcon.setAttribute('data-lucide', 'volume-2');
-        soundToggle?.classList.add('playing');
-        if (window.lucide) lucide.createIcons();
-      }).catch(e => console.log("Bg music playback waiting for user click:", e));
-    } else {
-      bgAudio.pause();
-      if (soundIcon) soundIcon.setAttribute('data-lucide', 'volume-x');
-      soundToggle?.classList.remove('playing');
-      if (window.lucide) lucide.createIcons();
-    }
-  }
-
-  soundToggle?.addEventListener('click', () => {
-    toggleBgMusic();
-  });
-
-  /* ------------------------------------------------------------------------
-     2. Pre-Loader Welcome Screen & Opening Audio
+     1. SEQUENTIAL AUDIO FLOW (Zero Overlap Guaranteed)
+        Step A: Welcome Screen Click -> Plays Opening Song: prtiviraj.m4r
+        Step B: When prtiviraj.m4r COMPLETES -> Plays nanum rowdy than song.m4r
      ------------------------------------------------------------------------ */
   const welcomeOverlay = document.getElementById('welcomeOverlay');
   const enterSiteBtn = document.getElementById('enterSiteBtn');
 
-  enterSiteBtn?.addEventListener('click', () => {
-    // Start global background song lightly (Naanum Rowdy Dhaan)
-    toggleBgMusic(true);
+  // Audio Objects
+  const openingAudio = new Audio('./audio/prtiviraj.m4r');
+  const mainBffAudio = new Audio('./audio/nanum rowdy than song.m4r');
+  const sareeAudio = new Audio('./audio/O.m4r');
+  const playerAudio = new Audio();
 
+  // Helper to stop all currently playing audio before starting a new track
+  function stopAllAudioExcept(targetAudio) {
+    [openingAudio, mainBffAudio, sareeAudio, playerAudio].forEach(audio => {
+      if (audio && audio !== targetAudio && !audio.paused) {
+        audio.pause();
+      }
+    });
+  }
+
+  // When User Clicks Unlock Special Gift
+  enterSiteBtn?.addEventListener('click', () => {
+    // Hide overlay
+    welcomeOverlay?.classList.add('hidden');
+    
+    // Confetti
     if (window.confetti) {
       confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 } });
       setTimeout(() => confetti({ particleCount: 80, spread: 100, origin: { y: 0.4 } }), 300);
     }
 
-    welcomeOverlay?.classList.add('hidden');
-    playChimeSound();
+    // Step A: Play opening song prtiviraj.m4r cleanly
+    stopAllAudioExcept(openingAudio);
+    openingAudio.currentTime = 0;
+    openingAudio.play().then(() => {
+      console.log("Playing Opening Song: prtiviraj.m4r");
+    }).catch(e => console.log(e));
+  });
+
+  // Step B: When prtiviraj.m4r COMPLETES -> Start nanum rowdy than song.m4r
+  openingAudio.addEventListener('ended', () => {
+    console.log("Opening Song completed! Now starting nanum rowdy than song.m4r");
+    stopAllAudioExcept(mainBffAudio);
+    mainBffAudio.currentTime = 0;
+    mainBffAudio.play().then(() => {
+      console.log("Playing Main Background Song: nanum rowdy than song.m4r");
+    }).catch(e => console.log(e));
   });
 
   /* ------------------------------------------------------------------------
-     3. Real Audio Database & Playlist Integration
+     2. Real Audio Database & Retro Player Playlist
      ------------------------------------------------------------------------ */
   const playlist = [
     {
       title: "Naanum Rowdy Dhaan Theme 🎶",
-      artist: "Main Background Anthem",
+      artist: "Main Friendship Song",
       src: "./audio/nanum rowdy than song.m4r"
-    },
-    {
-      title: "Compliment Special Theme (PPPPP.m4r) 💖",
-      artist: "Make Me Smile Anthem",
-      src: "./audio/PPPPP.m4r"
     },
     {
       title: "Prithviraj Special Theme 🌟",
@@ -84,11 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Theriyamele Tholaigiren 🎶",
       artist: "Special Friendship Track",
       src: "./audio/theriyamaley tholaigran.mp3.mpeg"
-    },
-    {
-      title: "Bestie Special Tone - POD ✨",
-      artist: "Podcast Tone",
-      src: "./audio/POD.m4r"
     },
     {
       title: "Bestie Special Tone - E ✨",
@@ -113,8 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   let currentTrackIdx = 0;
-  const realAudio = new Audio();
-  realAudio.src = playlist[currentTrackIdx].src;
+  playerAudio.src = playlist[currentTrackIdx].src;
 
   const playTrackBtn = document.getElementById('playTrackBtn');
   const playIcon = document.getElementById('playIcon');
@@ -125,15 +116,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateTrackUI() {
     if (trackTitle) trackTitle.textContent = playlist[currentTrackIdx].title;
-    realAudio.src = playlist[currentTrackIdx].src;
+    playerAudio.src = playlist[currentTrackIdx].src;
   }
 
   updateTrackUI();
 
   playTrackBtn?.addEventListener('click', () => {
-    if (realAudio.paused) {
-      if (bgMusicPlaying) bgAudio.volume = 0.1; // Lower bg music slightly when playing cassette player
-      realAudio.play().then(() => {
+    if (playerAudio.paused) {
+      stopAllAudioExcept(playerAudio);
+      playerAudio.play().then(() => {
         if (playIcon) playIcon.setAttribute('data-lucide', 'pause');
         if (window.lucide) lucide.createIcons();
         cassetteCard?.classList.add('playing');
@@ -141,8 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Audio playback error:", err);
       });
     } else {
-      realAudio.pause();
-      if (bgMusicPlaying) bgAudio.volume = 0.25;
+      playerAudio.pause();
       if (playIcon) playIcon.setAttribute('data-lucide', 'play');
       if (window.lucide) lucide.createIcons();
       cassetteCard?.classList.remove('playing');
@@ -152,33 +142,39 @@ document.addEventListener('DOMContentLoaded', () => {
   prevTrackBtn?.addEventListener('click', () => {
     currentTrackIdx = (currentTrackIdx - 1 + playlist.length) % playlist.length;
     updateTrackUI();
-    if (!realAudio.paused) realAudio.play();
+    stopAllAudioExcept(playerAudio);
+    playerAudio.play();
+    if (playIcon) playIcon.setAttribute('data-lucide', 'pause');
+    if (window.lucide) lucide.createIcons();
+    cassetteCard?.classList.add('playing');
   });
 
   nextTrackBtn?.addEventListener('click', () => {
     currentTrackIdx = (currentTrackIdx + 1) % playlist.length;
     updateTrackUI();
-    if (!realAudio.paused) realAudio.play();
+    stopAllAudioExcept(playerAudio);
+    playerAudio.play();
+    if (playIcon) playIcon.setAttribute('data-lucide', 'pause');
+    if (window.lucide) lucide.createIcons();
+    cassetteCard?.classList.add('playing');
   });
 
-  realAudio.addEventListener('ended', () => {
+  playerAudio.addEventListener('ended', () => {
     currentTrackIdx = (currentTrackIdx + 1) % playlist.length;
     updateTrackUI();
-    realAudio.play();
+    playerAudio.play();
   });
 
   /* ------------------------------------------------------------------------
-     4. Dedicated Saree Balcony Audio Player (O.m4r)
+     3. Dedicated Saree Balcony Audio Player (O.m4r)
      ------------------------------------------------------------------------ */
-  const sareeAudio = new Audio('./audio/O.m4r');
   const playSareeAudioBtn = document.getElementById('playSareeAudioBtn');
   const sareePlayIcon = document.getElementById('sareePlayIcon');
   const sareeCard = document.getElementById('sareeCard');
 
   playSareeAudioBtn?.addEventListener('click', () => {
     if (sareeAudio.paused) {
-      if (!realAudio.paused) realAudio.pause();
-      if (bgMusicPlaying) bgAudio.volume = 0.1;
+      stopAllAudioExcept(sareeAudio);
       sareeAudio.play().then(() => {
         if (sareePlayIcon) sareePlayIcon.setAttribute('data-lucide', 'pause');
         if (window.lucide) lucide.createIcons();
@@ -187,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }).catch(e => console.log(e));
     } else {
       sareeAudio.pause();
-      if (bgMusicPlaying) bgAudio.volume = 0.25;
       if (sareePlayIcon) sareePlayIcon.setAttribute('data-lucide', 'play');
       if (window.lucide) lucide.createIcons();
       sareeCard?.classList.remove('playing-saree');
@@ -195,45 +190,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   sareeAudio.addEventListener('ended', () => {
-    if (bgMusicPlaying) bgAudio.volume = 0.25;
     if (sareePlayIcon) sareePlayIcon.setAttribute('data-lucide', 'play');
     if (window.lucide) lucide.createIcons();
     sareeCard?.classList.remove('playing-saree');
   });
 
   /* ------------------------------------------------------------------------
-     5. Compliment Generator Button with Dedicated PPPPP.m4r Audio
-     ------------------------------------------------------------------------ */
-  const complimentAudio = new Audio('./audio/PPPPP.m4r');
-  const compliments = [
-    "You bring so much sunshine wherever you go!",
-    "The world is brighter and happier because of you.",
-    "You make every day feel like a special celebration.",
-    "Your laugh is genuinely the most contagious thing ever!",
-    "You are one in a million, bestie!"
-  ];
-
-  const complimentText = document.getElementById('complimentText');
-  document.getElementById('newComplimentBtn')?.addEventListener('click', () => {
-    complimentAudio.currentTime = 0;
-    complimentAudio.play().then(() => {
-      console.log("Playing PPPPP.m4r compliment song");
-    }).catch(e => console.log(e));
-
-    const comp = compliments[Math.floor(Math.random() * compliments.length)];
-    if (complimentText) {
-      complimentText.style.opacity = '0';
-      setTimeout(() => {
-        complimentText.textContent = `"${comp}"`;
-        complimentText.style.opacity = '1';
-      }, 200);
-    }
-
-    if (window.confetti) confetti({ particleCount: 35, spread: 70 });
-  });
-
-  /* ------------------------------------------------------------------------
-     6. Photo Database
+     4. Photo Database (Including Saree Balcony Photo)
      ------------------------------------------------------------------------ */
   const photoBase = "image'/";
   const photoFiles = [
@@ -306,9 +269,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     7. Sound Synthesizer (for UI interaction sound effects)
+     5. Sound Synthesizer (for UI interaction sound effects)
      ------------------------------------------------------------------------ */
+  let soundEnabled = true;
+  const soundToggle = document.getElementById('soundToggle');
+  const soundIcon = document.getElementById('soundIcon');
+  let audioCtx = null;
+
+  function initAudio() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
   function playTone(freq = 440, type = 'sine', duration = 0.15, gainVal = 0.1) {
+    if (!soundEnabled) return;
     initAudio();
     try {
       const osc = audioCtx.createOscillator();
@@ -326,13 +299,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function playPopSound() { playTone(587.33, 'sine', 0.12, 0.15); }
   function playChimeSound() {
+    if (!soundEnabled) return;
     [523.25, 659.25, 783.99, 1046.50].forEach((n, i) => {
       setTimeout(() => playTone(n, 'sine', 0.2, 0.12), i * 80);
     });
   }
 
+  soundToggle?.addEventListener('click', () => {
+    soundEnabled = !soundEnabled;
+    if (soundIcon) soundIcon.setAttribute('data-lucide', soundEnabled ? 'volume-2' : 'volume-x');
+    if (window.lucide) lucide.createIcons();
+    if (soundEnabled) playPopSound();
+  });
+
   /* ------------------------------------------------------------------------
-     8. Custom Cursor & 3D Tilt Interaction
+     6. Custom Cursor & 3D Tilt Interaction
      ------------------------------------------------------------------------ */
   const cursorDot = document.getElementById('cursor-dot');
   const cursorFollower = document.getElementById('cursor-follower');
@@ -367,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     9. Cute Corner Mood Translator Logic
+     7. Cute Corner Mood Translator Logic
      ------------------------------------------------------------------------ */
   const funnyQuoteBubble = document.getElementById('funnyQuoteBubble');
   const moodBtns = document.querySelectorAll('.mood-btn');
@@ -393,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     10. Three.js Background Canvas
+     8. Three.js Background Canvas (Cyan Particle Field)
      ------------------------------------------------------------------------ */
   const bgCanvas = document.getElementById('bg-canvas');
   if (bgCanvas && window.THREE) {
@@ -426,7 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     11. Photo Collage Masonry
+     9. Photo Collage Masonry
      ------------------------------------------------------------------------ */
   const photoUniverseGrid = document.getElementById('photoUniverseGrid');
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -476,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
   lightboxClose?.addEventListener('click', () => lightboxModal?.classList.remove('active'));
 
   /* ------------------------------------------------------------------------
-     12. Scratch-Off Secret Letter Canvas
+     10. Scratch-Off Secret Letter Canvas
      ------------------------------------------------------------------------ */
   const scratchCanvas = document.getElementById('scratch-canvas');
   if (scratchCanvas) {
@@ -517,7 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     13. Speech Bubble Quiz
+     11. Speech Bubble Quiz
      ------------------------------------------------------------------------ */
   const quizQuestions = [
     { question: "Who is the funniest in our duo? 😂", options: ["You!", "Me!", "Equally Hilarious!"], correct: 2 },
@@ -563,7 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderQuiz();
 
   /* ------------------------------------------------------------------------
-     14. Memory Wheel Canvas
+     12. Memory Wheel Canvas
      ------------------------------------------------------------------------ */
   const wheelCanvas = document.getElementById('memory-wheel-canvas');
   const spinWheelBtn = document.getElementById('spinWheelBtn');
@@ -642,7 +623,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     15. Wish Sky Lanterns
+     13. Wish Sky Lanterns
      ------------------------------------------------------------------------ */
   const wishForm = document.getElementById('wishForm');
   const wishInput = document.getElementById('wishInput');
@@ -688,8 +669,29 @@ document.addEventListener('DOMContentLoaded', () => {
   renderLanterns();
 
   /* ------------------------------------------------------------------------
-     16. Grand Celebration
+     14. Compliments & Celebration
      ------------------------------------------------------------------------ */
+  const compliments = [
+    "You bring so much sunshine wherever you go!",
+    "The world is brighter and happier because of you.",
+    "You make every day feel like a special celebration.",
+    "Your laugh is genuinely the most contagious thing ever!",
+    "You are one in a million, bestie!"
+  ];
+
+  const complimentText = document.getElementById('complimentText');
+  document.getElementById('newComplimentBtn')?.addEventListener('click', () => {
+    const comp = compliments[Math.floor(Math.random() * compliments.length)];
+    if (complimentText) {
+      complimentText.style.opacity = 0;
+      setTimeout(() => {
+        complimentText.textContent = `"${comp}"`;
+        complimentText.style.opacity = 1;
+      }, 200);
+    }
+    playChimeSound();
+  });
+
   document.getElementById('celebrateBtn')?.addEventListener('click', () => {
     playChimeSound();
     if (window.confetti) {
