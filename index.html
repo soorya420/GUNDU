@@ -49,10 +49,9 @@
   <canvas id="bg-canvas"></canvas>
 
   <!-- Top Floating Controls Header -->
-  <header class="position-fixed top-0 end-0 p-4 z-3 d-flex align-items-center gap-2">
-    <a href="notes.html" class="sound-toggle-btn shadow text-decoration-none d-inline-flex align-items-center justify-content-center" id="navPrivateBtn" title="Something I Want to Say to You 🔒" style="width: auto; padding: 0 16px; border-radius: 50px; font-weight: 600; font-size: 0.88rem; gap: 6px; color: var(--primary-cyan);">
+  <header class="position-fixed top-0 end-0 p-4 d-flex align-items-center gap-2" style="z-index: 1000;">
+    <a href="notes.html" class="sound-toggle-btn shadow text-decoration-none d-inline-flex align-items-center justify-content-center" id="navPrivateBtn" title="Something I Want to Say to You 🔒">
       <i data-lucide="lock"></i>
-      <span>Say to You 🔒</span>
     </a>
     <button class="sound-toggle-btn shadow" id="soundToggle" title="Toggle Sound FX">
       <i data-lucide="volume-2" id="soundIcon"></i>
@@ -816,6 +815,89 @@
           <!-- Notes Cards Grid Container -->
           <div class="row g-4 justify-content-center" id="privateNotesGrid">
             <!-- Dynamic notes render here via JS -->
+          </div>
+        </div>
+
+    <!-- SP ROYAL SERENADE & LUXE MUSIC SANCTUARY (sp.m4r + sp_special_vibe.jpg) -->
+    <section class="container py-5" id="sp-serenade">
+      <div class="sp-serenade-card text-center" data-aos="zoom-in" id="spSerenadeCard">
+        <div class="washi-tape washi-tape-purple" style="top:10px; left:40px;"></div>
+        <div class="washi-tape washi-tape-yellow" style="top:10px; right:40px;"></div>
+
+        <div class="sticker-badge" style="top:4%; left:3%;">👑</div>
+        <div class="sticker-badge" style="top:6%; right:4%;">🎶</div>
+        <div class="sticker-badge" style="bottom:5%; left:4%;">💖</div>
+        <div class="sticker-badge" style="bottom:6%; right:4%;">✨</div>
+
+        <span class="badge bg-dark border border-cyan text-cyan px-3 py-2 rounded-pill fs-6 mb-3 shadow">
+          👑 SP SPECIAL SERENADE • LUXE MUSIC SANCTUARY
+        </span>
+
+        <h2 class="display-5 font-weight-bold mb-2 gradient-title">The SP Special Serenade 🎶✨</h2>
+        <p class="text-light fs-5 mb-4">"Dedicated Special Anthem & Royal Grace • Designed Exclusively For Gundu Priya"</p>
+
+        <div class="row align-items-center justify-content-center g-4 mb-4">
+          <!-- 3D Spatial Portrait Column -->
+          <div class="col-lg-5">
+            <div class="sp-portrait-frame" id="spSpatialFrame">
+              <div class="washi-tape washi-tape-purple" style="top:-12px; left:20px;"></div>
+              <div class="washi-tape washi-tape-yellow" style="top:-12px; right:20px;"></div>
+              <div class="sp-img-wrapper">
+                <img src="./image'/sp_special_vibe.jpg" alt="SP Royal Grace Portrait" id="spMasterImg">
+                <div class="sp-aura-glow"></div>
+              </div>
+              <div class="sp-portrait-badge">
+                <span class="pulse-dot"></span>
+                <span>SP ROYAL EDITION • SPECIAL VIBE</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SP Audio Player & Quote Column -->
+          <div class="col-lg-7 text-center text-lg-start">
+            <div class="sp-music-box p-4 shadow-lg">
+              
+              <!-- Track Title & Equalizer Header -->
+              <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="sp-vinyl-disk" id="spVinyl"></div>
+                  <div>
+                    <h3 class="h4 font-weight-bold text-light mb-1">SP Special Serenade 🎶</h3>
+                    <p class="text-cyan fw-bold fs-6 mb-0">Song: SP Special Track (sp.m4r)</p>
+                  </div>
+                </div>
+
+                <div class="equalizer-bar-container" id="spEqualizer">
+                  <span class="eq-bar"></span>
+                  <span class="eq-bar"></span>
+                  <span class="eq-bar"></span>
+                  <span class="eq-bar"></span>
+                  <span class="eq-bar"></span>
+                  <span class="eq-bar"></span>
+                  <span class="eq-bar"></span>
+                </div>
+              </div>
+
+              <!-- Audio Player Controls -->
+              <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+                <button class="whimsical-btn py-3 px-4 flex-grow-1 justify-content-center" id="playSpAudioBtn">
+                  <i data-lucide="play" id="spPlayIcon"></i>
+                  <span id="spPlayText">Play SP Special Track 🎵</span>
+                </button>
+              </div>
+
+              <!-- Romantic Quote Card -->
+              <div class="sp-quote-card p-4 rounded-4 shadow-sm" id="spQuoteCard">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                  <span class="display-6">👑</span>
+                  <h4 class="h5 font-weight-bold mb-0 text-cyan">"You Became a Part of Who I Am"</h4>
+                </div>
+                <p class="text-light fs-6 mb-0 fst-italic">
+                  "Some people become a part of your life for a while... You became a part of who I am. No matter where life takes us, you will always be the one girl who has a special place in my life ✨"
+                </p>
+              </div>
+
+            </div>
           </div>
         </div>
 

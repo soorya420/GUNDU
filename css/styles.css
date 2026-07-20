@@ -1448,6 +1448,7 @@ header {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 .prism-ring-glow {
@@ -1457,7 +1458,7 @@ header {
   height: 90vw;
   max-height: 440px;
   border-radius: 50%;
-  border: 2px dashed rgba(0, 245, 212, 0.35);
+  border: 2px solid rgba(0, 245, 212, 0.25);
   box-shadow: 0 0 50px rgba(0, 245, 212, 0.15), inset 0 0 35px rgba(157, 78, 221, 0.15);
   animation: spinSlow 22s linear infinite;
   pointer-events: none;
@@ -1758,11 +1759,123 @@ header {
   .prism-card-1 { transform: rotateY(0deg) translateZ(190px) !important; }
   .prism-card-2 { transform: rotateY(120deg) translateZ(190px) !important; }
   .prism-card-3 { transform: rotateY(240deg) translateZ(190px) !important; }
-  .prism-section-card, .kovam-moods-card, .private-section-card {
+  .prism-section-card, .kovam-moods-card, .private-section-card, .sp-serenade-card {
     padding: 2.2rem 1rem !important;
     border-radius: 24px !important;
   }
 }
+
+/* ==========================================================================
+   SP SPECIAL SERENADE SECTION (sp.m4r + sp_special_vibe.jpg)
+   ========================================================================== */
+.sp-serenade-card {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(18px);
+  border-radius: 36px;
+  padding: 3.5rem 2rem;
+  box-shadow: var(--glass-shadow);
+  overflow: hidden;
+}
+
+.sp-serenade-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(157, 78, 221, 0.15) 0%, rgba(0, 245, 212, 0.1) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sp-portrait-frame {
+  position: relative;
+  border-radius: 24px;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(157, 78, 221, 0.25));
+  border: 2px solid var(--royal-purple);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.6), 0 0 30px rgba(157, 78, 221, 0.4);
+  transform-style: preserve-3d;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.sp-portrait-frame:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 55px rgba(0,0,0,0.7), 0 0 40px var(--primary-cyan);
+}
+
+.sp-img-wrapper {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  max-height: 460px;
+}
+
+.sp-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.sp-portrait-frame:hover .sp-img-wrapper img {
+  transform: scale(1.04);
+}
+
+.sp-portrait-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 8px 20px;
+  background: rgba(10, 14, 26, 0.85);
+  border: 1px solid var(--primary-cyan);
+  border-radius: 50px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--primary-cyan);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.sp-music-box {
+  background: rgba(16, 23, 42, 0.9);
+  border: 2px solid rgba(0, 245, 212, 0.3);
+  border-radius: 28px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.sp-vinyl-disk {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #0a0e1a 25%, #00f5d4 26%, #1e1b4b 60%, #9d4edd 100%);
+  border: 2px solid var(--primary-cyan);
+  box-shadow: 0 0 15px rgba(0, 245, 212, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.sp-serenade-card.playing-sp .sp-vinyl-disk {
+  animation: spinSlow 3s linear infinite;
+  box-shadow: 0 0 30px rgba(0, 245, 212, 0.9);
+}
+
+.sp-serenade-card.playing-sp .eq-bar {
+  animation: eqDance 0.8s ease-in-out infinite alternate;
+}
+
+.sp-quote-card {
+  background: rgba(10, 14, 26, 0.92);
+  border: 1px dashed var(--royal-purple);
+  transition: all 0.3s ease;
+}
+
 
 
 

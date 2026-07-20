@@ -41,13 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const sareeAudio = new Audio('./audio/O.m4r');
   const kovAudio = new Audio('./audio/kov.m4r');
   const dhanushAudio = new Audio('./audio/dhanush.m4r');
+  const spAudio = new Audio('./audio/sp.m4r');
   const playerAudio = new Audio();
 
   let isMuted = false;
 
   // Helper to stop all currently playing audio before starting a new track
   function stopAllAudioExcept(targetAudio) {
-    [openingAudio, mainBffAudio, sareeAudio, kovAudio, dhanushAudio, playerAudio].forEach(audio => {
+    [openingAudio, mainBffAudio, sareeAudio, kovAudio, dhanushAudio, spAudio, playerAudio].forEach(audio => {
       if (audio && audio !== targetAudio && !audio.paused) {
         audio.pause();
       }
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function setMasterMute(muted) {
     isMuted = muted;
-    [openingAudio, mainBffAudio, sareeAudio, kovAudio, dhanushAudio, playerAudio].forEach(audio => {
+    [openingAudio, mainBffAudio, sareeAudio, kovAudio, dhanushAudio, spAudio, playerAudio].forEach(audio => {
       if (audio) audio.muted = muted;
     });
   }
@@ -163,6 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Dhanush Special Theme 🎶",
       artist: "Secret Letter Song (dhanush.m4r)",
       src: "./audio/dhanush.m4r"
+    },
+    {
+      title: "SP Royal Serenade 👑",
+      artist: "SP Special Track (sp.m4r)",
+      src: "./audio/sp.m4r"
     },
     {
       title: "Theriyamele Tholaigiren 🎶",
@@ -500,10 +506,61 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     5. Photo Database (Including Saree Balcony & 3D Prism Photos)
+     4D. Dedicated SP Special Serenade Section (sp.m4r + sp_special_vibe.jpg)
+     ------------------------------------------------------------------------ */
+  const playSpAudioBtn = document.getElementById('playSpAudioBtn');
+  const spPlayIcon = document.getElementById('spPlayIcon');
+  const spPlayText = document.getElementById('spPlayText');
+  const spSerenadeCard = document.getElementById('spSerenadeCard');
+  const spSpatialFrame = document.getElementById('spSpatialFrame');
+
+  playSpAudioBtn?.addEventListener('click', () => {
+    if (spAudio.paused) {
+      stopAllAudioExcept(spAudio);
+      spAudio.muted = isMuted;
+      spAudio.play().then(() => {
+        if (spPlayIcon) spPlayIcon.setAttribute('data-lucide', 'pause');
+        if (spPlayText) spPlayText.textContent = "Pause SP Special Track 🎵";
+        if (window.lucide) lucide.createIcons();
+        spSerenadeCard?.classList.add('playing-sp');
+        if (window.confetti) confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
+      }).catch(e => console.log(e));
+    } else {
+      spAudio.pause();
+      if (spPlayIcon) spPlayIcon.setAttribute('data-lucide', 'play');
+      if (spPlayText) spPlayText.textContent = "Play SP Special Track 🎵";
+      if (window.lucide) lucide.createIcons();
+      spSerenadeCard?.classList.remove('playing-sp');
+    }
+  });
+
+  spAudio.addEventListener('ended', () => {
+    if (spPlayIcon) spPlayIcon.setAttribute('data-lucide', 'play');
+    if (spPlayText) spPlayText.textContent = "Play SP Special Track 🎵";
+    if (window.lucide) lucide.createIcons();
+    spSerenadeCard?.classList.remove('playing-sp');
+  });
+
+  // 3D Mouse Parallax Effect for SP Spatial Frame
+  spSpatialFrame?.addEventListener('mousemove', (e) => {
+    const rect = spSpatialFrame.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotX = (-y / rect.height) * 16;
+    const rotY = (x / rect.width) * 16;
+    spSpatialFrame.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+  });
+
+  spSpatialFrame?.addEventListener('mouseleave', () => {
+    spSpatialFrame.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  });
+
+  /* ------------------------------------------------------------------------
+     5. Photo Database (Including Saree Balcony, 3D Prism & SP Photos)
      ------------------------------------------------------------------------ */
   const photoBase = "image'/";
   const photoFiles = [
+    "sp_special_vibe.jpg",
     "priya_cafe_sip.jpg",
     "priya_pergola_grace.jpg",
     "priya_wicker_throne.jpg",
