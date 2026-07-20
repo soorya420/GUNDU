@@ -7,16 +7,45 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.AOS) AOS.init({ duration: 800, once: true });
 
   /* ------------------------------------------------------------------------
-     1. Pre-Loader Welcome Screen & Opening Audio (prtiviraj.m4r)
+     1. Global Background Music (nanum rowdy than song.m4r) & Control Toggle
+     ------------------------------------------------------------------------ */
+  const bgAudio = new Audio('./audio/nanum rowdy than song.m4r');
+  bgAudio.loop = true;
+  bgAudio.volume = 0.25; // Gentle, light background volume
+
+  let bgMusicPlaying = false;
+  const soundToggle = document.getElementById('soundToggle');
+  const soundIcon = document.getElementById('soundIcon');
+
+  function toggleBgMusic(enable) {
+    bgMusicPlaying = (enable !== undefined) ? enable : !bgMusicPlaying;
+    if (bgMusicPlaying) {
+      bgAudio.play().then(() => {
+        if (soundIcon) soundIcon.setAttribute('data-lucide', 'volume-2');
+        soundToggle?.classList.add('playing');
+        if (window.lucide) lucide.createIcons();
+      }).catch(e => console.log("Bg music playback waiting for user click:", e));
+    } else {
+      bgAudio.pause();
+      if (soundIcon) soundIcon.setAttribute('data-lucide', 'volume-x');
+      soundToggle?.classList.remove('playing');
+      if (window.lucide) lucide.createIcons();
+    }
+  }
+
+  soundToggle?.addEventListener('click', () => {
+    toggleBgMusic();
+  });
+
+  /* ------------------------------------------------------------------------
+     2. Pre-Loader Welcome Screen & Opening Audio
      ------------------------------------------------------------------------ */
   const welcomeOverlay = document.getElementById('welcomeOverlay');
   const enterSiteBtn = document.getElementById('enterSiteBtn');
-  const openingAudio = new Audio('./audio/prtiviraj.m4r');
 
   enterSiteBtn?.addEventListener('click', () => {
-    openingAudio.play().then(() => {
-      console.log("Playing opening audio prtiviraj.m4r");
-    }).catch(e => console.log(e));
+    // Start global background song lightly (Naanum Rowdy Dhaan)
+    toggleBgMusic(true);
 
     if (window.confetti) {
       confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 } });
@@ -28,9 +57,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     2. Real Audio Database & Playlist Integration
+     3. Real Audio Database & Playlist Integration
      ------------------------------------------------------------------------ */
   const playlist = [
+    {
+      title: "Naanum Rowdy Dhaan Theme 🎶",
+      artist: "Main Background Anthem",
+      src: "./audio/nanum rowdy than song.m4r"
+    },
     {
       title: "Compliment Special Theme (PPPPP.m4r) 💖",
       artist: "Make Me Smile Anthem",
@@ -98,6 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   playTrackBtn?.addEventListener('click', () => {
     if (realAudio.paused) {
+      if (bgMusicPlaying) bgAudio.volume = 0.1; // Lower bg music slightly when playing cassette player
       realAudio.play().then(() => {
         if (playIcon) playIcon.setAttribute('data-lucide', 'pause');
         if (window.lucide) lucide.createIcons();
@@ -107,6 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     } else {
       realAudio.pause();
+      if (bgMusicPlaying) bgAudio.volume = 0.25;
       if (playIcon) playIcon.setAttribute('data-lucide', 'play');
       if (window.lucide) lucide.createIcons();
       cassetteCard?.classList.remove('playing');
@@ -132,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     3. Dedicated Saree Balcony Audio Player (O.m4r)
+     4. Dedicated Saree Balcony Audio Player (O.m4r)
      ------------------------------------------------------------------------ */
   const sareeAudio = new Audio('./audio/O.m4r');
   const playSareeAudioBtn = document.getElementById('playSareeAudioBtn');
@@ -142,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
   playSareeAudioBtn?.addEventListener('click', () => {
     if (sareeAudio.paused) {
       if (!realAudio.paused) realAudio.pause();
+      if (bgMusicPlaying) bgAudio.volume = 0.1;
       sareeAudio.play().then(() => {
         if (sareePlayIcon) sareePlayIcon.setAttribute('data-lucide', 'pause');
         if (window.lucide) lucide.createIcons();
@@ -150,6 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }).catch(e => console.log(e));
     } else {
       sareeAudio.pause();
+      if (bgMusicPlaying) bgAudio.volume = 0.25;
       if (sareePlayIcon) sareePlayIcon.setAttribute('data-lucide', 'play');
       if (window.lucide) lucide.createIcons();
       sareeCard?.classList.remove('playing-saree');
@@ -157,13 +195,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   sareeAudio.addEventListener('ended', () => {
+    if (bgMusicPlaying) bgAudio.volume = 0.25;
     if (sareePlayIcon) sareePlayIcon.setAttribute('data-lucide', 'play');
     if (window.lucide) lucide.createIcons();
     sareeCard?.classList.remove('playing-saree');
   });
 
   /* ------------------------------------------------------------------------
-     4. Compliment Generator Button with Dedicated PPPPP.m4r Audio
+     5. Compliment Generator Button with Dedicated PPPPP.m4r Audio
      ------------------------------------------------------------------------ */
   const complimentAudio = new Audio('./audio/PPPPP.m4r');
   const compliments = [
@@ -176,7 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const complimentText = document.getElementById('complimentText');
   document.getElementById('newComplimentBtn')?.addEventListener('click', () => {
-    // Play PPPPP.m4r audio on Make Me Smile click
     complimentAudio.currentTime = 0;
     complimentAudio.play().then(() => {
       console.log("Playing PPPPP.m4r compliment song");
@@ -195,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     5. Photo Database
+     6. Photo Database
      ------------------------------------------------------------------------ */
   const photoBase = "image'/";
   const photoFiles = [
@@ -268,19 +306,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     6. Sound Synthesizer
+     7. Sound Synthesizer (for UI interaction sound effects)
      ------------------------------------------------------------------------ */
-  let soundEnabled = true;
-  const soundToggle = document.getElementById('soundToggle');
-  const soundIcon = document.getElementById('soundIcon');
-  let audioCtx = null;
-
-  function initAudio() {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-
   function playTone(freq = 440, type = 'sine', duration = 0.15, gainVal = 0.1) {
-    if (!soundEnabled) return;
     initAudio();
     try {
       const osc = audioCtx.createOscillator();
@@ -298,21 +326,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function playPopSound() { playTone(587.33, 'sine', 0.12, 0.15); }
   function playChimeSound() {
-    if (!soundEnabled) return;
     [523.25, 659.25, 783.99, 1046.50].forEach((n, i) => {
       setTimeout(() => playTone(n, 'sine', 0.2, 0.12), i * 80);
     });
   }
 
-  soundToggle?.addEventListener('click', () => {
-    soundEnabled = !soundEnabled;
-    if (soundIcon) soundIcon.setAttribute('data-lucide', soundEnabled ? 'volume-2' : 'volume-x');
-    if (window.lucide) lucide.createIcons();
-    if (soundEnabled) playPopSound();
-  });
-
   /* ------------------------------------------------------------------------
-     7. Custom Cursor & 3D Tilt Interaction
+     8. Custom Cursor & 3D Tilt Interaction
      ------------------------------------------------------------------------ */
   const cursorDot = document.getElementById('cursor-dot');
   const cursorFollower = document.getElementById('cursor-follower');
@@ -347,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     8. Cute Corner Mood Translator Logic
+     9. Cute Corner Mood Translator Logic
      ------------------------------------------------------------------------ */
   const funnyQuoteBubble = document.getElementById('funnyQuoteBubble');
   const moodBtns = document.querySelectorAll('.mood-btn');
@@ -373,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     9. Three.js Background Canvas
+     10. Three.js Background Canvas
      ------------------------------------------------------------------------ */
   const bgCanvas = document.getElementById('bg-canvas');
   if (bgCanvas && window.THREE) {
@@ -406,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     10. Photo Collage Masonry
+     11. Photo Collage Masonry
      ------------------------------------------------------------------------ */
   const photoUniverseGrid = document.getElementById('photoUniverseGrid');
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -456,7 +476,7 @@ document.addEventListener('DOMContentLoaded', () => {
   lightboxClose?.addEventListener('click', () => lightboxModal?.classList.remove('active'));
 
   /* ------------------------------------------------------------------------
-     11. Scratch-Off Secret Letter Canvas
+     12. Scratch-Off Secret Letter Canvas
      ------------------------------------------------------------------------ */
   const scratchCanvas = document.getElementById('scratch-canvas');
   if (scratchCanvas) {
@@ -497,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     12. Speech Bubble Quiz
+     13. Speech Bubble Quiz
      ------------------------------------------------------------------------ */
   const quizQuestions = [
     { question: "Who is the funniest in our duo? 😂", options: ["You!", "Me!", "Equally Hilarious!"], correct: 2 },
@@ -543,7 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderQuiz();
 
   /* ------------------------------------------------------------------------
-     13. Memory Wheel Canvas
+     14. Memory Wheel Canvas
      ------------------------------------------------------------------------ */
   const wheelCanvas = document.getElementById('memory-wheel-canvas');
   const spinWheelBtn = document.getElementById('spinWheelBtn');
@@ -622,7 +642,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     14. Wish Sky Lanterns
+     15. Wish Sky Lanterns
      ------------------------------------------------------------------------ */
   const wishForm = document.getElementById('wishForm');
   const wishInput = document.getElementById('wishInput');
@@ -668,7 +688,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderLanterns();
 
   /* ------------------------------------------------------------------------
-     15. Grand Celebration
+     16. Grand Celebration
      ------------------------------------------------------------------------ */
   document.getElementById('celebrateBtn')?.addEventListener('click', () => {
     playChimeSound();
