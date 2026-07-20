@@ -187,7 +187,6 @@ body {
   max-width: 1200px;
 }
 
-/* 3D Spatial Magazine Card Stack */
 .hero-spatial-card {
   position: relative;
   width: 100%;
@@ -219,7 +218,6 @@ body {
   background: #090d16;
 }
 
-/* CORRECT PHOTO ORIENTATION & TOP ALIGNMENT */
 .hero-magazine-img img {
   width: 100%;
   height: 100%;
@@ -305,7 +303,72 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   4. Cute & Crazy BFF Dedicated Section
+   4. NEW SECTION: ETHNIC ELEGANCE & BALCONY SERENADE (saree_balcony.jpg + O.m4r)
+   -------------------------------------------------------------------------- */
+.ethnic-saree-card {
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.15), rgba(157, 78, 221, 0.25), rgba(0, 245, 212, 0.15));
+  border: 2px solid var(--accent-gold);
+  border-radius: 35px;
+  padding: 3rem 2rem;
+  box-shadow: 0 25px 60px rgba(255, 209, 102, 0.25);
+  position: relative;
+}
+
+.saree-photo-frame {
+  max-width: 420px;
+  height: 540px;
+  margin: 0 auto;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 4px solid var(--accent-gold);
+  box-shadow: 0 20px 50px rgba(255, 209, 102, 0.4);
+  position: relative;
+}
+
+.saree-photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center; /* GUARANTEE FACE IS FULLY VISIBLE */
+  transition: transform 0.6s ease;
+}
+
+.saree-photo-frame:hover img {
+  transform: scale(1.06);
+}
+
+.saree-music-box {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid var(--primary-cyan);
+  border-radius: 24px;
+  padding: 2rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 15px 35px rgba(0, 245, 212, 0.2);
+}
+
+.vinyl-disk {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffd166 20%, #10172a 21%, #10172a 40%, #000 41%);
+  border: 4px solid var(--accent-gold);
+  box-shadow: 0 0 20px rgba(255, 209, 102, 0.5);
+  animation: spinVinyl 3s linear infinite;
+  animation-play-state: paused;
+  margin: 0 auto 1rem;
+}
+
+.playing-saree .vinyl-disk {
+  animation-play-state: running;
+}
+
+@keyframes spinVinyl {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------------
+   5. Cute & Crazy BFF Dedicated Section
    -------------------------------------------------------------------------- */
 .cute-corner-card {
   background: linear-gradient(135deg, rgba(157, 78, 221, 0.2), rgba(0, 245, 212, 0.2));
@@ -382,7 +445,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   5. Floating Photo Universe Masonry (Polaroid Collage & Face Fix)
+   6. Floating Photo Universe Masonry (Polaroid Collage & Face Fix)
    -------------------------------------------------------------------------- */
 .scrapbook-section {
   padding: 90px 0;
@@ -507,7 +570,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   6. Interactive Scratch-Off Card (Secret Letter)
+   7. Interactive Scratch-Off Card (Secret Letter)
    -------------------------------------------------------------------------- */
 .scratch-card-wrapper {
   max-width: 650px;
@@ -559,7 +622,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   7. Vintage Retro Cassette Player
+   8. Vintage Retro Cassette Player
    -------------------------------------------------------------------------- */
 .cassette-player-card {
   max-width: 550px;
@@ -629,7 +692,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   8. Speech Bubble Quiz Cards
+   9. Speech Bubble Quiz Cards
    -------------------------------------------------------------------------- */
 .speech-quiz-card {
   background: var(--glass-bg);
@@ -666,7 +729,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   9. Wish Sky & Floating Lanterns
+   10. Wish Sky & Floating Lanterns
    -------------------------------------------------------------------------- */
 .wish-sky-container {
   min-height: 480px;
@@ -794,4 +857,5 @@ body {
   .photo-universe-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
   .polaroid-img-wrapper { height: 260px; }
   .cute-photo-frame { height: 350px; }
+  .saree-photo-frame { height: 420px; }
 }

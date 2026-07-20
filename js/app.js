@@ -7,21 +7,41 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.AOS) AOS.init({ duration: 800, once: true });
 
   /* ------------------------------------------------------------------------
-     1. Real Audio Database Integration
+     1. Real Audio Database & Playlist Integration
      ------------------------------------------------------------------------ */
   const playlist = [
+    {
+      title: "Balcony Serenade Special 🎶",
+      artist: "Dedicated Song (O.m4r)",
+      src: "./audio/O.m4r"
+    },
     {
       title: "Theriyamele Tholaigiren 🎶",
       artist: "Special Friendship Track",
       src: "./audio/theriyamaley tholaigran.mp3.mpeg"
     },
     {
-      title: "Bestie Special Tone 1 ✨",
+      title: "Bestie Special Tone - E ✨",
+      artist: "Cute Melodic Tone",
+      src: "./audio/E.m4r"
+    },
+    {
+      title: "Prithviraj Special Theme 🌟",
+      artist: "Friendship Anthem",
+      src: "./audio/prtiviraj.m4r"
+    },
+    {
+      title: "Surya Special Theme ⚡",
+      artist: "Vibrant Energy Track",
+      src: "./audio/surya.m4r"
+    },
+    {
+      title: "Bestie Special Tone - SS ✨",
       artist: "Cute Tone",
       src: "./audio/ss.m4r"
     },
     {
-      title: "Bestie Special Tone 2 🌟",
+      title: "Bestie Special Tone - Vignesh 🌟",
       artist: "Vignesh Tone",
       src: "./audio/vignesh.m4r"
     }
@@ -81,10 +101,43 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     2. Photo Database (Featured Photos at Top)
+     2. Dedicated Saree Balcony Audio Player (O.m4r)
+     ------------------------------------------------------------------------ */
+  const sareeAudio = new Audio('./audio/O.m4r');
+  const playSareeAudioBtn = document.getElementById('playSareeAudioBtn');
+  const sareePlayIcon = document.getElementById('sareePlayIcon');
+  const sareeCard = document.getElementById('sareeCard');
+
+  playSareeAudioBtn?.addEventListener('click', () => {
+    if (sareeAudio.paused) {
+      // Pause main player if playing
+      if (!realAudio.paused) realAudio.pause();
+      sareeAudio.play().then(() => {
+        if (sareePlayIcon) sareePlayIcon.setAttribute('data-lucide', 'pause');
+        if (window.lucide) lucide.createIcons();
+        sareeCard?.classList.add('playing-saree');
+        if (window.confetti) confetti({ particleCount: 40, spread: 60 });
+      }).catch(e => console.log(e));
+    } else {
+      sareeAudio.pause();
+      if (sareePlayIcon) sareePlayIcon.setAttribute('data-lucide', 'play');
+      if (window.lucide) lucide.createIcons();
+      sareeCard?.classList.remove('playing-saree');
+    }
+  });
+
+  sareeAudio.addEventListener('ended', () => {
+    if (sareePlayIcon) sareePlayIcon.setAttribute('data-lucide', 'play');
+    if (window.lucide) lucide.createIcons();
+    sareeCard?.classList.remove('playing-saree');
+  });
+
+  /* ------------------------------------------------------------------------
+     3. Photo Database (Including Saree Balcony Photo)
      ------------------------------------------------------------------------ */
   const photoBase = "image'/";
   const photoFiles = [
+    "saree_balcony.jpg",
     "WhatsApp Image 2026-07-20 at 12.48.26 PM (1).jpeg",
     "WhatsApp Image 2026-07-20 at 1.07.57 PM.jpeg",
     "WhatsApp Image 2026-07-20 at 1.07.56 PM.jpeg",
@@ -134,16 +187,16 @@ document.addEventListener('DOMContentLoaded', () => {
     "WhatsApp Image 2026-07-20 at 12.48.26 PM.jpeg"
   ];
 
-  const categories = ['outings', 'style', 'fitness'];
+  const categories = ['style', 'outings', 'fitness'];
   const galleryData = photoFiles.map((file, idx) => {
     const category = categories[idx % categories.length];
     const captions = [
+      "Ethnic Grace & Balcony Serenade 🌸",
       "Cute & Funny Bestie Moment 🤪",
       "Unforgettable Outdoor Moment ✨",
       "Stunning Style Check 🌿",
       "Gym Workout & Fitness Goals 💪",
-      "Smiles & Pure Joy ✨",
-      "Bestie Memories Forever 🌟"
+      "Smiles & Pure Joy ✨"
     ];
     return {
       src: photoBase + file,
@@ -153,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     3. Sound Synthesizer (for UI interactions)
+     4. Sound Synthesizer (for UI interaction sound effects)
      ------------------------------------------------------------------------ */
   let soundEnabled = true;
   const soundToggle = document.getElementById('soundToggle');
@@ -197,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     4. Custom Cursor & 3D Tilt Interaction
+     5. Custom Cursor & 3D Tilt Interaction
      ------------------------------------------------------------------------ */
   const cursorDot = document.getElementById('cursor-dot');
   const cursorFollower = document.getElementById('cursor-follower');
@@ -232,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     5. Cute Corner Mood Translator Logic
+     6. Cute Corner Mood Translator Logic
      ------------------------------------------------------------------------ */
   const funnyQuoteBubble = document.getElementById('funnyQuoteBubble');
   const moodBtns = document.querySelectorAll('.mood-btn');
@@ -258,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ------------------------------------------------------------------------
-     6. Three.js Background Canvas (Cyan Particle Field)
+     7. Three.js Background Canvas (Cyan Particle Field)
      ------------------------------------------------------------------------ */
   const bgCanvas = document.getElementById('bg-canvas');
   if (bgCanvas && window.THREE) {
@@ -291,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     7. Photo Collage Masonry
+     8. Photo Collage Masonry
      ------------------------------------------------------------------------ */
   const photoUniverseGrid = document.getElementById('photoUniverseGrid');
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -341,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
   lightboxClose?.addEventListener('click', () => lightboxModal?.classList.remove('active'));
 
   /* ------------------------------------------------------------------------
-     8. Scratch-Off Secret Letter Canvas
+     9. Scratch-Off Secret Letter Canvas
      ------------------------------------------------------------------------ */
   const scratchCanvas = document.getElementById('scratch-canvas');
   if (scratchCanvas) {
@@ -382,7 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     9. Speech Bubble Quiz
+     10. Speech Bubble Quiz
      ------------------------------------------------------------------------ */
   const quizQuestions = [
     { question: "Who is the funniest in our duo? 😂", options: ["You!", "Me!", "Equally Hilarious!"], correct: 2 },
@@ -428,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderQuiz();
 
   /* ------------------------------------------------------------------------
-     10. Memory Wheel Canvas
+     11. Memory Wheel Canvas
      ------------------------------------------------------------------------ */
   const wheelCanvas = document.getElementById('memory-wheel-canvas');
   const spinWheelBtn = document.getElementById('spinWheelBtn');
@@ -507,7 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ------------------------------------------------------------------------
-     11. Wish Sky Lanterns
+     12. Wish Sky Lanterns
      ------------------------------------------------------------------------ */
   const wishForm = document.getElementById('wishForm');
   const wishInput = document.getElementById('wishInput');
@@ -553,7 +606,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderLanterns();
 
   /* ------------------------------------------------------------------------
-     12. Compliments & Celebration
+     13. Compliments & Celebration
      ------------------------------------------------------------------------ */
   const compliments = [
     "You bring so much sunshine wherever you go!",
@@ -585,7 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('startBtn')?.addEventListener('click', () => {
-    document.getElementById('cute-corner')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('saree-serenade')?.scrollIntoView({ behavior: 'smooth' });
     playPopSound();
   });
 });
