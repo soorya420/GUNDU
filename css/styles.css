@@ -1876,6 +1876,180 @@ header {
   transition: all 0.3s ease;
 }
 
+/* ==========================================================================
+   MOBILE & TABLET VIEW: FULL CENTER ALIGNMENT FOR ALL CARDS & CARD CONTENTS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  /* 1. Universal Text & Content Alignment */
+  body, main, section, .container, .container-fluid,
+  h1, h2, h3, h4, h5, h6, p, span, div, label,
+  .hero-grid-wrapper, .section-head, header, footer,
+  .text-start, .text-lg-start, .text-md-start {
+    text-align: center !important;
+  }
+
+  /* 2. Center Every Card Element Horizontally in Layout */
+  .welcome-card,
+  .hero-spatial-card,
+  .glass-card,
+  .ethnic-saree-card,
+  .cute-corner-card,
+  .kovam-moods-card,
+  .prism-section-card,
+  .featured-moment-card,
+  .scratch-card-wrapper,
+  .cassette-player-card,
+  .speech-quiz-card,
+  .private-section-card,
+  .password-gate-card,
+  .sp-serenade-card,
+  .master-letter-card,
+  .note-card,
+  .hologram-info-box,
+  .mood-quote-box,
+  .sp-quote-card,
+  .saree-music-box,
+  .kovam-music-box,
+  .sp-music-box,
+  .dhanush-music-box,
+  .polaroid-item,
+  .wheel-wrapper,
+  .wish-sky-container,
+  .modal-content,
+  .unlocked-notes-container,
+  .funny-quote-bubble {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+
+  /* 3. Center Flex Containers & Flex Items Inside Cards */
+  .d-flex,
+  .mood-btn-group,
+  .note-card-actions,
+  .speech-bubble-option,
+  .equalizer-bar-container,
+  .sp-portrait-badge,
+  .prism-card-badge,
+  .mood-master-badge,
+  .hero-magazine-badge,
+  .hologram-info-box .d-flex,
+  .kovam-music-box .d-flex,
+  .sp-music-box .d-flex,
+  .saree-music-box .d-flex,
+  .dhanush-music-box .d-flex,
+  .unlocked-notes-container .d-flex,
+  .password-gate-card .d-flex {
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  /* 4. Center Bootstrap Rows & Columns Content */
+  .row {
+    justify-content: center !important;
+  }
+
+  .row > [class*="col-"] {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* 5. Center Images, Frames, Media, Discs & Icons Inside Cards */
+  .hero-spatial-card,
+  .hero-magazine-frame,
+  .saree-photo-frame,
+  .cute-photo-frame,
+  .mood-master-frame,
+  .sp-portrait-frame,
+  .featured-moment-img-wrapper,
+  .sp-img-wrapper,
+  .welcome-clipart-img,
+  .lock-icon-circle,
+  .wax-seal-badge,
+  .vinyl-disk,
+  .sp-vinyl-disk,
+  .dhanush-vinyl-disk,
+  .equalizer-bar-container,
+  .sp-portrait-badge,
+  .hologram-info-box,
+  .mood-quote-box,
+  .sp-quote-card,
+  .funny-quote-bubble {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* 6. Center Text Inside Letter Cards, Note Cards & Quotes */
+  .letter-body,
+  #masterLetterBody,
+  #masterLetterBody2,
+  #masterLetterBody3,
+  .note-card-content,
+  .note-card-title,
+  .note-card-date,
+  .funny-quote-bubble,
+  .mood-quote-box p,
+  .sp-quote-card p,
+  .prism-card-caption,
+  .hidden-letter-content,
+  .hero-tagline,
+  .hero-title,
+  .polaroid-note {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* 7. Center Buttons, Button Groups & Controls Inside Cards */
+  .whimsical-btn,
+  .pulse-glow-btn,
+  .mood-btn,
+  .filter-btn,
+  .player-btn,
+  .btn-note-action,
+  .active-prism-btn {
+    align-self: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .note-card-actions {
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  /* 8. Forms & Inputs Alignment */
+  form,
+  #privateGateForm,
+  #standaloneGateForm,
+  #noteEditorForm,
+  #extraNoteForm {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .wish-form-wrapper form {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  .password-input-box,
+  .wish-input-box {
+    text-align: center !important;
+  }
+}
+
+
 
 
 
